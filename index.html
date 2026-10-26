@@ -21,19 +21,20 @@ html,body{margin:0}
 :root{
   --bg:#F3F6F9; --surface:#FFFFFF; --ink:#1F2A36; --muted:#56646F; --line:#DCE4EA;
   --accent:#3F78AB; --accent-soft:#E6F0F9; --sky:#9CC3E4;
-  --rose:#A83A58; --rose-soft:#F8E6EC; --green:#2E5E4A; --green-soft:#DDEBE4; --amber:#8A5A12; --amber-soft:#F6ECDC;
-  --cb:#4F6E86; --cb-ink:#FFFFFF;
+  --rose:#A83A58; --rose-soft:#F8E6EC; --green:#2E5E4A; --green-soft:#DDEBE4; --amber:#8A5A12; --amber-soft:#F6ECDC; --violet:#6A4C9C; --violet-soft:#EEE8F6;
+  --cb:#4F6E86; --cb-ink:#FFFFFF; --chip-edge:rgba(31,42,54,.2);
   --display:'Cinzel','Noto Sans KR',serif; --body:'Noto Sans KR','Apple SD Gothic Neo','Malgun Gothic',sans-serif;
 }
 @media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
   --bg:#0F151C; --surface:#17202A; --ink:#E5ECF2; --muted:#9DABB8; --line:#2A3745;
   --accent:#8DB7DD; --accent-soft:#1C2C3C; --sky:#4E7495;
-  --rose:#EC94AD; --rose-soft:#3A1E28; --green:#8FCBAF; --green-soft:#1A2D24; --amber:#E2B46E; --amber-soft:#33281A; --cb:#34506A; color-scheme:dark}}
+  --rose:#EC94AD; --rose-soft:#3A1E28; --green:#8FCBAF; --green-soft:#1A2D24; --amber:#E2B46E; --amber-soft:#33281A; --violet:#C4B0EA; --violet-soft:#2A2238; --cb:#34506A; --chip-edge:rgba(255,255,255,.28); color-scheme:dark}}
 :root[data-theme="dark"]{
   --bg:#0F151C; --surface:#17202A; --ink:#E5ECF2; --muted:#9DABB8; --line:#2A3745;
   --accent:#8DB7DD; --accent-soft:#1C2C3C; --sky:#4E7495;
-  --rose:#EC94AD; --rose-soft:#3A1E28; --green:#8FCBAF; --green-soft:#1A2D24; --amber:#E2B46E; --amber-soft:#33281A; --cb:#34506A; color-scheme:dark}
+  --rose:#EC94AD; --rose-soft:#3A1E28; --green:#8FCBAF; --green-soft:#1A2D24; --amber:#E2B46E; --amber-soft:#33281A; --violet:#C4B0EA; --violet-soft:#2A2238; --cb:#34506A; --chip-edge:rgba(255,255,255,.28); color-scheme:dark}
 *{box-sizing:border-box}
+[hidden]{display:none!important}
 body{background:var(--bg);color:var(--ink);font-family:var(--body);font-size:15px;line-height:1.55;
   padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
 body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--bg)}
@@ -51,9 +52,11 @@ h1{margin:0;font-size:28px;font-weight:900;letter-spacing:-.01em;text-wrap:balan
 .clock{display:flex;gap:10px;align-items:baseline;flex-wrap:wrap;color:var(--muted);font-size:13px}
 .clock b{font-family:var(--display);font-size:20px;color:var(--ink);font-weight:600;letter-spacing:.04em}
 
-nav{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--bg);display:flex;gap:8px;padding-block:8px;border-bottom:1px solid var(--line)}
-nav a{text-decoration:none;color:var(--ink);font-weight:700;font-size:14px;padding:10px 14px;border-radius:999px;min-height:44px;display:inline-flex;align-items:center}
-nav a:hover{background:var(--accent-soft)}
+.tabs{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--bg);display:grid;grid-template-columns:repeat(4,1fr);gap:4px;padding-block:8px;border-bottom:1px solid var(--line)}
+.tab{font:inherit;font-size:14px;font-weight:700;color:var(--muted);background:transparent;border:0;border-radius:12px;min-height:44px;padding:8px 6px;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;gap:6px}
+.tab:hover{background:var(--accent-soft);color:var(--ink)}
+.tab[aria-selected="true"]{background:var(--ink);color:var(--surface)}
+.tab .cnt{font-size:11px;font-weight:900;min-width:18px;height:18px;padding:0 5px;border-radius:999px;background:var(--rose);color:var(--surface);display:inline-flex;align-items:center;justify-content:center}
 
 .comeback{background:var(--cb);color:var(--cb-ink);border-radius:20px;padding:22px 20px;display:flex;flex-direction:column;gap:10px;position:relative;overflow:hidden}
 .comeback .lbl{font-family:var(--display);letter-spacing:.2em;font-size:12px;opacity:.85}
@@ -68,7 +71,8 @@ nav a:hover{background:var(--accent-soft)}
 .pulse-logo{height:76px;width:auto;flex:none;margin:-6px -2px -4px 0}
 .banner{display:block;width:100%;height:auto;aspect-ratio:1080/340;object-fit:cover;border-radius:18px;background:var(--line)}
 
-.summary{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.summary{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
+@media (max-width:520px){.summary{grid-template-columns:repeat(2,1fr)}}
 .summary div{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:12px;display:flex;flex-direction:column;gap:2px}
 .summary b{font-size:22px;font-weight:900}
 .summary span{font-size:12px;color:var(--muted)}
@@ -78,7 +82,7 @@ section{display:flex;flex-direction:column;gap:14px;scroll-margin-top:72px}
 .sec-head{display:flex;justify-content:space-between;align-items:baseline;gap:8px;flex-wrap:wrap}
 h2{margin:0;font-size:20px;font-weight:900}
 h2 small{font-family:var(--display);font-size:11px;letter-spacing:.2em;color:var(--accent);display:block;font-weight:600}
-.basis{font-size:12px;color:var(--muted)}
+.basis{display:inline-flex;align-items:center;gap:5px;font-size:12px;font-weight:700;color:var(--accent);background:var(--accent-soft);padding:5px 10px;border-radius:999px;font-variant-numeric:tabular-nums;white-space:nowrap;align-self:center}
 
 .next{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:16px;display:flex;flex-direction:column;gap:4px}
 .next .k{font-size:12px;color:var(--accent);font-weight:700;letter-spacing:.06em}
@@ -103,12 +107,25 @@ h2 small{font-family:var(--display);font-size:11px;letter-spacing:.2em;color:var
 .t-공연{background:var(--green-soft);color:var(--green)}
 .t-행사{background:var(--amber-soft);color:var(--amber)}
 .t-컴백{background:var(--rose-soft);color:var(--rose)}
+.t-시상식{background:var(--violet-soft);color:var(--violet)}
+.t-기념일{background:var(--rose-soft);color:var(--rose)}
 .past .ev,.past .dlabel{opacity:.55}
 
 .btn{font:inherit;font-size:13px;font-weight:700;color:var(--accent);background:transparent;border:1px solid var(--line);border-radius:999px;padding:10px 16px;min-height:44px;cursor:pointer;align-self:flex-start}
 .btn:hover{background:var(--accent-soft)}
 
 .filters{display:flex;gap:6px;flex-wrap:wrap}
+.search{display:flex;align-items:center;gap:8px;background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:0 6px 0 14px;color:var(--muted)}
+.search:focus-within{border-color:var(--accent)}
+.search input{flex:1;min-width:0;border:0;background:transparent;font:inherit;font-size:15px;color:var(--ink);padding:12px 0;min-height:46px;outline:none}
+.search input::placeholder{color:var(--muted)}
+.search input::-webkit-search-cancel-button{display:none}
+.search .clear{display:inline-flex;align-items:center;justify-content:center;width:40px;height:40px;border:0;border-radius:10px;background:transparent;color:var(--muted);cursor:pointer}
+.search .clear:hover{background:var(--accent-soft);color:var(--accent)}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.result{font-size:13px;color:var(--muted)}
+.result b{color:var(--ink)}
+mark{background:var(--accent-soft);color:var(--accent);border-radius:3px;padding:0 1px}
 .chip{font:inherit;font-size:13px;font-weight:700;border:1px solid var(--line);background:var(--surface);color:var(--ink);border-radius:999px;padding:8px 14px;min-height:40px;cursor:pointer}
 .chip[aria-pressed="true"]{background:var(--ink);color:var(--surface);border-color:var(--ink)}
 .chip .n{opacity:.7;font-weight:500;margin-left:4px}
@@ -132,6 +149,7 @@ a.card:hover{border-color:var(--accent);transform:translateY(-1px)}
 .ctitle{font-weight:700;font-size:16px;overflow-wrap:anywhere}
 .ctitle .new{font-size:11px;font-weight:900;color:var(--rose);margin-right:6px}
 .meta{display:flex;gap:6px;flex-wrap:wrap;align-items:center;font-size:12px;color:var(--muted)}
+.ann{font-size:11px;font-weight:700;padding:2px 8px;border-radius:6px;background:var(--amber-soft);color:var(--amber)}
 .how{font-size:11px;font-weight:700;padding:2px 8px;border-radius:6px;border:1px solid var(--line);color:var(--ink)}
 .kind{font-family:var(--display);font-size:10px;letter-spacing:.14em;font-weight:700;color:var(--accent)}
 ul.gifts{margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:3px;font-size:13px}
@@ -141,9 +159,118 @@ ul.gifts li span:last-child{color:var(--muted);white-space:nowrap}
 
 footer{font-size:12px;color:var(--muted);display:flex;flex-direction:column;gap:6px;border-top:1px solid var(--line);padding-top:16px}
 footer .maker{font-weight:700;color:var(--ink)}
-@media (max-width:420px){.pulse-logo{height:58px}.cd b{font-size:24px}.day{grid-template-columns:52px 1fr}.ev{grid-template-columns:44px 1fr}.ev .tag{grid-column:2;justify-self:start;order:-1}}
+@media (max-width:420px){.tab{font-size:13px;padding:8px 2px}.pulse-logo{height:58px}.cd b{font-size:24px}.day{grid-template-columns:52px 1fr}.ev{grid-template-columns:44px 1fr}.ev .tag{grid-column:2;justify-self:start;order:-1}}
 @media (prefers-reduced-motion:reduce){*{scroll-behavior:auto!important}}
 html{scroll-behavior:smooth}
+
+/* vote tab */
+.cal{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:14px;display:flex;flex-direction:column;gap:10px}
+.cal-head{display:flex;justify-content:space-between;align-items:center;gap:8px}
+.cal-title{font-family:var(--display);font-weight:700;font-size:16px;letter-spacing:.08em}
+.cal-title span{font-family:var(--body);font-size:12px;color:var(--muted);font-weight:500;letter-spacing:0;margin-left:6px}
+.cal-nav{display:flex;gap:4px}
+.cal-nav button{width:36px;height:36px;border-radius:10px;border:1px solid var(--line);background:transparent;color:var(--ink);cursor:pointer;display:inline-flex;align-items:center;justify-content:center}
+.cal-nav button:disabled{opacity:.3;cursor:default}
+.cal-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:2px;text-align:center}
+.cal-grid .wd{font-family:var(--display);font-size:10px;letter-spacing:.1em;color:var(--muted);padding-bottom:4px}
+.cal-grid .wd.sun{color:var(--rose)}
+.cd-cell{font:inherit;border:0;background:transparent;color:var(--ink);border-radius:10px;min-height:46px;padding:4px 0;display:flex;flex-direction:column;align-items:center;gap:2px;font-size:13px;font-variant-numeric:tabular-nums}
+.cd-cell.sun{color:var(--rose)}
+.cd-cell.today .n{outline:2px solid var(--accent);outline-offset:1px;border-radius:999px}
+.cd-cell .n{width:24px;height:24px;display:inline-flex;align-items:center;justify-content:center}
+.cd-cell.has{cursor:pointer}
+.cd-cell.has .n{background:var(--accent);color:var(--surface);border-radius:999px;font-weight:700}
+.cd-cell.has.over .n{background:var(--line);color:var(--muted)}
+.cd-cell.has:hover{background:var(--accent-soft)}
+.cd-cell .k{font-size:9px;font-weight:700;color:var(--accent);line-height:1.1;max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;padding:0 2px}
+.cd-cell.over .k{color:var(--muted)}
+.cal-legend{font-size:12px;color:var(--muted);display:flex;gap:12px;flex-wrap:wrap}
+.cal-legend i{display:inline-block;width:10px;height:10px;border-radius:999px;background:var(--accent);margin-right:4px;vertical-align:-1px}
+.cal-legend i.o{background:var(--line)}
+.vcard{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:14px 16px;display:flex;flex-direction:column;gap:10px;scroll-margin-top:80px}
+.vcard.urgent{border-color:var(--rose)}
+.vcard.ended{opacity:.55}
+.vcard.flash{box-shadow:0 0 0 3px var(--accent-soft);border-color:var(--accent)}
+.vkey{font-family:var(--display);font-weight:700;font-size:13px;letter-spacing:.12em;color:var(--accent)}
+.vtitle{font-weight:700;font-size:16px;overflow-wrap:anywhere}
+.vdl{margin:0;display:grid;grid-template-columns:auto 1fr;gap:4px 12px;font-size:13px}
+.vdl dt{color:var(--muted);white-space:nowrap}
+.vdl dd{margin:0;min-width:0}
+.unite{font-size:12px;background:var(--bg);border-radius:10px;padding:8px 10px;display:flex;flex-direction:column;gap:2px}
+.unite b{font-size:12px}
+.vdeadline{font-size:12px;color:var(--muted)}
+@media (prefers-reduced-motion:no-preference){.vcard{transition:box-shadow .3s,border-color .3s}}
+
+/* album tab */
+.al-hero{background:var(--cb);color:var(--cb-ink);border-radius:16px;padding:16px;display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
+.al-hero-text{display:flex;flex-direction:column;gap:2px;min-width:0}
+.al-hero .lbl{font-family:var(--display);letter-spacing:.18em;font-size:11px;opacity:.85}
+.al-hero b{font-size:18px}
+.al-hero .tnum{font-size:13px;opacity:.92}
+.sub-h{margin:10px 0 0;font-size:17px;font-weight:900}
+.sub-h small{display:block;font-family:var(--display);font-size:10px;letter-spacing:.2em;color:var(--accent);font-weight:600}
+.ver-tabs{display:grid;grid-template-columns:repeat(5,1fr);gap:4px;background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:4px}
+.ver-tabs button{font:inherit;font-size:13px;font-weight:700;border:0;border-radius:10px;background:transparent;color:var(--muted);min-height:40px;cursor:pointer;padding:4px 2px}
+.ver-tabs button[aria-pressed="true"]{background:var(--accent);color:var(--surface)}
+.ver-box{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:6px 16px}
+.ver-row{display:grid;grid-template-columns:96px 1fr;gap:12px;padding:10px 0;font-size:14px;align-items:baseline}
+.ver-row+.ver-row{border-top:1px solid var(--line)}
+.ver-row dt{color:var(--muted);font-size:13px}
+.ver-row dd{margin:0;min-width:0}
+.ver-row .rnd{color:var(--muted);font-size:12px;margin-left:6px}
+.ver-row.only dt{color:var(--accent);font-weight:700}
+.ver-row .none{color:var(--muted)}
+.ex-list{display:flex;flex-direction:column;gap:4px}
+.ex-list span b{font-weight:700}
+.terms{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:0 16px;font-size:13px}
+.terms summary{cursor:pointer;font-weight:700;min-height:44px;display:flex;align-items:center}
+.terms p{margin:0 0 10px;color:var(--muted)}
+.terms p b{color:var(--ink);margin-right:6px}
+.al-note{margin:0;font-size:12px;color:var(--muted)}
+.scard{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:14px 16px;display:flex;flex-direction:column;gap:10px}
+.scard.ended{opacity:.55}
+.s-head{display:flex;justify-content:space-between;align-items:flex-start;gap:8px}
+.s-name{font-weight:900;font-size:16px}
+.s-name small{display:block;font-family:var(--display);font-size:10px;letter-spacing:.16em;color:var(--accent);font-weight:700}
+.s-sub{font-size:12px;color:var(--muted);font-weight:500;margin-left:4px}
+.vchips{display:flex;gap:4px;flex-wrap:wrap}
+.vchip{display:inline-flex;align-items:center;gap:4px;font-size:11px;font-weight:700;padding:2px 8px 2px 6px;border-radius:6px;background:var(--accent-soft);color:var(--accent);border:1px solid var(--chip-edge)}
+.vchip svg{flex:none}
+.vchip.all{background:var(--surface);color:var(--ink)}
+.vdots{display:inline-flex;gap:2px}
+.vdots i{width:7px;height:7px;border-radius:999px;border:1px solid var(--chip-edge);display:block}
+.vdot{width:12px;height:12px;border-radius:999px;border:1px solid var(--chip-edge);flex:none;display:inline-block}
+.perk{font-weight:700;font-size:15px}
+.perk span{font-weight:500;font-size:12px;color:var(--muted);margin-left:6px}
+.prices{display:flex;gap:16px;flex-wrap:wrap;font-size:13px;border-top:1px dashed var(--line);padding-top:8px}
+.prices b{font-size:15px}
+.prices span{color:var(--muted);margin-right:4px}
+.pgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:4px 16px;font-size:13px;border-top:1px dashed var(--line);padding-top:8px}
+.pgrid div{display:flex;justify-content:space-between;gap:8px}
+.pgrid span{color:var(--muted);font-family:var(--display);font-size:11px;letter-spacing:.06em}
+.collect{display:grid;grid-template-columns:repeat(5,1fr);gap:6px}
+.collect div{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:10px 4px;text-align:center;display:flex;flex-direction:column;gap:2px}
+.collect span{font-family:var(--display);font-size:10px;letter-spacing:.08em;color:var(--muted)}
+.collect b{font-size:20px;font-weight:900}
+.collect .total{grid-column:1/-1;flex-direction:row;justify-content:space-between;align-items:center;padding:14px 20px;text-align:left;background:var(--accent);border-color:var(--accent);color:var(--surface)}
+.collect .total span{font-size:13px;letter-spacing:.04em;font-family:var(--body);font-weight:500}
+.collect .total b{font-size:26px}
+.collect .total span{color:var(--surface);opacity:.85}
+@media (max-width:420px){.collect{grid-template-columns:repeat(3,1fr)}.ver-row{grid-template-columns:80px 1fr}}
+.ls-card{display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:14px;padding:14px 16px;border-radius:16px;background:var(--surface);border:1.5px solid var(--accent);color:var(--ink);text-decoration:none;transition:transform .15s,background .15s}
+.ls-card:hover{background:var(--accent-soft);transform:translateY(-1px)}
+.ls-img{width:76px;height:auto;aspect-ratio:200/261;object-fit:cover;border-radius:12px;flex:none;display:block;max-width:100%}
+.ls-text{display:flex;flex-direction:column;gap:2px;min-width:0}
+.ls-eyebrow{font-family:var(--display);font-size:10px;letter-spacing:.2em;color:var(--accent);font-weight:700}
+.ls-title{font-family:var(--display);font-size:15px;font-weight:700;letter-spacing:.03em;line-height:1.3;overflow-wrap:anywhere}
+.ls-go{display:inline-flex;align-items:center;gap:4px;align-self:flex-start;margin-top:4px;font-size:12px;font-weight:700;color:var(--accent);border-bottom:1px solid currentColor;padding-bottom:1px}
+.ls-card:hover .ls-go{color:var(--ink)}
+.ls-sub{font-size:12px;color:var(--muted);font-variant-numeric:tabular-nums}
+.ls-badge.on{background:var(--rose)}
+.ls-badge.sold{background:var(--muted);color:var(--surface)}
+.ls-badge{font-family:var(--display);font-size:11px;font-weight:700;letter-spacing:.12em;white-space:nowrap;padding:6px 10px;border-radius:999px;background:var(--accent);color:var(--surface)}
+@media (max-width:420px){.ls-card{grid-template-columns:auto 1fr;gap:12px}.ls-img{grid-row:span 2;width:68px}.ls-badge{grid-column:2;justify-self:start;padding:4px 9px}}
+@media (prefers-reduced-motion:reduce){.ls-card{transition:none}.ls-card:hover{transform:none}}
 </style>
 </head>
 <body>
@@ -176,29 +303,129 @@ html{scroll-behavior:smooth}
     <div class="sub">11월 3일 (화) 18:00 공개 · 20:00 쇼케이스</div>
   </div>
 
+  <a class="ls-card" href="https://naver.me/xSB3cGuj" target="_blank" rel="noopener" aria-label="RESCENE 공식 응원봉 V2 판매 공지 열기">
+    <img class="ls-img" src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAUDBAQEAwUEBAQFBQUGBwwIBwcHBw8LCwkMEQ8SEhEPERETFhwXExQaFRERGCEYGh0dHx8fExciJCIeJBweHx7/2wBDAQUFBQcGBw4ICA4eFBEUHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh7/wAARCAEFAMgDASIAAhEBAxEB/8QAHAAAAQUBAQEAAAAAAAAAAAAAAwABAgQFBgcI/8QAPhAAAgEDAwIEBAMHAwMEAwEAAQIDAAQRBRIhBjETQVFhIjJxgQcUkRUjQlKhscEIYtEkM3IWF+HwJUOCkv/EABsBAAMBAQEBAQAAAAAAAAAAAAABAgMFBAYH/8QAKxEAAgIBBAAEBQUBAAAAAAAAAAECEQMEEiExBRNBUTJhcZHwFCKhwfGx/9oADAMBAAIRAxEAPwD3QCpgZplBqaisT6VklFTUUyipgUyWyaiiKKiooiigzbJKKKoqCiiIOaCGSFTWoipr2pmbHkligiaWaRY41GWZjgCg6RrGlaoXGnahbXTR/Osbgsv1HevNvx8v70WVlpNjK0JcG5kZWx8pAAP6k/au+i0W0vNA00w2/gyw28bpLAFWUYQfCG7jPr+tNcs9eTSRx6aGaT5k3x7V7/U317URKy7GS7tnjtNRJkLD91c7QBIf5WA4V/pwfL0rUXtTOdKNEgeaItV554reIyzOFQef9gPU01ulxcjfcK0EX8MQPxkerHy+g+9NKydvFvolc6lp9o4S6vreA98PIBVyNldVZSGUjIIOQR61XGwXP5MWT+EYi5l2L4ec42HnO7z7Yx51z2lzxaH1aNEjkA0/UY3lso/KGVD+8jX0Uj4gPIg4oaoccSyJ7e1ydaKmKgKmKDysmO1SFQFSFBDJ0qYU9MQ9KmpUCPNQKmo9KSipqtYn0DYlFEApAVNRTJbHUURR70yiiAUENjr2qa+tMoqeKCGOozU1plFTXvimQzw7/UNq0tj1Ra2yKxebTsoD8rYduP1wPvXsXQd/JqXQ2mXcKFJWtVULOpHxKNpzjyyK8Z/1HC01XqXTtNtpJV1K0tXZvgBjZXIIUnOQeM5wa7T8Adclm6LksLwMZtNYqQoLblwTlR3PY4pwbto+g1mF5PDMUq5j/wAZ6jMsckLJMoZCOQarW0zkyLJG4jTBjlYgiVCAd3HIxnHPpXJfiN+ImldHaP8AmpQ9xdyx74LZRh24zyD2rA6f6/tL+8W2ubK7vr4iNXtllw1uWQOTK/8ACfi7eQHrmtFTdWcvB4ZqM0Nyjx+e9HaR6zpwvTf6vcG1jilMVpDKjDnzkIx3Pl6D61uaTrWk6rCH0/UbW4O4qVjlBII8sd/6V5/1lrd6bXZp3Ta31t4mGZ5A3Oee47g8Zr511/SNd03WrnXYzPavI3imLYsBzuyCsinG8EnG7g9uxNTlksUtp0cfgUtRiWRcfLh8fS7/ALPtoDndznGK4H8YWFo/TOtK4WSy1iMA88hwVIrmfwL/ABJv9dmudD1i4N7cW5zFOQqytHx8TqDxjcM/XIJ5xa/Hp/B6c0bSLKJIZb3XYSoj/lUtI7/Xj+tNtSic3FpZ6bVKE/8AUz1tWB7dvKiqaoQyhFG5sYGOaHfaqLNFZbO5nLHaoQAbj6cmkcjy5SdI1RUhXOdN9V2Gt6pdabbqVuLWNXkAcOBk4KkjjcD3HuK6IUEZcUscts1TJinFRFSFMyHpUqVAHngFTVeKkFqQFZHcsQFTC0lH3onfvziglsYDFTUYpAVJRQS2OoqainUYFOBTIbEBU1FMB7URR6UyTw/8Yem7j/3E/bEDKrXdkngO2QFeNgHXjggqVOD9a4K16p1bpXqyEWt5FY+IF/7rFomDMcB18gWGNw7HHrX051FpUOqWapIAJYW8SFyPlbBB+xBIP1r5b6q/C/rvrD8SRp7xxRacsgja6M6o6wBs7tpJJK98Dz+uaW32O/p/Fa0vlyje3g6zqSOLq3rfTr7Vpo7C3W8iE8cyj94zAnww5PovGO4rF6J12/s+tdY1OSVZJJ7mSeRGAZEjz8KD6DHvk1mRR3tnqP8A7Z/iQltJqULeLpl6HXdKgYhfix8JOMrkdu9Xunuk7npe+W3u7p7m31KQ3Mc0wCs0a87GGcby5ycHBCgjvRJtco7Ohni1TjXw1Ve3y+tHpMfUcVvpRE1ndq9zM8tw9uDIVduQwGfI4HpxSh1mC/X9my2cc8koJ8KZCqOPNgcHHf5TyPWsUTLI6xxtuJ7BeazodUhg6ni8CRXms9wlQEFQDgEseygeZJpbm3z0dKejwq2uH32XekbHp7oz8Wobq4MVvBfWssfiSELHCow4+I+WRivULPT9J6w1pNUm1I3kWkSNHapCcL8YRt5buxwoHlxn1rwrV+qp77rqwuf2e1teQLN+X35ClANr5Xv64Jwa9K/DXqwJpet6gq3Gt6o11+/2SIkacE7pHPyqoB5weAABmtIOPUejheKaLLOL1HrSXp3/AJ62es3lzZ6dZvc3MqwxIMs7HP8A8k15L1d1Heaw+pSNJdWEcCSWsFoyg7wygiTI7tkcjyBx3zXBQ/i7H1Z1fq0OrPcXGkaauLO2063fN3PnAJcnCID2JG4jGB5V6B+GXSV7q102qa7Z29rb7wwhhUgNx8vPJ/3N9vpdqjnaPFptPilnnK2vt9FffzO0/BPppdD6ekvXhMUt8wZFPJWIfLn3PJ/SvQAaqLKqgKMAAYAFFSQGoR85qs09Rllln2yyDxTgihoakDQeVomDSps0qZJxO324pwPpRMc0ttZ0deyIXzqSinAqYAzRQrI4oqDmogZNFQedAmxAc1ICnAqWKZNkQOaIopkHNEUUIlsHKPhxXn34h3Vkl9HawPNHqyoJVlhfaYwTtXJ7ZJzjPoa9FZc/Svm7/Uh1x/6b6+0vT9PWPxbqEm7woJkTKhPuCGI9DT65Pf4dteZOTpfiL34maRYdbdLRw9YX8Onaxp0hXS9et0LLK+f+26KNwOR5diMjzrldGh6qRZoOo7WeeeGBYYZkX/pp+/7xcruD4xlcDtnjJqxBqskEy/kNWinsrvD3Vu4y65OeUPY58xXY2Rk1TTWMNjduY+XC5kjGOcn+U4x5mp3c0fU6TTR0s/NfC+y/PzgydO0/Ubqya3ggVVl2mTaNpfb/ALi364rIuem47GOS0lsZCy5Vvh3F1Y5AcfXzGQcCu2s7vVLaRLe5snhUj4XfOMDzyR9KtRzTTapbS/ndMURho5d85JwecHaP0qmos6n6txk3Gq+XJ5xFptra6iDp8lxGMozh4HYsccjb279snyFdnp1rpz2lzpMWmEWN+m2ezi3B5txBZ2K88+39K6G6/D6ys+nb/qj9vXF2Z42eCGNQkER9y3JA+wq/+FMk56Z2zyxXBEmUuo+1wjKGDf1I+1CTgcrXeM+bp24q6dc8f0vzoXS/Quk2kcCxaTBplpFykEYAkc+px8g9gS3q1d9CyQxLFEqoijaqqMAD0qmjYFTUknvRdnxubJLJ8TLiyktV62JOKz7dCa0oFwKDyTotoakDQgakDTMGgmaVRBpUCo5gr50ttGK1HHNSdCweKWKJjmmxQFiA5oqDiooKKBxQKxAU+KkB6U+KCWxkFEApgOKaaWK3t3nmcLGi5YmmS2A1BHn2WELFZLjhmH8KfxH/AB968q/F/oC0vtZg6s0/TzcSparYyLjOwBso2D2A8yPbyr1OLxUtWuJBsub3iNf5I/8AnnH1PtUNQidLaW3imMTeHkvgHa2OMA8e5HvToel1UsGdZI+h8q3mhWWgaxdaG11ZxX6Qi6kupo2KyO7KAgIyFCoS2TxjmqH7W1GDxYIZ90RyrA8qw+nmK9417oHSbjV31OTTp7C/ngR7i8g+KGRgMfGh/wCMY48q4zXvwtvNviWL28iFiwaFhzn0B8vYGsJRlHpH6P4V41pJ46zSSb96r79fycVadV60l1HczXs8ckEIWEIzhWA+VCoO3Hviti26mub4xTX6RIWYQoFBXceTjgY4z5881Xk6D1uKcJNHcBF43eATge3NFXpXULia2sU0e+NvHlmmB+IuQuW8sAEHA96UZSOq83hsHui4r5po6zXtWgvugb1Ikl8OJSksTOdpx7eYq9/pqkvJ/wAM4pry7NwTdzJEhPMEanCx/bk/QimseitauNOGkWtt+WtsAtLJydp8wPWu76Y0Oy6f0uDTLGMJF4ay4HmWHJ/UV6JNy5Z8D4trsWWfl4Xa5ZropJq3DET5U1tHnGa0IowKVHCnIUEe2rKVAcVIGgwfIXPNIGhg1LNBNBAaVDzSoFRlKAwqLLzSjO0+xo+0MMiij02ViKWKIy02KAsZBzRcc1i3vUdhb6wNFtY59S1YruNnaLudF8mkPyxj/wAiK17e11uWLxJ4rGy89rSNKR9cACiiXNLsKB6U+KnHpupkZ/NWjefELAfruoWpafrH7PmSC5s7e4ZCsUxBYIx7Hae+PSiiPNiEPC7m4UckntXN3V6usXQeJv8A8XaSqC2Mm4lyMKo/i78DzJrLsdLsOmenr7Xuo7rWbpCfDja8uHkuL+Q8AJDnC7m4VQMkckAVlL/6k1K6GjSSi01ieMS3EURwmg2cnAUEfNdyLkZ/hBZhgDkoiWS+jvdDvZNQuZbl3DWsTlUVXyjOuQdp81U/DnzYOe2Ka7lRTEs7Y/MTBWP15b+gNWbayg0/T4bK2hSGGFBHHGnZFUYUfYVyv7atr/8AE2fpyJ9z6XpqXVwoGQGlfAyfL4VH/wDqmZI66+dbu7aTBCjAHlgVj9S9O2WuaW+n3rSrBIytmFzHICpDAhhyORWoiv8ACRtwTl898e1GcfEoplwyyh8Lo5fVeitGvr7TLx4ZoZNPbcoiuXAm/wBsufnHnV6/6TtFS3RdQ1SOQAMZUuSGPnt5yAOfLn3rYmIAUE4ycD9KNffmPEX8wsaNk7QjFhs/hJyBzjuP70Gn6rLx+4lFaQW5YRocmNgWYlmODkcmsOVdptmAPwrJATnzVzj+lb3isyRO8bRNJkMpIym5B38vKuZ1WZob6S2RAXkaC8XJx8GfDkI9wQuf/KkycUnds2LXGBV1TWfaNwDmrynikjeSCZp80PNLNBFBM0+aHu96W45oFQTNKobqVAFADmixEg4psGpBSe3JoHZh6/rs1rrEGiaPpcuq6nNH4zRiQRx28WcB5HOcZPAABJwauyaf1ZPZSIselWlw6EI6TNKYyRw2CADis7paGWfrLqe/iuEI3QQITypKRDjj0LHj1rone6e48HAVgMMyhv0BIp0Zym0+DO6O0A9JaSLWCwmurqUtJd3YwZJ5CfmYnufrWnJqepmQeFod8w2jIkZQMnnv7djRyZUQLJdbFUY5bFUbTVLG8upLazklvJIn8OQqpKofcmmY23yX4b2/lhKSww2kjYCr4m8/fbz/AGoNposo1P8AO3F1PO/lvcqqdsqqDgDjuTmp2OhSR6s+o3GqXUu7AitsKsUS47AAZJzyWzk8DsMVW1rWL24kfTenwiuvwz3zLuig9Qg//ZJ7fKv8R8iE/QyOt7xH1+3sNGghvupY03QyzDdb6TG4wZ3HbcRnavzN7Lk1c6V0C10SxMNq0k0kkhmuLqc7pbmY/NLIfMn07AYAwBU+n9Eg0xJEt3lKyMZJXkbdJNIfmkkbu7n17AcAAVsyDYu1RyfL0FIfRQ1CaK3gmuZmKwwRs7n0VQSf6CvOvwN0m8k0fU+tNXgaLU+q7037I4w0Nqvw28ft8PxY9xXol7A1wq2ySFd7AHA7r5jmrPhoDhBhFAVR6AUBYELg0x/7hyM8fpRiOaFg7mI5NMCEpIA+9WtZz4sJOOU4qtOOF9Tn+1WtXKGK3Yk7to/Q0B6gpSzW6HAxsHOfNSR/YiuK/FaW+03pq16q03mbRLpJLqPYG8Wzd18dDntwM5HPFdlbtugaI9xyP7H/ABVC3kiur260i9i3WtzbGNweQ4bII/rSZUXRCGaAX0tvDOkqhVmjKn5onyUb6dx9qvo3Argm0nUrTRptP0VbVer9KhNjBLOxUXloh3RqcZyQpyMg9m96fRJOvLPSU1TW7u2QB1Wa3mhWRQCfmEsWCq+pZeM8+dI9UZpqmd/mlmgW8wliD7WRuzIe6nzBomaCqJ5pbqHupbqB0F3UqFu96VAqMrq7WG0PRWu4rb83cySJBbQZx4krnCgnyHck+gND6e6Xn1O0h1HqrXbu+aUbvyNufy9qnttU7n+rMfpVL8Q4rua46ehsk3SHU959FCxPlj9M5rq7fMMMduMn938BAGMAYz7E00eeb44CCzs7O3jtNPkisYO4ESY24PkPertxbRTxoHu5V2nOY225+vrWRYNAI1X4htGMeYq6JUQcYpmTLMNpZqnh7XuBu3Yf4sGjM8duMnwoEx5fMfsKzpLyQ/ChOPagFZXkUnDDnJJ5HpilRNFi9uvzMbRRh0jbhmLYZh6ewqEUYCKqokcaKFAUYAH0okVu25Swwp7k/wCBR5HWKSOPwnOQSMDIBGPmPqfKmA4xGoYg5/hX/NDl+FTk/Ee/tUjkHe/LHt7UGQGRsHtnn39qBDWiEeJcEk54T2FECgK2c5xxRWG3CD+Hv9ai64WgLAMu5SMke471ALRsEZFRI5NAwEwwUGDw3n9Kleoo06AooBKAMcd8U9wPgU+jA1KUbtPAycqzDGfvQBRVuQQcZGf+axtduDp1/bXjEiBnCv7eR/p/atdOxH8pz9qr6pZQajp09ncJujkUhh2/T0oLQupdEn1+xe60u6FlrVugME+MgSJkxuR5jOVI81ZhWR+GnV9h1tBdwTbdP6gss22s6NKciKQZVmUeaN3Dc8EZrW6XvZrW1jjlYzTWoEMh85F/hf7jv7g15f8A6iehNcTWbX8U/wANTNF1BZptu4YAM3MeOPhPDEdip+Ye4FIatOj1e6hGnz+EqncwyIt3zKPNM98dsfSmguoZyRFICw7r2YfUd68S6T/1CaPruh2665c23TnUMDeD4ssHi2zSbeQUJDx+Y9M5GaDdax1ZcXF9r+laRp+uwSHGzR9TMsLSc/vAshDQntlVYg57UHpxt1ye8Zp814X+EnW/4nyXx07rLpPUoELHZcvATFgclSwyUOCME5HrivblcMgYdiM80jVUwu6lQ80qVlUVddTUbrXdL07S5bSCZxLO8s4LbUXaDtUfMSWHGR/irkGtWVxHI1hcQ3kMTyxSyx8qjx8Fc+RyMEVz/W9q99r9rYpeLZmW0aIThykiF5APgYdmIUj37Vuabo2k2lgY9Os0SGVF8QhmMjY4y2e/196tHhlVKxrecyjecbm5OBVuPLdzUbXTcMpif916nitFFtYGBZgxA7A5zQQ2vQhDbOxxj7+VXI4o4hk4Zv6ChG8DHCphfbvSJD88jtxmggU1xJ4cjQwvJIoO1cgFsdsfX1NNFxGskgxIRkqTnafTNKQoE24z98UB5fEPwnNAE3Yu1TgGMyEcDhfc0NFLEIPuaNkEgL8q8CgTJAVCQZZWDnGO3kfeirQ5SO/kPQUCGjGTzQj3NHi+QnBHHnQF5NADTgm3b0HOKUI3QyLjvhgftVhVDRsMA+1BtOGCnswK/wDFA0Zzfu5A3l50JI3hlcSSGRGYlSVA2qew49PXvV24Tk0JV8WIxn5l7UFGBdNLp2rrcYAtz8MmP5Ce/wD/ACefoWrYtWawysYaSE58SJm3bgTnIJ8+eP0qvqdv+YtDuBLJwwHcilpLZtlgYk+HlYnP8S+X9KDT0OM/Ev8ACforq5ZNWn0qP8xOjL+0LZAsykjHx8YYj/cMivFLP8Dutul+oY7zoLqmGUmT4obp2tS48w2MqwP6+lfTk8V1azteWEscMuP38MvMM6jyYeR9GHI9xxVe3ex10vFYwNZajGm57OZhx/uUj5l9GGR9O1JGkX6lGC41DpW02tcT3hu0QflrmfxVt3I+MRPjcVzk4b7Y7UHRupPG1CfS77Tp9MurdQXglOWRTwGyOGQns65HkcHipT21zaXdvJd7pntgd0TLhWzjLAHsfTnzNG6u/J6lpEOoQCU31tKv5OeFMyROxAIYHGY2HDqeCPfFDN4OuUbG6lVWPEKRpu+aMOBg/Dzgjn0pVJvFblaMnrnbN1bplqBlvzNoPp8bt+mBWzrr3FraXd7ZFxJGJEQJnKjdyV/vXM9WiRvxf6ejV2HiXyZAPksDNz9/712lxAJ7WWFwwSSSRODyASc1Zz26SB6fA13paKLydtuSszvgMAP6/WlpuJFDLN4nvVy1DR2BthI5jK4xjnnP6VmT6dcQWZ/Iu84U5CsQH+x4BP1oM+zYiOMjaRjt70Xdkd+1Vba4jvLcS25D4HIwQQRwQR5H2qaXEe0dqCQjvhthzkjPbj9aSFckAgtUVy7VBnBYopIx8xHl7fWgRYVtgK7tzE88dh6UaPgZqmjDIo/iCgTDs+BxQnYLty3zccetDL5NOrcigQZ1VkUsMlTleexxj/NCGAeKm7fuwPWhA896ALUJ4IqscpKQPI5FFhbBoV83h5lCM2B8qjJP0oGiOpOkMUk7K7Ig3EIpZsewHJPtVdgVYMKuFsqtCkXNBQJ0VsSgZ8mFYWtxyWNvJLEdlux3tIclYTkEMR/KT3PlnPbNbMEwM00YSUeEwViyEBsgHKnzHPcedGkjVkKnG0+vagpOmVkeOeMKWjc4BO1gcZFVLywtpzGLiDcsTZRkOx090YcqfcVlXNpcaFdGeziaXT85aFOXt/8AxHdk/wBvceWRxWvb38E9sk8cqyRuMqynINBolXRC9jjktlLXE98F4ZHZEuMffCufbjPvWRp0unzNFbwz/mLiNWRoZEMTkfyMrYP3x3GRV7UmgKksy+v096zrqwfULRMxSC7Cn8vcMcBWI+Eq3OPXNI3h0W7jUWubgw/BshAyMHcrnlgT5jsfuaVY8Fvf2E7wah4Rm+aRomLKz5OSM0qiXZ78eNKKoNrkHi/jF08zE5Wa4cDPcLbIP8mu0cFZpVPYvuH0PP8AfNc31tHLadYdNapAhOLl4nwM/OgH9hXVXSYuBkeorQ5EukDjUBAwPf8AxRozhfUeYoUQIByuOcj3FT3bV74OKDIyr2SLTNTXUN5ht52VJWPyiQfIzegPyk/+NTuTFG/j5bMr4wgyufaj3KRXMBgnG6NnXIIBBGe2Krx6NYJDFGscqqgwBFK6gck9s486ACvdK0i28Z/fMpYjGMKO5p0dc7UBAHke9Fhs7ZHbnBKBAznORnOCaVxEJAVb9xKOMjn70CI7/tUw+fOgtHMp5TePVP8Aiogk8Zx9RigRY3cd6WUkG1sMAe3uKAwcjtn70v3ijJUrn1oAuyPnj0qAcZoBk96irjPbv3oCi6j81OY7kqoj0dGzQCIg7ULAcg5PvRiMjI5FAJ2n2pkjid42ddzwEmM5PGRg/wBKCh03uhMkXhtkjG4HjPB49e9IHaeexpXMKTxKkjP8LK+UYryDkdj29vOoSkhtxYbcdsc5oGPKu84O3bjg+eawZ7PwLxzbxEPJkuq/K/uR6+9aS3Dm48NFLkjJA8hUEmiuLgQRuVvIwJXVhgCPJB+/B/Sg0i2htA0+KRJA8AFwqk/Gc988fp5VLWNNtry2hgae5gRSAVjnaMS+zBecAA8Z+tZlz4tzexXOhdSrIq5V4otkg3HGGYjkAenHJq7eTnBLsSUTPPmTxk/ag0SbldmFr1wH1EohOyMAKPQUqynlMs7yE/MxNKsW7Z28cNkUj0jXLMXdqu1QZYXEsJPky9v+KJcyi6FrPHwJkbcPRhjIq3OOKy5G/LXUTkgQGUFv9pbjP0ORWp88uSxGFVmGcnPI9KabOMDFPfRPFqDGNCQw35H9ajOC0W5QSCM0yCrGN52nPbP1q3H61SaOWS3YRSNExA+JRk9+cfbzq3nbGx9BQBWaU5PoW7HscVaAjbG4kK/Hb5azYpMuq7dw7jntV0OdoU52g5xQIa8s/GjKRzsjeRBKkVgalY9Txuf2dqhKfyy4Y/1FdCHHi8PsTPdhnH1qJnJ/hT9KBWcdqtt1/wDmpI9O1SOSAfJI0MaMwx6c4qz0vcdT2969t1FOJl4CtsXHI8iBXT+My84FTXbN8+N3fnsaAsrygGRgjp8PcYyRxVG71KK0bGJJ3/kTAFa4iRS4xt3Z3DHf1p0gt1DbEXgZ4WgLMbT9XeXAfT7iMeryA1qLPbybd6OhU5BPr9qKrqeDH/Y0zQW75+aMnzXj/wCKBgbwiRAIpcEHIIbzHbPqPapBpYrZZnyXBAK5xnNRj05VuVmMvjkfJuAGP0qzHDKxdboW+18bFiU8D3J7n7UDM2/1ZoCix27SMXUNzgBc8kepHp51eaCWVAwBGRmprpWnI+9LREfGMqSKrahotnOmWSdyf4TdS7fuA4oHwM2nFbhib1YTKhHhqcOx9s+Q71LSYpUhVZJHkCIE8Rx8b7fM/wBKlpmk2OlgSW8MMZ7HZEF+uTyx+5q5IQsWeBx+nnQVZRuWXx1jijVZDyWHGF8/vxXJ6/qDbjErqWcZO3yHYD9P71fs9QjbTNQ1h5QFlkdUOeygYz+gNef6NqD6tJdajg+E8hSLPoKmTOhpMNy5NeM896VKFTmlWZ12ewuNy486z72JZI2R1yrDBHrV7PNCmUMM+taHzEeASSePaJGx3zxDHPduO/3FKzImtQAGAbPDdwaBkwziQZ4749KsoUWR2WVQrYIB7Ant+tNCkqAIJIrVVjx3+InvjzpNta1fJHy0SeVPy4fHwFwGx/Dzg/oTVO2lWUtAD8RBxTIK1sE8fwt43qmQuecZ71YYMveldWq4R/iXOMlTtOAcgZ9MjtR85GCOKAZUY8HJ5HYY71HJ/wDmrDxIfLFCaE+RFAiG5lBwe4wfpRojheRk+tDaEgbtyNgZxu5qUYO08egoFQbcQooTEnvTuT6cUNgxJJUj2xQOian0o8JOcd6qAkcHtVqHaX+HOPfuKB0XrcK8wBAKgZNNM265YAABQBU7YBNxcYLDj6d6rxtuy+DliT/xQCDAjHIzTEA+ufKkgOM4BA7808Yy+aBkbjcWVB2PfjufT9KzOpGm/IywRPsluSIUP8m7gt9lyftV9XDzNJ5Akj+1UdYuI1t5ppMEojHPoSMUFwTtHlHVxlj0Sw6P0uVjPPHvuJT3hgJyWb/c3YD/ABVnT7SGytIrSBNsUShVH+frUrW1WDxGLNJNK2+WVzlpG9Sf6AeQovzHA+9ZN2fRYMWxc9k0yxAHalRYVxSpGjZ6tmok54qG6mLc1ofN0AuFrH1y9u7KxBs4ILieWTw0inYqrAjJGR27CtqSsTWoXe4tJB/245CXH1GBQXX7SjpnV+m30h03UY7vSL+UbTBfp4fi+6P8jn6Hnjiue621bXejus9L1UYuumLyZYb8iPLWUrYBbPcKSQeeO/tXdrDBdWht7q3inib5o5VDL+hrOntP2dqUhk2SaNdRLG8MmWWNhwBz5Ecf09KdmNHUJJE9pyVZV7+lVNoyQp7eVVbANpsgsERjahf+nZ8kNGRwpJ7lTx9CDVPXo9YtZVutHCTwow8SFhlgvmFPmP7UWKjUKknjJqBHGeabT7y21C2SaFh8Q5B4Kn0PoaM8JwSCDRYUVzyw7UaPIXHlUIx8TDHPajSMqBUI7iixUDPqAKi7FsAnOKZmwcZpEO2MjHHpRY6I4ye1W4lABduT5k0KKJs5Iqed8gTHw+dFhQV+I2cHnZsH3OaS5CgZ4FD5PcjauSTUbxpo7MyQoJJT/wBtP5vc+1FjUQryKo+JsCozziK3MgPHYe5oFuHjgFxfOu9V+IgYUH2FZup6ihBaTKxgYUHgf/fYUWXGFukWoptxEUcm0DAkfzx549a5vqXUknP5O1bMKtlmz83oPoP71W1HVZZ0aGHMcZ4Y/wATe3sPassg4xUN2dXT6Xa90iLZJwKLGmKUaedHjWpPfY6Lge9Kp4pUEnoZaos3pQi9RL1ocPaEZqBOAwIIyDTl+aG596LKURQfuztzkHsajrEu3TWURxSmZliEcgyrbmAwfsTQ4ZMThW+VvL3o1zbiTwt+Ssciyrj1HbNBlOG1mHo3T+n2tw11Bf6haeBK0Pgm88SEHOcDcPPP1rpYLw28gjvNsZ7K/ZX/AMZ9qyrpAkFvbvHH4Qn7kZQKMlSw7d8D3ozhknjiE6JaOgCJsDRkjJYHPqO30oJ2gdZ6fle8fUtEuxa3LD4omGI5PehSXut2ob8xpUgVQCGSQMDxzyKlDDHMEmsotQs4pWGx4J8DHqUJIA+1PazSTvJDB1BeEpyS8KDgHBwSvOKBUZ1r1RDJJICkiurEYIyM/X/72q1rGqPbtbXLH/p3DAHjn3FXdl1DLteKO/t5B+8bYqyfccBh796lcwQXkSQzaZEY4xtRXAAUegxnFAUVNM1W2nhM/jJgHA3cVoJqEDJvMsW0DJO8YH1rIl6ft1OYraNV77BMwB/pWc3THTy3aXGpaHeTMp+fxzKmPTAxx9qB0K5/EnQn1f8AY2nfnNQuSwQflIDIpJ9D/ntXXWrtI4hx8eDuxyF+/wD986q2sdgkMh06zW33KFDJH4ZOBgZOM9uPOrNlcXEUex7WNccZWTOf6UAoliOwJn8W4nebDZSLG2NffH8R9zQNR1KCx3KwaWXGcZwB9TUp7maRSFYRg+hyawOoNqWpjUcufiPcmgqMW3QHVNbecDwzu8xxhR/zWNczS3D75XLkDA9B9KW3jvxUT6Cs27OziwwxrhAyM0lTJogQk1ML5DtQbDKufKiAYFIDFKgBUqalQB2peol6CX96iX96s5SiGZ6gzYoW+osxoKURmbEisPWtGKUgY8qy3J71ajbihEZY9F1lRx8J2k+XlVSaziMiu6NwwbCsQpI7EjtRFfFTWXypmW0rQGe2jWGMLJEgIQk4YDHA9D6VnYkg0GS2Kz+KYwm114BY4O0+nJraIjc5IP2qBiHdXIoDaZtmipe29pJMx8AOqKW7jIKsfX4Tipaa807yXDyTBDM5T958JUEgDH2zVxoW3b8KWxgHHNDit/BBEUQQHuF7UC2hy/nmnD88k49qCRLj5Dmoxpc7QJFG7/bwKB7Q+/3qQkAHxDigCGY9yF+9Bv5I7K1aV33v2RfU0DjC3SDXFwscTOzAAeprndTvDcycAqg7D1qpcXcsr7ncsfftUBIG4PBqG7Ohh0yg7fY5yfpTqmakq5xRAMdqR6SO3A4pY4qRpvagCJpjTk1E0DEaVKlQFHSk0iTSpVZzyG80xY4FKlUlEGY4q0hOBSpU0Zz6CKakGNKlVIzQ+40+45pUqTGS3nNIOScUqVAhy5pjIaVKhBXJB5GxXM67cSS3hRj8MfAH+aVKk+j0adLcZtOoy1KlUnuQaNiOB2o0bbgeMUqVADntUTSpUAMeDUSecUqVA0Me2aVKlQB//9k=" alt="RESCENE 공식 응원봉 V2" width="200" height="261">
+    <span class="ls-text">
+      <span class="ls-eyebrow">OFFICIAL LIGHT STICK</span>
+      <b class="ls-title">RESCENE OFFICIAL LIGHT STICK V2</b>
+      <span class="ls-sub" id="lsSub">10.26 (월) 12:00 판매 시작</span>
+      <span class="ls-go">공지로 이동<svg viewBox="0 0 16 16" width="12" height="12" aria-hidden="true"><path d="M6 3h7v7M13 3 4 12" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+    </span>
+    <span class="ls-badge" id="lsBadge">COMING SOON</span>
+  </a>
+
   <div class="summary" id="summary"></div>
 
-  <nav aria-label="바로가기"><a href="#schedule">일정</a><a href="#collab">콜라보·팝업</a></nav>
+  <div class="tabs" role="tablist" aria-label="보기 선택">
+    <button class="tab" role="tab" id="tab-schedule" aria-controls="schedule" type="button">일정</button>
+    <button class="tab" role="tab" id="tab-collab" aria-controls="collab" type="button">콜라보·팝업</button>
+    <button class="tab" role="tab" id="tab-vote" aria-controls="vote" type="button">투표<span class="cnt" id="voteCnt" hidden></span></button>
+    <button class="tab" role="tab" id="tab-album" aria-controls="album" type="button">앨범</button>
+  </div>
 
-  <section id="schedule">
+  <section id="schedule" role="tabpanel" aria-labelledby="tab-schedule">
     <div class="sec-head">
       <h2><small>SCHEDULE</small>일정</h2>
-      <span class="basis">10.17 스케줄표 기준</span>
+      <span class="basis" title="10.26 자료 기준"><svg viewBox="0 0 16 16" width="13" height="13" aria-hidden="true"><path d="M13.5 8A5.5 5.5 0 1 1 11.9 4.1" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/><path d="M12.4 1.8v2.7H9.7" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/><path d="M8 5.2V8l1.9 1.3" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg>10.26 기준</span>
     </div>
+    <div class="search">
+      <svg viewBox="0 0 20 20" width="18" height="18" aria-hidden="true"><circle cx="8.5" cy="8.5" r="5.5" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="m13 13 4 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+      <label class="sr" for="scheduleSearch">일정 검색</label>
+      <input id="scheduleSearch" type="search" placeholder="일정·장소 검색 (예: PULSE, 공연, 거제)" autocomplete="off" enterkeyhint="search">
+      <button class="clear" id="scheduleClear" type="button" aria-label="검색어 지우기" hidden><svg viewBox="0 0 16 16" width="14" height="14" aria-hidden="true"><path d="M4 4l8 8M12 4l-8 8" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></button>
+    </div>
+    <div class="result" id="scheduleResult" aria-live="polite" hidden></div>
     <div class="next" id="next"></div>
     <div id="days"></div>
     <button class="btn" id="pastBtn" type="button"></button>
     <div id="pastDays" hidden></div>
   </section>
 
-  <section id="collab">
+  <section id="collab" role="tabpanel" aria-labelledby="tab-collab" hidden>
     <div class="sec-head">
       <h2><small>COLLAB &amp; POP-UP</small>콜라보·팝업</h2>
-      <span class="basis">10.23 리스트 기준</span>
+      <span class="basis" title="10.26 자료 기준"><svg viewBox="0 0 16 16" width="13" height="13" aria-hidden="true"><path d="M13.5 8A5.5 5.5 0 1 1 11.9 4.1" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/><path d="M12.4 1.8v2.7H9.7" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/><path d="M8 5.2V8l1.9 1.3" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg>10.26 기준</span>
+    </div>
+    <div class="search">
+      <svg viewBox="0 0 20 20" width="18" height="18" aria-hidden="true"><circle cx="8.5" cy="8.5" r="5.5" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="m13 13 4 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+      <label class="sr" for="collabSearch">콜라보·팝업 검색</label>
+      <input id="collabSearch" type="search" placeholder="업체·멤버·특전 검색 (예: CU, 원이, 포토카드)" autocomplete="off" enterkeyhint="search">
+      <button class="clear" id="searchClear" type="button" aria-label="검색어 지우기" hidden>
+        <svg viewBox="0 0 16 16" width="14" height="14" aria-hidden="true"><path d="M4 4l8 8M12 4l-8 8" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+      </button>
     </div>
     <div class="filters" role="group" aria-label="보기 필터" id="filters"></div>
+    <div class="result" id="searchResult" aria-live="polite" hidden></div>
     <div class="cards" id="cards"></div>
     <button class="btn" id="endedBtn" type="button"></button>
+  </section>
+
+  <section id="vote" role="tabpanel" aria-labelledby="tab-vote" hidden>
+    <div class="sec-head">
+      <h2><small>VOTE</small>투표</h2>
+      <span class="basis" title="10.26 자료 기준"><svg viewBox="0 0 16 16" width="13" height="13" aria-hidden="true"><path d="M13.5 8A5.5 5.5 0 1 1 11.9 4.1" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/><path d="M12.4 1.8v2.7H9.7" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/><path d="M8 5.2V8l1.9 1.3" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg>10.26 기준</span>
+    </div>
+    <div class="search">
+      <svg viewBox="0 0 20 20" width="18" height="18" aria-hidden="true"><circle cx="8.5" cy="8.5" r="5.5" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="m13 13 4 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+      <label class="sr" for="voteSearch">투표 검색</label>
+      <input id="voteSearch" type="search" placeholder="투표·플랫폼 검색 (예: MMA, 멜론, 카카오)" autocomplete="off" enterkeyhint="search">
+      <button class="clear" id="voteClear" type="button" aria-label="검색어 지우기" hidden><svg viewBox="0 0 16 16" width="14" height="14" aria-hidden="true"><path d="M4 4l8 8M12 4l-8 8" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></button>
+    </div>
+    <div class="result" id="voteResult" aria-live="polite" hidden></div>
+    <div class="cal" id="cal">
+      <div class="cal-head">
+        <div class="cal-title" id="calTitle"></div>
+        <div class="cal-nav">
+          <button type="button" id="calPrev" aria-label="이전 달"><svg viewBox="0 0 16 16" width="14" height="14" aria-hidden="true"><path d="M10 3 5 8l5 5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+          <button type="button" id="calNext" aria-label="다음 달"><svg viewBox="0 0 16 16" width="14" height="14" aria-hidden="true"><path d="m6 3 5 5-5 5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+        </div>
+      </div>
+      <div class="cal-grid" id="calGrid"></div>
+      <div class="cal-legend"><span><i></i>투표 마감일</span><span><i class="o"></i>마감된 투표</span><span>날짜를 누르면 해당 투표로 이동해요</span></div>
+    </div>
+    <div class="cards" id="votes"></div>
+    <button class="btn" id="voteEndedBtn" type="button"></button>
+  </section>
+
+  <section id="album" role="tabpanel" aria-labelledby="tab-album" hidden>
+    <div class="sec-head">
+      <h2><small>ALBUM GUIDE</small>앨범</h2>
+    </div>
+    <div class="al-hero">
+      <div class="al-hero-text">
+        <span class="lbl">RESCENE 4TH MINI ALBUM</span>
+        <b>[ PULSE ] 예약 판매</b>
+        <span class="tnum">10.13 (화) 12:00 ~ 11.02 (월) 23:59</span>
+      </div>
+      <span class="status" id="preorderStatus"></span>
+    </div>
+
+    <h3 class="sub-h"><small>COMPONENTS</small>버전별 구성</h3>
+    <div class="ver-tabs" role="group" aria-label="앨범 버전 선택" id="verTabs"></div>
+    <div class="ver-box" id="verBox" aria-live="polite"></div>
+    <details class="terms">
+      <summary>Wappen · Locket이 뭐예요?</summary>
+      <p><b>Wappen (와펜)</b> 이름, 로고 같은 상징을 나타내는 장식용 패치예요. 군복에 붙이는 부대 마크도 와펜의 일종이에요.</p>
+      <p><b>Locket (로켓)</b> 사진 등을 넣어 목걸이에 다는 작은 갑이에요. 가족이나 연인 사진을 넣는 용도로 영화에도 자주 나와요.</p>
+    </details>
+    <p class="al-note">※ 앨범 구성품은 모두 랜덤이에요. 여러 개를 사도 세트로 지급되지 않아요.</p>
+
+    <h3 class="sub-h"><small>WHERE TO BUY</small>판매처별 특전</h3>
+    <div class="search">
+      <svg viewBox="0 0 20 20" width="18" height="18" aria-hidden="true"><circle cx="8.5" cy="8.5" r="5.5" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="m13 13 4 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+      <label class="sr" for="albumSearch">판매처·특전 검색</label>
+      <input id="albumSearch" type="search" placeholder="판매처·특전·버전 검색 (예: 위드뮤, QR, 셀피)" autocomplete="off" enterkeyhint="search">
+      <button class="clear" id="albumClear" type="button" aria-label="검색어 지우기" hidden><svg viewBox="0 0 16 16" width="14" height="14" aria-hidden="true"><path d="M4 4l8 8M12 4l-8 8" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></button>
+    </div>
+    <div class="result" id="albumResult" aria-live="polite" hidden></div>
+    <div class="filters" role="group" aria-label="판매처 종류" id="storeFilters"></div>
+    <div class="filters" role="group" aria-label="앨범 버전" id="verFilters"></div>
+    <div class="cards" id="stores"></div>
+    <p class="al-note">※ 한정 수량이라 조기 소진될 수 있으니 구매 전 꼭 확인해 주세요.</p>
+
+    <h3 class="sub-h"><small>ALBUMS</small>미공개 포토카드 전부 모으려면</h3>
+    <div class="collect" id="collect"></div>
+    <p class="al-note">※ YES24 QR 특전은 QR SET 구매 기준으로 계산했어요. YES24 Guardian 특전은 QR과 별개로 계산했고, 올리브영·무신사 오프라인은 온라인과 같은 이미지라 한 번만 계산했어요.</p>
   </section>
 
   <footer>
@@ -212,8 +439,11 @@ html{scroll-behavior:smooth}
 /* ===== 여기만 고치면 페이지가 바뀌어요 ===== */
 const COMEBACK = '2026-11-03T18:00';
 
-// type: 공개 / 공연 / 행사 / 컴백, time 없으면 종일
+// type: 공개 / 공연 / 행사 / 시상식 / 기념일, time 없으면 종일
 const SCHEDULE = [
+  {date:'2026-10-13', time:'12:00', type:'공개', title:'[PULSE] PRE-ORDER'},
+  {date:'2026-10-15', time:'18:00', type:'공개', title:'Loco TATA (Feat.미나미) 공개'},
+  {date:'2026-10-17', type:'공연', title:'NOL 페스티벌', place:'경기 일산 킨텍스'},
   {date:'2026-10-19', time:'18:00', type:'공개', title:'[PULSE] CONCEPT PHOTO A'},
   {date:'2026-10-20', time:'18:00', type:'공개', title:'[PULSE] CONCEPT PHOTO B'},
   {date:'2026-10-22', time:'18:00', type:'공개', title:'[PULSE] CONCEPT TRAILER'},
@@ -227,37 +457,141 @@ const SCHEDULE = [
   {date:'2026-10-27', time:'18:00', type:'공개', title:'[PULSE] TITLE PREVIEW RELEASE'},
   {date:'2026-10-27', time:'22:00', type:'공개', title:'[PULSE] ♡♡♡♡♡'},
   {date:'2026-10-30', time:'18:00', type:'공개', title:'[PULSE] TITLE MV TEASER'},
+  {date:'2026-10-30', time:'20:00', type:'행사', title:'네이버 쇼핑라이브 Galaxy Night'},
   {date:'2026-10-31', type:'행사', title:'경주 APEC 메모리얼 페스타 축하공연', place:'경주 엑스포대공원 선덕광장 일대'},
-  {date:'2026-11-03', time:'18:00', type:'컴백', title:'[PULSE] ALBUM RELEASE & MV DROP'},
-  {date:'2026-11-03', time:'20:00', type:'컴백', title:'[PULSE] SHOWCASE'},
+  {date:'2026-11-03', time:'18:00', type:'공개', title:'[PULSE] ALBUM RELEASE & MV DROP', place:'COMEBACK "PULSE"'},
+  {date:'2026-11-03', time:'20:00', type:'공개', title:'[PULSE] SHOWCASE', place:'COMEBACK "PULSE"'},
+  {date:'2026-11-07', type:'시상식', title:'KGMA 코리아 그랜드 뮤직 어워드', place:'서울 고척 스카이돔 · MC 원이'},
+  {date:'2026-11-27', type:'기념일', title:'제나(김가영) 생일'},
+  {date:'2026-11-29', type:'기념일', title:'미나미(이토 미나미) 생일'},
+  {date:'2026-12-05', type:'시상식', title:'AAA 아시아 아티스트 어워즈', place:'대만 가오슝'},
+  {date:'2026-12-06', type:'시상식', title:'AAA 아시아 아티스트 어워즈', place:'대만 가오슝'},
+  {date:'2026-12-20', type:'기념일', title:'리센느 데뷔 1000일'},
 ];
 
 // kind: 콜라보 / 팝업, end 없으면 재고 소진 시까지, endTime 기본 23:59
-// cafe: 카드를 누르면 열릴 리시안셔스 카페 글 주소 (비워 두면 눌리지 않는 카드)
+// cafe: 카드를 누르면 열릴 공지 주소 (비워 두면 눌리지 않는 카드), announce: 당첨자 발표
 const COLLABS = [
-  {kind:'콜라보', cafe:'https://naver.me/FLEvl5La', brand:'CU BAKE 405', who:'리센느', title:'RESCENE x CU BAKE 405_#1', start:'2026-09-17', end:'2026-10-25', how:['구매 특전'], gifts:[['포토카드','']]},
-  {kind:'콜라보', cafe:'https://naver.me/FLEvl5La', brand:'CU BAKE 405', who:'리센느', title:'RESCENE x CU BAKE 405_#2', start:'2026-10-25', how:['구매 특전'], gifts:[['포토카드','']]},
-  {kind:'콜라보', cafe:'https://naver.me/FLEvl5La', brand:'CU BAKE 405', who:'리센느', title:'리센느와 완성하는 일상 #1', start:'2026-09-17', end:'2026-10-25', how:['응모 추첨'], gifts:[['포토카드 5장 세트_아궁빵 Ver.','50명'],['키캡키링 5종 中 1종 랜덤','200명']]},
-  {kind:'콜라보', cafe:'https://naver.me/FLEvl5La', brand:'CU BAKE 405', who:'리센느', title:'리센느와 완성하는 일상 #2', start:'2026-09-23', end:'2026-10-25', how:['응모 추첨'], gifts:[['리센느 필름키링','200명'],['리센느 포토카드 5장 세트_Bake405 Ver.','50명']]},
-  {kind:'콜라보', cafe:'https://naver.me/Ge7XAVYk', brand:'CU x 할리스커피', who:'리센느', title:'할리스 커피 마시고 리센느 스페셜 굿즈 받자!', start:'2026-09-28', end:'2026-10-27', how:['응모 추첨'], gifts:[['셀카 사인 폴라로이드 멤버별 1장','5명'],['리센느 스페셜 굿즈팩','50명'],['멤버별 포토카드 5종','1,000명']]},
-  {kind:'콜라보', cafe:'https://naver.me/FuNCU0NY', brand:'GS25 x 할리스커피', who:'리센느', title:'GS25에서 만나는 HOLLYS 오늘의 커피 모먼트', start:'2026-09-29', end:'2026-10-28', how:['응모 추첨'], gifts:[['친필 사인 폴라로이드 랜덤 1종','5명'],['리센느 스페셜 굿즈팩','50명'],['멤버별 포토카드 5종','1,000명']]},
-  {kind:'콜라보', cafe:'https://naver.me/xIFMqVUS', brand:'그레인온', who:'리센느', title:'RESCENE EDITION Ver.네이버', start:'2026-10-01', how:['구매 특전'], gifts:[['포토카드 + 엽서 Ver.네이버','']]},
-  {kind:'콜라보', cafe:'https://naver.me/xIFMqVUS', brand:'그레인온', who:'리센느', title:'RESCENE EDITION Ver.카카오', start:'2026-10-01', how:['구매 특전'], gifts:[['포토카드 + 엽서 Ver.카카오','']]},
-  {kind:'콜라보', cafe:'https://naver.me/xIFMqVUS', brand:'그레인온', who:'리브·미나미', title:'두번째 이야기, 리브와 미나미의 맛', start:'2026-10-12', end:'2026-10-25', how:['응모 추첨'], gifts:[['리브&미나미 한정 포스터 + 제품 1box','5명'],['리브 포스터 / 미나미 포스터','각 50명'],['리브의 쿠키앤크림 / 미나미의 크림소다 1box','각 30명']]},
-  {kind:'콜라보', cafe:'https://naver.me/51u8GUwU', brand:'카사베르디', who:'리센느', title:'프리미엄 레드와인 비니거 스틱 기프트 에디션', start:'2026-09-24', how:['구매 특전'], gifts:[['미니포스터(엽서)','']]},
-  {kind:'콜라보', cafe:'https://naver.me/xiLeE9TS', brand:'에이페', who:'리센느', title:'에이페 x 리센느 포토카드 이벤트', start:'2026-09-02', how:['구매 특전'], gifts:[['10만원 이상 구매 시 5종 SET',''],['5만원 이상 구매 시 5종 中 2종 랜덤','']]},
-  {kind:'콜라보', cafe:'https://naver.me/xllpo9x6', brand:'MLB', who:'리브·미나미·메이·제나', title:'MY ICONIC BEANIE, THE RESCENE WAY', start:'2026-10-07', end:'2026-10-31', note:'재고 소진 시 조기 종료', how:['구매 특전'], gifts:[['포토카드','']]},
+  {kind:'콜라보', cafe:'https://naver.me/G5k7rAUy', brand:'CU', who:'리센느', title:'RESCENE x CU BAKE 405_#1', start:'2026-09-17', end:'2026-10-25', how:['구매 특전'], gifts:[['포토카드','']]},
+  {kind:'콜라보', cafe:'https://naver.me/G5k7rAUy', brand:'CU', who:'리센느', title:'RESCENE x CU BAKE 405_#2', start:'2026-10-25', how:['구매 특전'], gifts:[['포토카드','']]},
+  {kind:'콜라보', cafe:'https://naver.me/G5k7rAUy', brand:'CU', who:'리센느', title:'리센느와 완성하는 일상 #1', start:'2026-09-17', end:'2026-10-25', announce:'11.02', how:['응모 추첨'], gifts:[['포토카드 5장 세트_아궁빵 Ver.','50명'],['키캡키링 5종 中 1종 랜덤','200명']]},
+  {kind:'콜라보', cafe:'https://naver.me/G5k7rAUy', brand:'CU', who:'리센느', title:'리센느와 완성하는 일상 #2', start:'2026-09-23', end:'2026-10-25', announce:'11.09', how:['응모 추첨'], gifts:[['리센느 필름키링','200명'],['리센느 포토카드 5장 세트_Bake405 Ver.','50명']]},
+  {kind:'콜라보', cafe:'https://naver.me/G5k7rAUy', brand:'CU', who:'리센느', title:'리센느와 CU의 SWEET SCENE', start:'2026-10-26', end:'2026-12-06', announce:'12.10', how:['응모 추첨'], gifts:[['포토카드 스페셜 패키지','50명']]},
+  {kind:'콜라보', cafe:'https://naver.me/FwGMnIER', brand:'CU x 할리스커피', who:'리센느', title:'할리스 커피 마시고 리센느 스페셜 굿즈 받자!', start:'2026-09-28', end:'2026-10-27', announce:'11.06', how:['응모 추첨'], gifts:[['셀카 사인 폴라로이드 멤버별 1장','5명'],['리센느 스페셜 굿즈팩','50명'],['멤버별 포토카드 5종','1,000명']]},
+  {kind:'콜라보', cafe:'https://naver.me/G2YIU1S4', brand:'GS25 x 할리스커피', who:'리센느', title:'GS25에서 만나는 HOLLYS 오늘의 커피 모먼트', start:'2026-09-29', end:'2026-10-28', announce:'11.12', how:['응모 추첨'], gifts:[['친필 사인 폴라로이드 랜덤 1종','5명'],['리센느 스페셜 굿즈팩','50명'],['멤버별 포토카드 5종','1,000명']]},
+  {kind:'콜라보', cafe:'https://naver.me/x2Y1PMgF', brand:'그레인온', who:'리센느', title:'RESCENE EDITION Ver.네이버', start:'2026-10-01', how:['구매 특전'], gifts:[['포토카드 + 엽서 Ver.네이버','']]},
+  {kind:'콜라보', cafe:'https://naver.me/x2Y1PMgF', brand:'그레인온', who:'리센느', title:'RESCENE EDITION Ver.카카오', start:'2026-10-01', how:['구매 특전'], gifts:[['포토카드 + 엽서 Ver.카카오','']]},
+  {kind:'콜라보', cafe:'https://naver.me/x2Y1PMgF', brand:'그레인온', who:'원이', title:'첫 번째 이야기, 원이의 베리말차', start:'2026-09-21', end:'2026-10-04', announce:'10.12', how:['응모 추첨'], gifts:[['리센느 전원 친필사인 응원봉','1명'],['원이 한정 포스터','50명'],['원이 베리말차 효소 1box','30명']]},
+  {kind:'콜라보', cafe:'https://naver.me/x2Y1PMgF', brand:'그레인온', who:'리브·미나미', title:'두 번째 이야기, 리브와 미나미의 맛', start:'2026-10-12', end:'2026-10-25', announce:'11.02', how:['응모 추첨'], gifts:[['리브&미나미 한정 포스터 + 제품 1box','5명'],['리브 포스터 / 미나미 포스터','각 50명'],['리브의 쿠키앤크림 / 미나미의 크림소다 1box','각 30명']]},
+  {kind:'콜라보', cafe:'https://naver.me/x2Y1PMgF', brand:'그레인온', who:'메이·제나', title:'세 번째 이야기, 메이와 제나의 맛', start:'2026-10-26', end:'2026-11-08', announce:'11.16', how:['응모 추첨'], gifts:[['메이&제나 한정 포스터 + 제품 1box','5명'],['메이 포스터 / 제나 포스터','각 50명'],['메이의 유자레몬 / 제나의 블루베리요거트 1box','각 30명']]},
+  {kind:'콜라보', cafe:'https://naver.me/FJOmH0B8', brand:'카사베르디', who:'리센느', title:'프리미엄 레드와인 비니거 스틱 기프트 에디션', start:'2026-09-24', how:['구매 특전'], gifts:[['미니포스터(엽서)','']]},
+  {kind:'콜라보', cafe:'https://naver.me/FDcqQElt', brand:'에이페', who:'리센느', title:'에이페 x 리센느 포토카드 이벤트', start:'2026-09-02', how:['구매 특전'], gifts:[['10만원 이상 구매 시 5종 SET','재고 없음'],['5만원 이상 구매 시 5종 中 2종 랜덤','']]},
+  {kind:'콜라보', cafe:'https://naver.me/G4dCrK67', brand:'MLB', who:'리브·미나미·메이·제나', title:'MY ICONIC BEANIE, THE RESCENE WAY', start:'2026-10-07', end:'2026-10-31', note:'재고 소진 시 조기 종료', how:['구매 특전'], gifts:[['포토카드','']]},
   {kind:'콜라보', cafe:'https://cafe.naver.com/re5cene/65012', brand:'와키윌리', who:'원이', title:'Wacky WiLLy X WONI', start:'2026-10-13', end:'2026-11-01', endTime:'11:00', note:'11:00까지 · 재고 소진 시 조기 종료', how:['구매 특전'], gifts:[['원이 싸인 포토카드','']]},
   {kind:'콜라보', cafe:'https://naver.me/GvWYU81x', brand:'포토이즘', who:'리센느', title:'PHOTOISM x 리센느', start:'2026-09-01', end:'2026-10-31', how:['현장 구매'], gifts:[['포토이즘 프레임 및 스내피즘','']]},
   {kind:'콜라보', cafe:'https://naver.me/G3veWqYW', brand:'포토이즘', who:'리브', title:'PHOTOISM x 리센느 리브', start:'2026-10-11', end:'2026-11-09', how:['현장 구매'], gifts:[['포토이즘 프레임 및 스내피즘','']]},
-  {kind:'콜라보', cafe:'https://naver.me/5CCNMXSZ', brand:'나랑드사이다', who:'리센느', title:'ZERO A NEW SCENE, IN ZERO', isNew:true, how:['구매 특전'], gifts:[['포토카드',''],['리센느 브로마이드','']]},
-  {kind:'콜라보', cafe:'https://naver.me/GCJwtpaA', brand:'MERMONT', who:'원이', title:'MERMONT x WONI', start:'2026-10-23', end:'2026-11-06', note:'포토카드는 재고 소진 시까지', isNew:true, how:['구매 특전','응모 추첨'], gifts:[['포토카드',''],['친필 사인 MERMONT 신상 모자','3명'],['친필 메시지 카드','3명']]},
+  {kind:'콜라보', cafe:'https://naver.me/5OljnV06', brand:'나랑드사이다', who:'리센느', title:'ZERO A NEW SCENE, IN ZERO', isNew:true, how:['구매 특전'], gifts:[['리센느 브로마이드 1매 + 포토카드 랜덤 1매 세트','']]},
+  {kind:'콜라보', cafe:'https://naver.me/xgXiagjL', brand:'MERMONT', who:'원이', title:'MERMONT x WONI', start:'2026-10-23', end:'2026-11-06', note:'포토카드는 재고 소진 시까지', isNew:true, how:['구매 특전','응모 추첨'], gifts:[['포토카드',''],['친필 사인 MERMONT 신상 모자','3명'],['친필 메시지 카드','3명']]},
   {kind:'콜라보', cafe:'https://cafe.naver.com/re5cene/76555', brand:'할리스몰', who:'리센느', title:'HOLLYS x RESCENE', start:'2026-10-23', isNew:true, how:['구매 특전'], gifts:[['친필 사인 포토카드','']]},
-  {kind:'콜라보', cafe:'https://cafe.naver.com/re5cene/59295', brand:'메가스터디', who:'리센느', title:'세상아 기대해', start:'2026-10-07', end:'2026-10-20', how:['응모 추첨'], gifts:[['NFC 포토 키링','2,000명'],['CU 3,000원권','1,000명']]},
+  {kind:'콜라보', cafe:'https://cafe.naver.com/re5cene/80504', brand:'거제시', who:'리센느', title:'리센느 거제 명예시민 기념', end:'2026-10-30', endTime:'23:59', announce:'종료 후 7일 이내', how:['응모 추첨'], gifts:[['리센느 친필 사인','5명']]},
+  {kind:'콜라보', cafe:'https://cafe.naver.com/re5cene/79050', brand:'안원잘부', who:'리센느', title:'안원잘부 유튜브 구독자 이벤트_MLB', start:'2026-10-25', end:'2026-11-01', announce:'11.04', how:['응모 추첨'], gifts:[['리센느PICK 커브 패딩','5명'],['미야옹 비니','5명']]},
+  {kind:'콜라보', cafe:'https://naver.me/xB7LYQHU', brand:'한스킨', who:'미나미·제나', title:'미나미&제나 친필사인 포토카드 랜덤 증정', start:'2026-10-25', how:['구매 특전'], gifts:[['미나미·제나 포토카드','']]},
   {kind:'팝업', cafe:'https://cafe.naver.com/re5cene/50492', brand:'위드뮤', who:'리센느', title:'RESCENE POP-UP MD 온라인 몰', note:'11월 순차 발송', how:['예약 구매'], gifts:[['굿즈 판매','']]},
   {kind:'팝업', cafe:'https://cafe.naver.com/re5cene/50488', brand:'가우디', who:'리센느', title:'RESCENE X GAUDI Collaboration', start:'2026-10-01', end:'2026-10-31', how:['현장 구매'], gifts:[['굿즈 판매','']]},
+  // 아래는 종료된 이벤트 (종료된 이벤트 보기에서만 보여요)
+  {kind:'콜라보', cafe:'https://cafe.naver.com/re5cene/59295', brand:'메가스터디', who:'리센느', title:'세상아 기대해', start:'2026-10-07', end:'2026-10-20', how:['응모 추첨'], gifts:[['NFC 포토 키링','2,000명'],['CU 3,000원권','1,000명']]},
   {kind:'팝업', cafe:'https://naver.me/GwfctHXK', brand:'LIT&MAT', who:'리브·메이', title:'LIT&MAT OFFICIAL POP-UP STORE', start:'2026-10-16', end:'2026-10-22', how:['현장 구매'], gifts:[['굿즈 판매','']]},
 ];
+
+// 투표: start/startTime 시작(있을 때만), end 마감일, endTime 마감 시각, cafe 공지 주소(있으면 카드가 링크가 돼요)
+const VOTES = [
+  {key:'KGMA', title:'KGMA Berriz 글로벌 팬 초이스', end:'2026-10-19', endTime:'23:59', who:'Berriz 회원', limit:'1일 1회', related:'KGMA 투표 인증 이벤트', cafe:''},
+  {key:'MAMA', title:"2026 MAMA FANS' CHOICE 1차", end:'2026-10-22', endTime:'23:59', who:'Mnet Plus 회원', limit:'1일 1회', cafe:'',
+    unite:[['남자','ALPHA DRIVE ONE · AND2BLE(앤더블) · BIGBANG'],['여자','RESCENE(리센느) · BABYMONSTER · Hearts2Hearts']]},
+  {key:'MMA', title:'MMA 2026 TOP10 투표', end:'2026-10-29', endTime:'23:59', who:'멜론 회원', limit:'무료회원 1일 1회 · 유료회원 1일 3회', related:'MMA 티켓 자동 응모', cafe:'https://cafe.naver.com/re5cene/67899'},
+  {key:'KAKAO BANK', short:'카뱅', title:'MMA 2026 X KAKAO BANK 특별상 투표', end:'2026-10-30', who:'카카오뱅크 계좌 또는 mini 보유자', limit:'1일 1회', related:'MMA 카카오뱅크 특별석 자동 응모', cafe:'https://cafe.naver.com/re5cene/67508'},
+  {key:'MAMA', short:'MAMA 2차', title:"2026 MAMA FANS' CHOICE 2차", start:'2026-10-28', startTime:'18:00', end:'2026-11-08', endTime:'23:59', who:'Mnet Plus 회원', limit:'1일 1회', uniteNote:'연합 투표 추후 안내', cafe:''},
+];
+
+// 앨범 가이드
+const PREORDER = {start:'2026-10-13T12:00', end:'2026-11-02T23:59'};
+const VERSIONS = ['Standard','Limited','QR','Wappen','Guardian'];
+// 각 버전 구성: [항목, 내용, 랜덤 표기]
+const COMPONENTS = {
+  Standard: {base:[['CD-R','포함'],['CD 봉투','포함'],['포토북','230×300mm'],['포토카드','랜덤 2종','총 10종'],['포스터','180×120mm']],
+             only:[['유닛 포토카드','랜덤 1종','총 5종'],['필름 포토카드','랜덤 1종','총 10종']]},
+  Limited:  {base:[['CD-R','포함'],['포토북','182×257mm'],['포토카드','랜덤 2종','총 10종'],['포스터','355×245mm']],
+             only:[['럭키 메시지 카드','랜덤 1종','총 5종']]},
+  QR:       {base:[['포토카드','랜덤 2종','총 4종']],
+             only:[['QR카드',''],['전용 패키지','랜덤 1종','총 5종'],['셀피 포카','랜덤 3종','총 15종'],['이미지 카드','랜덤 1종','총 5종'],['ID 포카','랜덤 1종','총 5종']]},
+  Wappen:   {base:[['포토카드','랜덤 1종','총 5종']],
+             only:[['Wappen','']]},
+  Guardian: {base:[['CD-R','포함'],['포토카드','5종 전부'],['포스터','95×95mm']],
+             only:[['전용 패키지 BOX','1종'],['로켓 펜던트','1종','총 5종'],['펜던트 파우치','1종']]},
+};
+// group: 특전 / 공동구매 / 오프라인
+const STORES = [
+  {group:'특전', name:'메이크스타', ver:['Standard'], perk:'미공개 포토카드', rnd:'랜덤 1종 · 총 5종',
+    option:'15set (매진) · 무기명 단체 사인 앨범 + 사인 포토카드 랜덤 1매 · 50명 한정',
+    rule:'5장 구매 시 중복 없이 증정', event:'사인 폴라로이드 1매 (5명)', price:'20,800', optPrice:'312,000'},
+  {group:'특전', name:'배달의민족 B마트', ver:['Limited'], perk:'미공개 포토카드', rnd:'랜덤 1종 · 총 5종',
+    option:'5set 구매 시 중복 없이 증정 · 리센느 최애 간식 봉다리(선택)', price:'26,000', optPrice:'130,000'},
+  {group:'특전', name:'포켓 CU', ver:['QR'], perk:'미공개 포토카드', rnd:'랜덤 1종 · 총 5종',
+    option:'5set 구매 시 중복 없이 증정', price:'8,900', optPrice:'44,500'},
+  {group:'특전', name:'후즈팬', ver:['Wappen'], perk:'미공개 포토카드', rnd:'랜덤 1종 · 총 5종',
+    rule:'5장 구매 시 중복 없이 증정', price:'11,100'},
+  {group:'특전', name:'포켓 CU', ver:['Wappen'], perk:'미공개 유닛 포토카드', rnd:'랜덤 1종 · 총 2종',
+    option:'2set 구매 시 중복 없이 증정', price:'11,100', optPrice:'22,200'},
+  {group:'특전', name:'위드뮤', ver:['QR'], perk:'미공개 셀피 포토카드', rnd:'랜덤 1종 · 총 5종',
+    rule:'세트 구매 시 중복 없이 증정', price:'8,900'},
+  {group:'특전', name:'스타스테이션', ver:['QR'], perk:'미공개 셀카 포토카드', rnd:'랜덤 1종 · 총 5종',
+    rule:'5장 구매 시 중복 없이 증정', price:'9,000'},
+  {group:'특전', name:'YES24', ver:['ALL'], perk:'미공개 셀피 포토카드', rnd:'랜덤 1종 · 총 5종',
+    rule:'QR 5종 SET 구매 시 중복 없이 증정', event:'친필 사인 포토카드 (10명)', price:'판매처 확인', optPrice:'44,500'},
+  {group:'특전', name:'올리브영', sub:'온라인', ver:['Standard'], perk:'미공개 셀카 포토카드', rnd:'랜덤 1종 · 총 5종',
+    rule:'5장 구매 시 중복 없이 증정 · 오프라인과 특전 이미지 동일', price:'20,800'},
+  {group:'특전', name:'올리브영', sub:'오프라인 · 홍대놀이터, 명동역', ver:['Standard'], perk:'미공개 셀카 포토카드', rnd:'랜덤 1종 · 총 5종',
+    rule:'5장 구매 시 중복 없이 증정 · 온라인과 특전 이미지 동일', event:'친필 사인 폴라로이드 (즉석 추첨 5명)', price:'20,800'},
+  {group:'특전', name:'YES24', ver:['Guardian'], perk:'미공개 셀피 포토카드', rnd:'랜덤 1종 · 총 5종',
+    rule:'5장 이상 구매해도 중복 증정될 수 있음'},
+  {group:'특전', name:'무신사', sub:'온라인 · 무신사 드롭', ver:['Guardian'], perk:'미공개 포토카드', rnd:'랜덤 1종 · 총 5종',
+    rule:'5장 구매 시 중복 없이 증정 · 오프라인과 특전 이미지 동일', event:'댓글 추첨 사인 CD (5명)', price:'44,600'},
+  {group:'특전', name:'무신사', sub:'오프라인 · 무신사 성수', ver:['Guardian'], perk:'미공개 포토카드', rnd:'랜덤 1종 · 총 5종',
+    rule:'5장 구매 시 중복 없이 증정 · 온라인과 특전 이미지 동일', event:'사인 폴라로이드 랜덤 1종 (총 5종)', price:'44,600'},
+
+  {group:'공동구매', name:'Ktown4U', ver:['ALL'], perk:'Pulse (Artwork Ver.) 핀버튼', by:'음총팀 자체 제작', rnd:'랜덤 1종 · 총 5종', rule:'한정 수량',
+    prices:{STANDARD:'17,400',LIMITED:'21,800',QR:'8,200','QR 5set':'40,700','QR 기증':'7,400',WAPPEN:'9,800',GUARDIAN:'38,500'}},
+  {group:'공동구매', name:'뮤직 플랜트', ver:['Standard','Limited','QR','Wappen'], perk:'Pulse (Concept Photo Ver.) 핀버튼', by:'음총팀 자체 제작', rnd:'랜덤 1종 · 총 5종', rule:'한정 수량',
+    prices:{STANDARD:'16,900',LIMITED:'21,100',QR:'7,300','QR 5set':'36,200','QR 기증':'7,200',WAPPEN:'9,100'}},
+  {group:'공동구매', name:'ALL MD', ver:['ALL'], perk:'리마인 파이팅 Ver. 포토카드', by:'음총팀 자체 제작', rnd:'랜덤 1종 · 총 5종', rule:'5장 구매 시 중복 없이 증정 · 한정 수량',
+    event:'추가 사은품 증정 (판매처 공지 참고)',
+    prices:{STANDARD:'16,900',LIMITED:'21,100',QR:'7,200','QR 5set':'36,200',WAPPEN:'9,100',GUARDIAN:'36,000'}},
+  {group:'공동구매', name:'위드뮤', ver:['QR'], perk:'미공개 셀피 포토카드', rnd:'랜덤 1종 · 총 5종', rule:'5장 구매 시 중복 없이 증정',
+    prices:{'QR 5set':'40,000'}},
+
+  {group:'오프라인', name:'메이크스타', sub:'SHOWCASE', ended:true, ver:['Standard'], perk:'미공개 셀카 포토카드 (한입만 Ver.)',
+    rule:'5장 구매 시 중복 없이 증정', entry:'쇼케이스 초대권 응모 · 앨범 1장당 응모권 1매', winners:'370명', prize:'쇼케이스 이벤트 초대권', price:'20,800'},
+  {group:'오프라인', name:'후즈팬', sub:'SHOWCASE', ended:true, ver:['Standard'], perk:'미공개 셀카 포토카드',
+    entry:'쇼케이스 초대권 응모 · 앨범 1장당 응모권 1매', winners:'370명', prize:'쇼케이스 이벤트 초대권', price:'20,800'},
+  {group:'오프라인', name:'메이크스타', sub:'단체 영상통화', ver:['Standard'], perk:'미공개 셀카 포토카드 (강아지 Ver.)', saleEnd:'2026-10-19',
+    entry:'단체 영상통화 응모 · 앨범 1장당 응모권 1매', winners:'20명',
+    prize:'아티스트와 영상통화 + 기명 사인 앨범 1매 + 사인 포토카드 1매', event:'사인 폴라로이드 1매 (당첨자 중 5명 선정)', price:'20,800'},
+  {group:'오프라인', name:'메이크스타', sub:'대면 팬사인회', ver:['Standard'], perk:'미공개 메시지 포토카드 (MZ 사원 Ver.)', saleEnd:'2026-10-19',
+    entry:'대면 팬사인회 응모 · 앨범 1장당 응모권 1매', winners:'30명',
+    prize:'대면 팬사인회 참석권 + 기명 사인 앨범 1매 + 사인 포토카드 1매', event:'사인 폴라로이드 1매 (당첨자 중 5명 선정)', price:'20,800'},
+  {group:'오프라인', name:'플러스챗', sub:'SHOWCASE', ver:['Limited'], perk:'미공개 포토카드 (심쿵 Ver.)', saleEnd:'2026-10-25',
+    rule:'5장 구매 시 중복 없이 증정', entry:'쇼케이스 초대권 응모 · 앨범 1장당 응모권 1매', winners:'10명', prize:'쇼케이스 이벤트 초대권 (타 판매처 중복 당첨 불가)', price:'26,000'},
+  {group:'오프라인', name:'메이크스타', sub:'개인 영상통화', ver:['Standard'], perk:'미공개 셀카 포토카드 (여우 Ver.)', saleEnd:'2026-10-28',
+    rule:'5장 구매 시 중복 없이 증정', entry:'개인 영상통화 응모 · 앨범 1장당 응모권 1매', winners:'멤버별 10명',
+    prize:'응모 멤버와 영상통화 + 응모 멤버 기명 사인 앨범 1매', event:'사인 폴라로이드 1매 (당첨자 중 5명 선정)', price:'20,800'},
+  {group:'오프라인', name:'메이크스타', sub:'대면 팬사인회', ver:['Standard'], perk:'미공개 셀카 포토카드 (토끼 Ver.)', saleEnd:'2026-10-28',
+    rule:'5장 구매 시 중복 없이 증정', entry:'대면 팬사인회 응모 · 앨범 1장당 응모권 1매', winners:'40명',
+    prize:'대면 팬사인회 참석권 + 기명 사인 앨범 1매 + 사인 포토카드 랜덤 1매', event:'사인 폴라로이드 1매 (당첨자 중 5명 선정)', price:'20,800'},
+];
+const COLLECT = [['Standard',40],['Limited',10],['QR',25],['Wappen',7],['Guardian',10]];
+// 응원봉 판매 시작 시각
+const LIGHTSTICK_OPEN = '2026-10-26T12:00';
+const LIGHTSTICK_SOLDOUT = true; // 품절이면 true, 재입고되면 false
 /* ========================================== */
 
 const $ = id => document.getElementById(id);
@@ -274,8 +608,19 @@ const store = { get(k){ try { return localStorage.getItem(k); } catch(e){ return
 
 /* clock + countdown */
 const clockFmt = new Intl.DateTimeFormat('ko-KR',{timeZone:'Asia/Seoul',hour:'2-digit',minute:'2-digit',second:'2-digit',hour12:false});
+function tickLightstick(now){
+  const open = kst(...LIGHTSTICK_OPEN.split('T')), d = LIGHTSTICK_OPEN.slice(0,10), t = LIGHTSTICK_OPEN.slice(11);
+  const badge = $('lsBadge'), sub = $('lsSub');
+  if (now >= open && LIGHTSTICK_SOLDOUT) { badge.textContent = 'SOLD OUT'; badge.classList.remove('on'); badge.classList.add('sold'); sub.textContent = `${md(d)} (${wd(d)}) ${t} 예약 판매 · 품절`; return; }
+  if (now >= open) { badge.textContent = 'NOW ON SALE'; badge.classList.add('on'); sub.textContent = `${md(d)} (${wd(d)}) ${t}부터 판매 중`; return; }
+  let left = open - now; const dd = Math.floor(left/864e5); left -= dd*864e5;
+  const h = Math.floor(left/36e5), m = Math.floor((left - h*36e5)/6e4);
+  const rest = dd ? `${dd}일 ${h}시간 남음` : h ? `${h}시간 ${m}분 남음` : `${Math.max(m,1)}분 남음`;
+  sub.textContent = `${md(d)} (${wd(d)}) ${t} 판매 시작 · ${rest}`;
+}
 function tick(){
   const now = Date.now();
+  tickLightstick(now);
   $('clock').textContent = clockFmt.format(now);
   const t = todayStr();
   $('today').textContent = `${md(t)} (${wd(t)}) KST 기준`;
@@ -304,12 +649,39 @@ function dayBlock(date, evs, isPast){
   });
   wrap.append(lab, list); return wrap;
 }
+const Q = {schedule:'', vote:'', album:''};
+const qWords = q => q.toLowerCase().split(/[\s,]+/).filter(Boolean);
+const qHit = (q, parts) => { if (!q) return true; const h = parts.filter(Boolean).join(' ').toLowerCase().replace(/\s+/g,' '); return qWords(q).every(w => h.includes(w)); };
+function showResult(key, q, n, emptyMsg){
+  const rs = $(key + 'Result'); rs.hidden = !q;
+  if (q) rs.replaceChildren(document.createTextNode(`'${q}' 검색 결과 `), el('b',null,`${n}건`));
+}
+function bindSearch(key, render){
+  const inp = $(key + 'Search'), clr = $(key + 'Clear');
+  const set = v => { Q[key] = v; clr.hidden = !v; render(); };
+  inp.addEventListener('input', () => set(inp.value.trim()));
+  inp.addEventListener('keydown', e => { if (e.key === 'Escape') { inp.value = ''; set(''); } });
+  clr.addEventListener('click', () => { inp.value = ''; set(''); inp.focus(); });
+}
+const evParts = e => { const [y,m,d] = e.date.split('-').map(Number); return [e.type, e.title, e.place, e.time, md(e.date), `${m}월 ${d}일`, wd(e.date)+'요일']; };
 function renderSchedule(){
   const now = Date.now();
+  const q = Q.schedule;
   const sorted = [...SCHEDULE].sort((a,b) => kst(a.date,a.time||'00:00') - kst(b.date,b.time||'00:00'));
   const upcoming = sorted.filter(e => evTime(e) >= now), past = sorted.filter(e => evTime(e) < now);
   const group = arr => arr.reduce((m,e) => ((m[e.date] ||= []).push(e), m), {});
   const fill = (box, arr, isPast) => { box.replaceChildren(); const g = group(arr); Object.keys(g).forEach(d => box.append(dayBlock(d, g[d], isPast))); };
+  if (q) {
+    const up = upcoming.filter(e => qHit(q, evParts(e))), pa = past.filter(e => qHit(q, evParts(e)));
+    fill($('days'), up, false);
+    const g = group(pa); Object.keys(g).forEach(d => $('days').append(dayBlock(d, g[d], true)));
+    if (!up.length && !pa.length) $('days').append(el('div','empty', `'${q}'(이)가 들어간 일정이 없어요.`));
+    highlight($('days'), q);
+    showResult('schedule', q, up.length + pa.length);
+    $('next').hidden = true; $('pastBtn').hidden = true; $('pastDays').hidden = true;
+    return;
+  }
+  showResult('schedule', '', 0); $('next').hidden = false;
   fill($('days'), upcoming, false);
   if (!upcoming.length) $('days').append(el('div','empty','예정된 일정이 없어요. 새 일정이 나오면 업데이트할게요.'));
   fill($('pastDays'), past.reverse(), true);
@@ -343,7 +715,12 @@ let filter = store.get('rescene-filter') || 'all';
 if (!FILTERS.some(f => f[0] === filter)) filter = 'all';
 let showEnded = false;
 
+let query = '';
+const norm = v => String(v).toLowerCase().replace(/\s+/g,' ');
+const haystack = c => norm([c.kind, c.kind==='팝업'?'popup':'collab', c.brand, c.who, c.title, c.note||'', c.announce||'', ...c.how, ...c.gifts.flat()].join(' '));
+const hit = c => !query || query.toLowerCase().split(/[\s,]+/).filter(Boolean).every(w => haystack(c).includes(w));
 function matches(c, s){
+  if (!hit(c)) return false;
   if (filter === 'all') return true;
   if (filter === 'urgent') return s.key === 'urgent';
   if (filter === 'new') return !!c.isNew;
@@ -352,7 +729,7 @@ function matches(c, s){
 function card(c, s){
   const cls = 'card' + (s.key==='urgent'?' urgent':'') + (s.key==='ended'?' ended':'');
   let box;
-  if (c.cafe) { box = el('a', cls); box.href = c.cafe; box.target = '_blank'; box.rel = 'noopener'; box.setAttribute('aria-label', `${c.brand} ${c.title} 카페 글 열기`); }
+  if (c.cafe) { box = el('a', cls); box.href = c.cafe; box.target = '_blank'; box.rel = 'noopener'; box.setAttribute('aria-label', `${c.brand} ${c.title} 공지 열기`); }
   else box = el('article', cls);
   const r1 = el('div','row1');
   const br = el('div','brand'); br.append(el('span','kind', c.kind==='팝업'?'POP-UP ':'COLLAB '), el('b',null,c.brand), document.createTextNode(' · ' + c.who));
@@ -360,20 +737,35 @@ function card(c, s){
   const t = el('div','ctitle'); if (c.isNew) t.append(el('span','new','NEW')); t.append(document.createTextNode(c.title));
   const meta = el('div','meta');
   c.how.forEach(h => meta.append(el('span','how',h)));
-  const period = c.start ? `${md(c.start)} ~ ${c.end ? md(c.end) : ''}` : '';
+  const period = c.start ? `${md(c.start)} ~ ${c.end ? md(c.end) : ''}` : c.end ? `~ ${md(c.end)}${c.endTime ? ' ' + c.endTime : ''}` : '';
   const tail = [period, !c.end ? '재고 소진 시까지' : '', c.note || ''].filter(Boolean).join(' · ');
   if (tail) meta.append(el('span','tnum',tail));
+  if (c.announce) meta.append(el('span','ann', '당첨 발표 ' + c.announce));
   const ul = el('ul','gifts');
   c.gifts.forEach(([g,n]) => { const li = el('li'); li.append(el('span',null,g)); if (n) li.append(el('span','tnum',n)); ul.append(li); });
   box.append(r1, t, meta, ul);
-  if (c.cafe) { const go = el('span','go','카페 글 보기'); go.insertAdjacentHTML('beforeend','<svg viewBox="0 0 16 16" width="13" height="13" aria-hidden="true"><path d="M6 3h7v7M13 3 4 12" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>'); box.append(go); }
+  if (c.cafe) { const go = el('span','go','공지로 이동'); go.insertAdjacentHTML('beforeend','<svg viewBox="0 0 16 16" width="13" height="13" aria-hidden="true"><path d="M6 3h7v7M13 3 4 12" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>'); box.append(go); }
   return box;
+}
+function highlight(root, q = query){
+  if (!q) return;
+  const words = q.trim().toLowerCase().split(/[\s,]+/).filter(Boolean);
+  if (!words.length) return;
+  const re = new RegExp('(' + words.map(w => w.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')).join('|') + ')','gi');
+  const walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT);
+  const nodes = []; while (walker.nextNode()) nodes.push(walker.currentNode);
+  nodes.forEach(n => {
+    const parts = n.nodeValue.split(re); if (parts.length < 2) return;
+    const frag = document.createDocumentFragment();
+    parts.forEach((p,i) => frag.append(i % 2 ? el('mark',null,p) : document.createTextNode(p)));
+    n.replaceWith(frag);
+  });
 }
 function renderCollabs(){
   const items = COLLABS.map(c => ({c, s:statusOf(c)}));
   const fb = $('filters'); fb.replaceChildren();
   FILTERS.forEach(([k,label]) => {
-    const n = items.filter(({c,s}) => s.key!=='ended' && (k==='all' || (k==='urgent'?s.key==='urgent':k==='new'?c.isNew:c.kind===k))).length;
+    const n = items.filter(({c,s}) => s.key!=='ended' && hit(c) && (k==='all' || (k==='urgent'?s.key==='urgent':k==='new'?c.isNew:c.kind===k))).length;
     const b = el('button','chip'); b.type = 'button'; b.setAttribute('aria-pressed', String(filter===k));
     b.append(document.createTextNode(label), el('span','n',String(n)));
     b.onclick = () => { filter = k; store.set('rescene-filter',k); renderCollabs(); };
@@ -382,22 +774,253 @@ function renderCollabs(){
   const list = items.filter(({c,s}) => matches(c,s) && (showEnded || s.key!=='ended'))
     .sort((a,b) => a.s.rank - b.s.rank || a.s.sort - b.s.sort);
   const box = $('cards'); box.replaceChildren(...list.map(({c,s}) => card(c,s)));
-  if (!list.length) box.append(el('div','empty', filter==='urgent' ? '3일 안에 마감되는 이벤트가 없어요.' : '해당하는 이벤트가 없어요.'));
+  highlight(box);
+  if (!list.length) box.append(el('div','empty', query ? `'${query}'(이)가 들어간 이벤트가 없어요.` : filter==='urgent' ? '3일 안에 마감되는 이벤트가 없어요.' : '해당하는 이벤트가 없어요.'));
+  const rs = $('searchResult'); rs.hidden = !query;
+  if (query) { rs.replaceChildren(document.createTextNode(`'${query}' 검색 결과 `), el('b',null,`${list.length}건`)); }
   const endedN = items.filter(({c,s}) => s.key==='ended' && matches(c,s)).length;
   const eb = $('endedBtn'); eb.hidden = !endedN;
   eb.textContent = showEnded ? '종료된 이벤트 숨기기' : `종료된 이벤트 ${endedN}개 보기`;
   eb.onclick = () => { showEnded = !showEnded; renderCollabs(); };
 
-  const live = items.filter(x => x.s.key!=='ended' && x.s.key!=='soon');
+  renderSummary();
+}
+function renderSummary(){
+  const items = COLLABS.map(c => statusOf(c));
   const sm = $('summary'); sm.replaceChildren();
   const tile = (n, label, cls) => { const d = el('div',cls); d.append(el('b','tnum',String(n)), el('span',null,label)); return d; };
-  sm.append(tile(live.length,'진행 중 이벤트'),
-    tile(items.filter(x => x.s.key==='urgent').length,'3일 안에 마감','hot'),
-    tile(SCHEDULE.filter(e => evTime(e) >= Date.now() && dDiff(e.date) <= 7).length,'7일 안 일정'));
+  sm.append(tile(SCHEDULE.filter(e => evTime(e) >= Date.now() && dDiff(e.date) <= 7).length,'7일 안 일정'),
+    tile(items.filter(s => s.key!=='ended' && s.key!=='soon').length,'진행 중 이벤트'),
+    tile(items.filter(s => s.key==='urgent').length,'3일 안에 마감','hot'),
+    tile(VOTES.filter(v => voteStatus(v).key!=='ended').length,'진행 중 투표'));
 }
 
-function renderAll(){ renderSchedule(); renderCollabs(); }
+/* votes */
+function voteStatus(v){
+  if (v.start) {
+    const sMs = kst(v.start, v.startTime || '00:00');
+    if (sMs > Date.now()) { const d = dDiff(v.start); return {key:'soon', label: d===0 ? `오늘 ${v.startTime || ''} 시작`.trim() : d===1 ? '내일 시작' : `D-${d} 시작`, sort:sMs}; }
+  }
+  const endMs = kst(v.end, v.endTime || '23:59');
+  if (endMs < Date.now()) return {key:'ended', label:'마감', sort:-endMs};
+  const d = dDiff(v.end);
+  if (d === 0) return {key:'urgent', label: v.endTime ? `오늘 ${v.endTime} 마감` : '오늘 마감', sort:endMs};
+  return {key: d <= 3 ? 'urgent' : 'open', label:`D-${d} 마감`, sort:endMs};
+}
+let showVoteEnded = false, calMonth = todayStr().slice(0,7);
+function voteMonths(){
+  const set = new Set(VOTES.map(v => v.end.slice(0,7))); set.add(todayStr().slice(0,7));
+  return [...set].sort();
+}
+function voteCard(v, s){
+  const cls = 'vcard' + (s.key==='urgent'?' urgent':'') + (s.key==='ended'?' ended':'');
+  let box;
+  if (v.cafe) { box = el('a', cls); box.href = v.cafe; box.target = '_blank'; box.rel = 'noopener'; box.style.textDecoration = 'none'; box.style.color = 'inherit'; }
+  else box = el('article', cls);
+  box.id = 'vote-' + v.end;
+  const r1 = el('div','row1');
+  r1.append(el('span','vkey',v.key), el('span','status ' + s.key, s.label));
+  const dl = el('dl','vdl');
+  const row = (k, val) => { if (!val) return; dl.append(el('dt',null,k), el('dd',null,val)); };
+  if (v.start) row('기간', `${md(v.start)} (${wd(v.start)})${v.startTime ? ' ' + v.startTime : ''} ~ ${md(v.end)} (${wd(v.end)})${v.endTime ? ' ' + v.endTime : ''}`);
+  else row('마감', `${md(v.end)} (${wd(v.end)})` + (v.endTime ? ` ${v.endTime}` : ''));
+  row('참여 대상', v.who); row('참여 조건', v.limit); row('연관 이벤트', v.related);
+  box.append(r1, el('div','vtitle',v.title), dl);
+  if (v.unite) {
+    const u = el('div','unite'); u.append(el('b',null,'연합 투표 진행'));
+    v.unite.forEach(([g,list]) => u.append(el('span',null,`${g} · ${list}`)));
+    box.append(u);
+  }
+  if (v.uniteNote) { const u = el('div','unite'); u.append(el('b',null,v.uniteNote)); box.append(u); }
+  if (v.cafe) { const go = el('span','go','공지로 이동'); go.insertAdjacentHTML('beforeend','<svg viewBox="0 0 16 16" width="12" height="12" aria-hidden="true"><path d="M6 3h7v7M13 3 4 12" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>'); box.append(go); }
+  return box;
+}
+function renderVotes(){
+  const items = VOTES.map(v => ({v, s:voteStatus(v)}));
+  const active = items.filter(x => x.s.key!=='ended').sort((a,b) => (a.s.key==='soon') - (b.s.key==='soon') || a.s.sort - b.s.sort);
+  const ended = items.filter(x => x.s.key==='ended').sort((a,b) => a.s.sort - b.s.sort);
+  const q = Q.vote;
+  const vParts = v => [v.key, v.short, v.title, v.who, v.limit, v.related, v.uniteNote, md(v.end), v.start ? md(v.start) : '', ...(v.unite || []).flat()];
+  const list = q ? active.concat(ended).filter(({v}) => qHit(q, vParts(v))) : showVoteEnded ? active.concat(ended) : active;
+  const box = $('votes'); box.replaceChildren(...list.map(({v,s}) => voteCard(v,s)));
+  if (!list.length) box.append(el('div','empty', q ? `'${q}'(이)가 들어간 투표가 없어요.` : '지금 열려 있는 투표가 없어요.'));
+  highlight(box, q); showResult('vote', q, list.length);
+  const eb = $('voteEndedBtn'); eb.hidden = !ended.length || !!q;
+  eb.textContent = showVoteEnded ? '마감된 투표 숨기기' : `마감된 투표 ${ended.length}개 보기`;
+  eb.onclick = () => { showVoteEnded = !showVoteEnded; renderVotes(); };
+  const cnt = $('voteCnt'); cnt.hidden = !active.length; cnt.textContent = active.length;
+  renderCal(items);
+}
+function renderCal(items){
+  const months = voteMonths();
+  if (!months.includes(calMonth)) calMonth = months[months.length-1];
+  const [y,m] = calMonth.split('-').map(Number);
+  $('calTitle').replaceChildren(document.createTextNode(String(m).padStart(2,'0')), el('span',null,`${y}년 ${m}월`));
+  const i = months.indexOf(calMonth);
+  $('calPrev').disabled = i <= 0; $('calNext').disabled = i >= months.length-1;
+  $('calPrev').onclick = () => { calMonth = months[i-1]; renderCal(items); };
+  $('calNext').onclick = () => { calMonth = months[i+1]; renderCal(items); };
+  const g = $('calGrid'); g.replaceChildren();
+  ['SUN','MON','TUE','WED','THU','FRI','SAT'].forEach((d,k) => g.append(el('span','wd' + (k===0?' sun':''), d)));
+  const first = new Date(Date.UTC(y,m-1,1)).getUTCDay();
+  const days = new Date(Date.UTC(y,m,0)).getUTCDate();
+  for (let k=0; k<first; k++) g.append(el('span'));
+  const t = todayStr();
+  for (let d=1; d<=days; d++) {
+    const ds = `${calMonth}-${String(d).padStart(2,'0')}`;
+    const hits = items.filter(x => x.v.end === ds);
+    const dow = (first + d - 1) % 7;
+    const cell = el(hits.length ? 'button' : 'span', 'cd-cell' + (dow===0?' sun':'') + (ds===t?' today':'') + (hits.length?' has':'') + (hits.length && hits.every(x => x.s.key==='ended')?' over':''));
+    cell.append(el('span','n',String(d)));
+    if (hits.length) {
+      cell.type = 'button';
+      cell.append(el('span','k', hits.map(x => x.v.short || x.v.key).join('·')));
+      cell.setAttribute('aria-label', `${m}월 ${d}일 마감: ${hits.map(x => x.v.title).join(', ')}`);
+      cell.onclick = () => {
+        if (hits.some(x => x.s.key==='ended') && !showVoteEnded) { showVoteEnded = true; renderVotes(); }
+        const target = document.getElementById('vote-' + ds);
+        if (target) {
+          target.scrollIntoView({behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth', block:'start'});
+          target.classList.add('flash'); setTimeout(() => target.classList.remove('flash'), 1400);
+        }
+      };
+    }
+    g.append(cell);
+  }
+}
+
+/* album */
+let curVer = 'Standard', storeGroup = 'all', storeVer = 'all';
+// 앨범 버전 색상 [배경, 글자]
+const VER_COLORS = {Standard:['#fdfdfd','#3a3f44'], Limited:['#a8b7ba','#1f2a2e'], QR:['#879da6','#14222a'], Wappen:['#989795','#1e1d1b'], Guardian:['#4e4d4b','#ffffff']};
+const DISC = '<svg viewBox="0 0 12 12" width="11" height="11" aria-hidden="true"><circle cx="6" cy="6" r="4.8" fill="none" stroke="currentColor" stroke-width="1.4"/><circle cx="6" cy="6" r="1.5" fill="currentColor"/></svg>';
+function verChip(v){
+  if (v === 'ALL') {
+    const c = el('span','vchip all'); const dots = el('span','vdots');
+    Object.values(VER_COLORS).forEach(([bg]) => { const i = el('i'); i.style.background = bg; dots.append(i); });
+    c.append(dots, document.createTextNode('전 버전')); return c;
+  }
+  const c = el('span','vchip'); const col = VER_COLORS[v];
+  if (col) { c.style.background = col[0]; c.style.color = col[1]; }
+  c.insertAdjacentHTML('beforeend', DISC); c.append(document.createTextNode(v)); return c;
+}
+function renderVer(){
+  const vt = $('verTabs'); vt.replaceChildren();
+  VERSIONS.forEach(v => { const b = el('button',null,v); b.type = 'button'; b.setAttribute('aria-pressed', String(v===curVer)); b.onclick = () => { curVer = v; renderVer(); }; vt.append(b); });
+  const c = COMPONENTS[curVer], box = $('verBox'); box.replaceChildren();
+  const dl = el('dl'); dl.style.margin = '0';
+  const row = ([k, val, r], only) => { const d = el('div','ver-row' + (only?' only':'')); const dd = el('dd',null,val); if (r) dd.append(el('span','rnd',r)); d.append(el('dt',null,k), dd); dl.append(d); };
+  c.base.forEach(x => row(x,false));
+  if (c.only.length) {
+    const d = el('div','ver-row only'); const dd = el('dd'); const lst = el('div','ex-list');
+    c.only.forEach(([k,v,r]) => { const sp = el('span'); sp.append(el('b',null,k)); if (v) sp.append(document.createTextNode(' ' + v)); if (r) sp.append(el('span','rnd',r)); lst.append(sp); });
+    dd.append(lst); d.append(el('dt',null,'전용 구성'), dd); dl.append(d);
+  }
+  box.append(dl);
+}
+function storeEnded(st){
+  if (st.ended) return true;
+  return !!st.saleEnd && kst(st.saleEnd,'23:59') < Date.now();
+}
+function storeCard(st){
+  const ended = storeEnded(st);
+  const box = el('article','scard' + (ended?' ended':''));
+  const head = el('div','s-head');
+  const nm = el('div','s-name'); nm.append(el('small',null, st.group==='특전'?'EXCLUSIVE':st.group==='공동구매'?'GROUP BUY':'OFFLINE EVENT'), document.createTextNode(st.name));
+  if (st.sub) nm.append(el('span','s-sub', st.sub));
+  head.append(nm);
+  if (st.group==='오프라인') {
+    const d = st.saleEnd ? dDiff(st.saleEnd) : null;
+    head.append(el('span','status ' + (ended?'ended':d===0?'urgent':'open'), ended?'이벤트 종료': d===0?'오늘 판매 마감': d!=null?`D-${d} 판매 마감`:'진행 중'));
+  }
+  const vc = el('div','vchips'); st.ver.forEach(v => vc.append(verChip(v)));
+  const perk = el('div','perk'); if (st.by) perk.append(el('div','s-sub',st.by)); perk.append(document.createTextNode(st.perk)); if (st.rnd) perk.append(el('span',null,st.rnd));
+  const dl = el('dl','vdl');
+  const r = (k,v) => { if (v) dl.append(el('dt',null,k), el('dd',null,v)); };
+  r('옵션', st.option); r('특이사항', st.rule); r('응모', st.entry); r('추첨 인원', st.winners); r('당첨 특전', st.prize); r('이벤트', st.event);
+  if (st.saleEnd) r('판매 기간', `~ ${md(st.saleEnd)} (${wd(st.saleEnd)})`);
+  box.append(head, vc, perk); if (dl.childElementCount) box.append(dl);
+  if (st.prices) {
+    const g = el('div','pgrid');
+    Object.entries(st.prices).forEach(([k,v]) => { const d = el('div'); d.append(el('span',null,k), el('b','tnum',v + '원')); g.append(d); });
+    box.append(g);
+  } else if (st.price) {
+    const p = el('div','prices');
+    const pr = (k,v) => { const d = el('div'); d.append(el('span',null,k), el('b','tnum', /\d/.test(v) ? v + '원' : v)); p.append(d); };
+    pr('개당', st.price); if (st.optPrice) pr('옵션', st.optPrice);
+    box.append(p);
+  }
+  return box;
+}
+function renderStores(){
+  const G = [['all','전체'],['특전','단독 특전'],['공동구매','공동구매'],['오프라인','오프라인 이벤트']];
+  const fb = $('storeFilters'); fb.replaceChildren();
+  const q = Q.album;
+  const sParts = x => [x.group, x.group==='특전'?'단독 특전':'', x.name, x.sub, x.perk, x.by, x.rnd, x.option, x.rule, x.event, x.entry, x.prize, x.winners, ...x.ver, ...(x.prices ? Object.keys(x.prices) : [])];
+  const verOk = (x, v) => v === 'all' || x.ver.includes('ALL') || x.ver.includes(v);
+  G.forEach(([k,label]) => {
+    const n = STORES.filter(x => (k==='all' || x.group===k) && verOk(x, storeVer) && qHit(q, sParts(x))).length;
+    const b = el('button','chip'); b.type = 'button'; b.setAttribute('aria-pressed', String(storeGroup===k));
+    b.append(document.createTextNode(label), el('span','n',String(n)));
+    b.onclick = () => { storeGroup = k; renderStores(); }; fb.append(b);
+  });
+  const vf = $('verFilters'); vf.replaceChildren();
+  [['all','전체 버전'], ...VERSIONS.map(v => [v, v])].forEach(([k,label]) => {
+    const n = STORES.filter(x => (storeGroup==='all' || x.group===storeGroup) && verOk(x, k) && qHit(q, sParts(x))).length;
+    const b = el('button','chip'); b.type = 'button'; b.setAttribute('aria-pressed', String(storeVer===k));
+    if (k !== 'all') { const d = el('span','vdot'); d.style.background = VER_COLORS[k][0]; b.append(d); b.style.display = 'inline-flex'; b.style.alignItems = 'center'; b.style.gap = '6px'; }
+    b.append(document.createTextNode(label), el('span','n',String(n)));
+    b.onclick = () => { storeVer = k; renderStores(); }; vf.append(b);
+  });
+  const list = STORES.filter(x => (storeGroup==='all' || x.group===storeGroup) && verOk(x, storeVer) && qHit(q, sParts(x)))
+    .map((x,i) => ({x,i,e:storeEnded(x)})).sort((a,b) => a.e - b.e || a.i - b.i);
+  const sb = $('stores'); sb.replaceChildren(...list.map(({x}) => storeCard(x)));
+  if (!list.length) sb.append(el('div','empty', q ? `'${q}'(이)가 들어간 판매처가 없어요.` : '해당하는 판매처가 없어요.'));
+  highlight(sb, q); showResult('album', q, list.length);
+}
+function renderAlbum(){
+  const now = Date.now(), ps = $('preorderStatus');
+  const st = kst(...PREORDER.start.split('T')), en = kst(...PREORDER.end.split('T'));
+  if (now < st) { ps.className = 'status soon'; ps.textContent = '예약 판매 전'; }
+  else if (now > en) { ps.className = 'status ended'; ps.textContent = '예약 판매 종료'; }
+  else { const d = dDiff(PREORDER.end.slice(0,10)); ps.className = 'status ' + (d<=3?'urgent':'ongoing'); ps.textContent = d===0 ? '오늘 예약 마감' : `예약 마감 D-${d}`; }
+  renderVer(); renderStores();
+  const c = $('collect'); c.replaceChildren();
+  COLLECT.forEach(([v,n]) => { const d = el('div'); d.append(el('span',null,v.toUpperCase()), el('b','tnum',n + '장')); c.append(d); });
+  const t = el('div','total'); t.append(el('span',null,'TOTAL · 미공개 포카 전종 수집'), el('b','tnum', COLLECT.reduce((a,[,n]) => a+n, 0) + '장')); c.append(t);
+}
+
+/* tabs */
+const TABS = ['schedule','collab','vote','album'];
+function openTab(id, scroll){
+  if (!TABS.includes(id)) id = 'schedule';
+  TABS.forEach(t => {
+    $(t).hidden = t !== id;
+    const b = $('tab-' + t); b.setAttribute('aria-selected', String(t === id)); b.tabIndex = t === id ? 0 : -1;
+  });
+  try { history.replaceState(null, '', '#' + id); } catch(e){}
+  store.set('rescene-tab', id);
+  if (scroll) { const tabs = document.querySelector('.tabs'); if (tabs.getBoundingClientRect().top <= 1) $(id).scrollIntoView({block:'start'}); }
+}
+TABS.forEach((t,k) => {
+  const b = $('tab-' + t);
+  b.addEventListener('click', () => openTab(t, true));
+  b.addEventListener('keydown', e => {
+    if (e.key !== 'ArrowRight' && e.key !== 'ArrowLeft') return;
+    const n = TABS[(k + (e.key === 'ArrowRight' ? 1 : TABS.length - 1)) % TABS.length];
+    openTab(n, false); $('tab-' + n).focus();
+  });
+});
+window.addEventListener('hashchange', () => openTab(location.hash.slice(1), false));
+
+bindSearch('schedule', renderSchedule); bindSearch('vote', renderVotes); bindSearch('album', renderStores);
+const sInput = $('collabSearch'), sClear = $('searchClear');
+sInput.addEventListener('input', () => { query = sInput.value.trim(); sClear.hidden = !query; renderCollabs(); });
+sInput.addEventListener('keydown', e => { if (e.key === 'Escape') { sInput.value = ''; query = ''; sClear.hidden = true; renderCollabs(); } });
+sClear.addEventListener('click', () => { sInput.value = ''; query = ''; sClear.hidden = true; renderCollabs(); sInput.focus(); });
+function renderAll(){ renderSchedule(); renderCollabs(); renderVotes(); renderAlbum(); }
 tick(); renderAll();
+openTab(location.hash.slice(1) || store.get('rescene-tab') || 'schedule', false);
 setInterval(tick, 1000);
 let lastDay = todayStr(), lastMin = Math.floor(Date.now()/6e4);
 setInterval(() => { const m = Math.floor(Date.now()/6e4); if (m !== lastMin) { lastMin = m; renderAll(); } }, 5000);
