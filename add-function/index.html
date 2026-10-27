@@ -1,1 +1,209 @@
-123
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>리시안셔스 현황판 · RESCENE</title>
+<meta name="description" content="리센느 PULSE 컴백 카운트다운, 다가오는 일정, 이벤트 마감 현황을 한눈에 보는 리시안셔스 팬 제작 현황판">
+<meta property="og:type" content="website">
+<meta property="og:title" content="리시안셔스 현황판 · RESCENE">
+<meta property="og:description" content="컴백 카운트다운 · 다가오는 일정 · 이벤트 마감 현황">
+<meta name="theme-color" content="#3F78AB">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="리센느 현황판">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&family=Noto+Sans+KR:wght@400;500;700;900&display=swap">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+
+<header class="topbar">
+  <div class="topbar-in">
+    <a class="logo" href="https://cafe.naver.com/re5cene" target="_blank" rel="noopener" aria-label="리시안셔스 네이버 카페로 가기"></a>
+    <div class="search">
+      <svg viewBox="0 0 20 20" width="18" height="18" aria-hidden="true"><circle cx="8.5" cy="8.5" r="5.5" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="m13 13 4 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+      <label class="sr" for="q">검색</label>
+      <input id="q" type="search" placeholder="일정·이벤트·투표·앨범 검색" autocomplete="off" enterkeyhint="search">
+      <button class="clear" id="qClear" type="button" aria-label="검색어 지우기" hidden><svg viewBox="0 0 16 16" width="14" height="14" aria-hidden="true"><path d="M4 4l8 8M12 4l-8 8" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></button>
+    </div>
+  </div>
+</header>
+
+<div class="wrap">
+  <section id="home" role="tabpanel" aria-labelledby="tab-home">
+  <div class="home-head">
+    <a class="banner-link" href="https://cafe.naver.com/re5cene" target="_blank" rel="noopener" aria-label="리시안셔스 네이버 카페로 가기">
+      <img class="banner" src="assets/image-02.jpeg" alt="리센느 다섯 멤버 단체 사진과 risianthus 로고" width="1080" height="340">
+    </a>
+    <div class="eyebrow">RESCENE · RISIANTHUS</div>
+    <h1>리시안셔스 현황판</h1>
+    <div class="clock"><b class="tnum" id="clock">--:--:--</b><span id="today">KST 기준</span></div>
+  </div>
+  <div class="home-result" id="homeResult" aria-live="polite" hidden></div>
+
+  <div class="comeback" aria-live="off">
+    <div class="cb-top">
+      <div class="cb-text">
+        <div class="lbl">COMEBACK</div>
+        <div class="title">미니 4집 "PULSE"<br>앨범·MV 공개까지</div>
+      </div>
+      <img class="pulse-logo" src="assets/image-03.png" alt="PULSE">
+    </div>
+    <div class="cd tnum" id="cd">
+      <div><b id="cd-d">-</b><span>일</span></div>
+      <div><b id="cd-h">-</b><span>시간</span></div>
+      <div><b id="cd-m">-</b><span>분</span></div>
+      <div><b id="cd-s">-</b><span>초</span></div>
+    </div>
+    <div class="sub">11월 3일 (화) 18:00 공개 · 20:00 쇼케이스</div>
+  </div>
+
+  <a class="ls-card" href="https://naver.me/xSB3cGuj" target="_blank" rel="noopener" aria-label="RESCENE 공식 응원봉 V2 판매 공지 열기">
+    <img class="ls-img" src="assets/image-04.jpeg" alt="RESCENE 공식 응원봉 V2" width="200" height="261">
+    <span class="ls-text">
+      <span class="ls-eyebrow">OFFICIAL LIGHT STICK</span>
+      <b class="ls-title">RESCENE OFFICIAL LIGHT STICK V2</b>
+      <span class="ls-sub" id="lsSub">10.26 (월) 12:00 판매 시작</span>
+      <span class="ls-go">공지로 이동<svg viewBox="0 0 16 16" width="12" height="12" aria-hidden="true"><path d="M6 3h7v7M13 3 4 12" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+    </span>
+    <span class="ls-badge" id="lsBadge">COMING SOON</span>
+  </a>
+
+  <div class="summary" id="summary"></div>
+
+  </section>
+
+  <section id="schedule" role="tabpanel" aria-labelledby="tab-schedule">
+    <div class="sec-head">
+      <h2><small>SCHEDULE</small>일정</h2>
+      <div class="head-right">
+        <span class="basis" title="10.26 자료 기준"><svg viewBox="0 0 16 16" width="13" height="13" aria-hidden="true"><path d="M13.5 8A5.5 5.5 0 1 1 11.9 4.1" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/><path d="M12.4 1.8v2.7H9.7" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/><path d="M8 5.2V8l1.9 1.3" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg>10.26 기준</span>
+      </div>
+    </div>
+    <div class="result" id="scheduleResult" aria-live="polite" hidden></div>
+    <div class="filters" role="group" aria-label="월 선택 (여러 개 선택 가능)" id="monthFilters"></div>
+    <div class="next" id="next"></div>
+    <div id="days"></div>
+    <button class="btn" id="pastBtn" type="button"></button>
+    <div id="pastDays" hidden></div>
+  </section>
+
+  <section id="collab" role="tabpanel" aria-labelledby="tab-collab" hidden>
+    <div class="sec-head">
+      <h2><small>EVENT</small>이벤트</h2>
+      <div class="head-right">
+        <div class="sort" role="group" aria-label="정렬 기준" data-sort="collab"><button type="button" data-v="end">마감순</button><button type="button" data-v="start">시작순</button></div>
+        <span class="basis" title="10.26 자료 기준"><svg viewBox="0 0 16 16" width="13" height="13" aria-hidden="true"><path d="M13.5 8A5.5 5.5 0 1 1 11.9 4.1" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/><path d="M12.4 1.8v2.7H9.7" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/><path d="M8 5.2V8l1.9 1.3" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg>10.26 기준</span>
+      </div>
+    </div>
+    <div class="filters" role="group" aria-label="보기 필터 (여러 개 선택 가능)" id="filters"></div>
+    <div class="result" id="searchResult" aria-live="polite" hidden></div>
+    <div class="cards" id="cards"></div>
+    <button class="btn" id="endedBtn" type="button"></button>
+  </section>
+
+  <section id="vote" role="tabpanel" aria-labelledby="tab-vote" hidden>
+    <div class="sec-head">
+      <h2><small>VOTE</small>투표</h2>
+      <div class="head-right">
+        <div class="sort" role="group" aria-label="정렬 기준" data-sort="vote"><button type="button" data-v="end">마감순</button><button type="button" data-v="start">시작순</button></div>
+        <span class="basis" title="10.26 자료 기준"><svg viewBox="0 0 16 16" width="13" height="13" aria-hidden="true"><path d="M13.5 8A5.5 5.5 0 1 1 11.9 4.1" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/><path d="M12.4 1.8v2.7H9.7" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/><path d="M8 5.2V8l1.9 1.3" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg>10.26 기준</span>
+      </div>
+    </div>
+    <div class="result" id="voteResult" aria-live="polite" hidden></div>
+    <div class="cal" id="cal">
+      <div class="cal-head">
+        <div class="cal-title" id="calTitle"></div>
+        <div class="cal-nav">
+          <button type="button" id="calPrev" aria-label="이전 달"><svg viewBox="0 0 16 16" width="14" height="14" aria-hidden="true"><path d="M10 3 5 8l5 5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+          <button type="button" id="calNext" aria-label="다음 달"><svg viewBox="0 0 16 16" width="14" height="14" aria-hidden="true"><path d="m6 3 5 5-5 5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+        </div>
+      </div>
+      <div class="cal-grid" id="calGrid"></div>
+      <div class="cal-legend"><span><i></i>투표 마감일</span><span><i class="o"></i>마감된 투표</span><span>날짜를 누르면 해당 투표로 이동해요</span></div>
+    </div>
+    <div class="cards" id="votes"></div>
+    <button class="btn" id="voteEndedBtn" type="button"></button>
+  </section>
+
+  <section id="album" role="tabpanel" aria-labelledby="tab-album" hidden>
+    <div class="sec-head">
+      <h2><small>ALBUM GUIDE</small>앨범</h2>
+    </div>
+    <div class="al-hero">
+      <div class="al-hero-text">
+        <span class="lbl">RESCENE 4TH MINI ALBUM</span>
+        <b>[ PULSE ] 예약 판매</b>
+        <span class="tnum">10.13 (화) 12:00 ~ 11.02 (월) 23:59</span>
+      </div>
+      <span class="status" id="preorderStatus"></span>
+    </div>
+
+    <h3 class="sub-h"><small>COMPONENTS</small>버전별 구성</h3>
+    <div class="ver-tabs" role="group" aria-label="앨범 버전 선택" id="verTabs"></div>
+    <div class="ver-box" id="verBox" aria-live="polite"></div>
+    <details class="terms">
+      <summary>Wappen · Locket이 뭐예요?</summary>
+      <p><b>Wappen (와펜)</b> 이름, 로고 같은 상징을 나타내는 장식용 패치예요. 군복에 붙이는 부대 마크도 와펜의 일종이에요.</p>
+      <p><b>Locket (로켓)</b> 사진 등을 넣어 목걸이에 다는 작은 갑이에요. 가족이나 연인 사진을 넣는 용도로 영화에도 자주 나와요.</p>
+    </details>
+    <p class="al-note">※ 앨범 구성품은 모두 랜덤이에요. 여러 개를 사도 세트로 지급되지 않아요.</p>
+
+    <div class="sub-row">
+      <h3 class="sub-h"><small>WHERE TO BUY</small>판매처별 특전<span class="sub-note">카드를 누르면 포토카드 Preview가 떠요</span></h3>
+      <label class="switch"><input type="checkbox" id="calcToggle" role="switch"><span class="track" aria-hidden="true"></span><span>계산기</span></label>
+    </div>
+    <p class="al-note" id="calcHint" hidden>※ 카드의 +/− 로 수량을 담으면 아래에 합계가 나와요. 가격은 판매처 기준이라 배송비·할인은 빠져 있어요.</p>
+    <div class="result" id="albumResult" aria-live="polite" hidden></div>
+    <div class="filters" role="group" aria-label="판매처 종류 (여러 개 선택 가능)" id="storeFilters"></div>
+    <div class="filters" role="group" aria-label="앨범 버전 (여러 개 선택 가능)" id="verFilters"></div>
+    <div class="cards" id="stores"></div>
+    <p class="al-note">※ 한정 수량이라 조기 소진될 수 있으니 구매 전 꼭 확인해 주세요.</p>
+
+    <h3 class="sub-h"><small>ALBUMS</small>미공개 포토카드 전부 모으려면</h3>
+    <div class="collect" id="collect"></div>
+    <p class="al-note">※ YES24 QR 특전은 QR SET 구매 기준으로 계산했어요. YES24 Guardian 특전은 QR과 별개로 계산했고, 올리브영·무신사 오프라인은 온라인과 같은 이미지라 한 번만 계산했어요.</p>
+  </section>
+
+  <footer>
+    <span>※ 일정과 특전은 사정에 따라 바뀌거나 조기 소진될 수 있어요. 공식 공지와 각 업체 공식 홈페이지를 꼭 확인해 주세요.</span>
+    <span>공식 채널: <a href="https://x.com/RESCENEofficial" target="_blank" rel="noopener">X @RESCENEofficial</a> · <a href="https://www.instagram.com/rescene_official" target="_blank" rel="noopener">Instagram @rescene_official</a></span>
+    <span class="maker">제작자 리시안셔스 밤밤밤</span>
+  </footer>
+</div>
+
+<nav class="bnav" role="tablist" aria-label="메뉴">
+  <div class="bnav-in">
+    <button class="bn" role="tab" id="tab-home" aria-controls="home" type="button"><span class="ic"><svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M4 10.5 12 4l8 6.5V19a1 1 0 0 1-1 1h-4.5v-5.5h-5V20H5a1 1 0 0 1-1-1z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>홈</button>
+    <button class="bn" role="tab" id="tab-schedule" aria-controls="schedule" type="button"><span class="ic"><svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><rect x="4" y="5.5" width="16" height="14.5" rx="2.5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><path d="M4 10h16M8.5 3.5v4M15.5 3.5v4" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>일정</button>
+    <button class="bn" role="tab" id="tab-collab" aria-controls="collab" type="button"><span class="ic"><svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><rect x="4" y="9" width="16" height="11" rx="1.5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><path d="M3 9h18M12 9v11M12 9C10.5 5 6 4.5 6 7s3.5 2 6 2c2.5 0 6 .5 6-2s-4.5-2-6 2" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>이벤트</button>
+    <button class="bn" role="tab" id="tab-vote" aria-controls="vote" type="button"><span class="ic"><svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M4 14h16v6H4zM7 14V5h10v9" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><path d="m9.5 9.5 2 2 3.5-4" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>투표</button>
+    <button class="bn" role="tab" id="tab-album" aria-controls="album" type="button"><span class="ic"><svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><circle cx="12" cy="12" r="8" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><circle cx="12" cy="12" r="2.5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>앨범</button>
+  </div>
+</nav>
+
+<dialog class="vmodal" id="verModal" aria-labelledby="verModalTitle">
+  <div class="vm-head">
+    <h3 id="verModalTitle">버전 구성</h3>
+    <button class="vm-close" id="verModalClose" type="button" aria-label="닫기"><svg viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><path d="M4 4l8 8M12 4l-8 8" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></button>
+  </div>
+  <div class="vm-body"><img id="verModalImg" alt=""></div>
+</dialog>
+
+<div class="calcbar" id="calcBar" hidden>
+  <details id="calcDetails">
+    <summary>
+      <span class="cb-l"><span class="cb-k">합계</span><b class="tnum" id="calcTotal">0원</b></span>
+      <span class="cb-r"><span class="tnum" id="calcCount">0개 선택</span><svg viewBox="0 0 16 16" width="14" height="14" aria-hidden="true"><path d="m4 10 4-4 4 4" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+    </summary>
+    <ul class="cb-list" id="calcList"></ul>
+    <button class="btn" id="calcReset" type="button">전체 비우기</button>
+  </details>
+</div>
+
+<script src="script-1.js"></script>
+
+<script src="script-2.js"></script>
+</body>
+</html>

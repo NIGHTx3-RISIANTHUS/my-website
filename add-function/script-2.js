@@ -1,0 +1,50 @@
+/* 앨범 버전별 구성 사진 */
+const VER_IMG = {
+  Standard:'assets/image-05.jpeg',
+  Limited:'assets/image-06.jpeg',
+  QR:'assets/image-07.jpeg',
+  Wappen:'assets/image-08.jpeg',
+  Guardian:'assets/image-09.jpeg',
+};
+/* 판매처 특전 사진 이미지 이름과 연결 */
+const STORE_IMG = {
+  makestar_puppy:'assets/image-10.webp',
+  makestar_mz:'assets/image-11.webp',
+  pin_concept:'assets/image-12.webp',
+  bmart:'assets/image-13.webp',
+  starstation:'assets/image-14.webp',
+  oliveyoung:'assets/image-15.webp',
+  allmd:'assets/image-16.webp',
+  withmuu:'assets/image-17.webp',
+  pluschat:'assets/image-18.webp',
+  whosfan:'assets/image-19.webp',
+  whosfan_showcase:'assets/image-20.webp',
+  cu_qr:'assets/image-21.webp',
+  cu_wappen:'assets/image-22.webp',
+  pin_artwork:'assets/image-23.webp',
+  yes24:'assets/image-24.webp',
+  yes24_guardian:'assets/image-25.webp',
+  makestar_kitty:'assets/image-26.webp',
+  makestar_bite:'assets/image-27.webp',
+};
+const STORE_IMG_TITLE = {
+  makestar_kitty:'메이크스타 · 털실냥이 Ver.',
+  bmart:'B마트 특전',
+  cu_qr:'포켓 CU · QR',
+  whosfan:'후즈팬 예약 판매 특전',
+  cu_wappen:'포켓 CU · Wappen',
+  withmuu:'위드뮤 예약 판매 특전',
+  starstation:'스타스테이션 · 애교 Ver.',
+  yes24:'YES24 단독 특전',
+  oliveyoung:'올리브영 단독 특전',
+  yes24_guardian:'YES24 · Guardian',
+  pin_artwork:'Ktown4U · Pulse (Artwork Ver.) 핀버튼',
+  pin_concept:'뮤직 플랜트 · Pulse (Concept Photo Ver.) 핀버튼',
+  allmd:'ALL MD · 리마인 파이팅 Ver.',
+  makestar_bite:'메이크스타 SHOWCASE · 한입만 Ver.',
+  whosfan_showcase:'후즈팬 SHOWCASE 응모자 특전',
+  makestar_puppy:'메이크스타 단체 영상통화 · 강아지 Ver.',
+  makestar_mz:'메이크스타 대면 팬사인회 · MZ 사원 Ver.',
+  pluschat:'플러스챗 SHOWCASE · 심쿵 Ver.',
+};
+renderVer(); renderStores();
