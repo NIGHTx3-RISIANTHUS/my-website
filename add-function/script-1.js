@@ -65,7 +65,7 @@ const COLLABS = [
   // 종료된 이벤트
   {kind:'콜라보', cafe:'https://cafe.naver.com/re5cene/59295', brand:'메가스터디', who:'리센느', title:'세상아 기대해', start:'2026-10-07', end:'2026-10-20', how:['응모 추첨'], gifts:[['NFC 포토 키링','2,000명'],['CU 3,000원권','1,000명']]},
   {kind:'팝업', cafe:'https://naver.me/GwfctHXK', brand:'LIT&MAT', who:'리브·메이', title:'LIT&MAT OFFICIAL POP-UP STORE', start:'2026-10-16', end:'2026-10-22', how:['현장 구매'], gifts:[['굿즈 판매','']]},
-  {kind:'콜라보', cafe:'https://naver.me/5JqwgXLz', brand:'할리스', who:'리센느', title:'행운 담은 찹쌀떡 세트', start:'2026-10-27', end:'2026-11-04', how:['구매 특전'], gifts:[['리센느 행운부적','']]},
+  {kind:'콜라보', cafe:'https://naver.me/5JqwgXLz', brand:'할리스', who:'리센느', title:'행운 담은 찹쌀떡 세트', isNew:true, start:'2026-10-27', end:'2026-11-04', how:['구매 특전'], gifts:[['리센느 행운부적','']]},
 ];
 
 // 투표: start/startTime 시작(있을 때만), end 마감일, endTime 마감 시각, 카페 공지 링크
