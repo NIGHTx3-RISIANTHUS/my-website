@@ -26,9 +26,9 @@ const STORE_IMG = {
   yes24_guardian:'assets/image-25.webp',
   makestar_kitty:'assets/image-26.webp',
   makestar_bite:'assets/image-27.webp',
-  musinsa_guardian:'assets/image-,
-  makestar_fox:'assets/image-,
-  makestar_rabbit:'assets/image-,
+  musinsa_guardian:'assets/musinsa_guardian',
+  makestar_fox:'assets/makestar_fox',
+  makestar_rabbit:'assets/makestar_rabbit',
 };
 const STORE_IMG_TITLE = {
   makestar_kitty:'메이크스타 · 털실냥이 Ver.',
