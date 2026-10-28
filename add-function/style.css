@@ -261,7 +261,7 @@ html{scroll-behavior:smooth}
 .vdeadline{font-size:12px;color:var(--muted)}
 @media (prefers-reduced-motion:no-preference){.vcard{transition:box-shadow .3s,border-color .3s}}
 
-.al-hero{background:var(--cb);color:var(--cb-ink);border-radius:16px;padding:16px;display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
+.al-hero{background:var(--cb);color:var(--cb-ink);border-radius:16px;padding:16px;display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;position:relative;padding-bottom:38px}
 .al-hero-text{display:flex;flex-direction:column;gap:2px;min-width:0}
 .al-hero .lbl{font-family:var(--display);letter-spacing:.18em;font-size:11px;opacity:.85}
 .al-hero b{font-size:18px}
@@ -353,3 +353,4 @@ body.modal-open{overflow:hidden}
 .ls-badge{font-family:var(--display);font-size:11px;font-weight:700;letter-spacing:.12em;white-space:nowrap;padding:6px 10px;border-radius:999px;background:var(--accent);color:var(--surface)}
 @media (max-width:420px){.ls-card{grid-template-columns:auto 1fr;gap:12px}.ls-img{grid-row:span 2;width:68px}.ls-badge{grid-column:2;justify-self:start;padding:4px 9px}}
 @media (prefers-reduced-motion:reduce){.ls-card{transition:none}.ls-card:hover{transform:none}}
+.al-hero .preorder-notice-btn{position:absolute;right:16px;bottom:12px;display:inline-block;width:auto;margin:0;padding:0;border:0;border-radius:0;background:transparent;color:#FFFFFF;font-size:12px;font-weight:700;text-decoration:none;cursor:pointer;z-index:1}.al-hero .preorder-notice-btn:hover{color:#FFFFFF;text-decoration:underline}.al-hero .preorder-notice-btn:focus-visible{outline:2px solid #FFFFFF;outline-offset:3px}
