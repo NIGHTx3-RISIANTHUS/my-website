@@ -34,21 +34,21 @@ const SCHEDULE = [
 
 //이벤트 메뉴
 // kind: 콜라보/팝업, end 없으면 재고 소진 시까지, endTime 기본 23:59, ended:true → 날짜와 상관없이 종료(소진·조기 마감)
-// cafe: 누르면 열릴 공지 이동 (없으면 안눌림), announce: 당첨자 발표, isNew: 새 항목 (종료되면 자동 숨김)
+// cafe: 누르면 열릴 공지 이동 (없으면 안눌림), announce: 당첨자 발표, added: 업로드날짜 (업로드 날짜부터 NEW 표시. 3일 후 자동 해제)
 // 이 문구를 찾으신 분께는 소정의 상품을 드립니다. 캡쳐해서 댓글을 남겨주세요
 const COLLABS = [
   {kind:'콜라보', cafe:'https://naver.me/G5k7rAUy', brand:'CU', who:'리센느', title:'RESCENE x CU BAKE 405_#1', start:'2026-09-17', end:'2026-10-25', how:['구매 특전'], gifts:[['포토카드','']]},
   {kind:'콜라보', cafe:'https://naver.me/G5k7rAUy', brand:'CU', who:'리센느', title:'RESCENE x CU BAKE 405_#2', start:'2026-10-25', how:['구매 특전'], gifts:[['포토카드','']]},
   {kind:'콜라보', cafe:'https://naver.me/G5k7rAUy', brand:'CU', who:'리센느', title:'리센느와 완성하는 일상 #1', start:'2026-09-17', end:'2026-10-25', announce:'11.02', how:['응모 추첨'], gifts:[['포토카드 5장 세트_아궁빵 Ver.','50명'],['키캡키링 5종 中 1종 랜덤','200명']]},
   {kind:'콜라보', cafe:'https://naver.me/G5k7rAUy', brand:'CU', who:'리센느', title:'리센느와 완성하는 일상 #2', start:'2026-09-23', end:'2026-10-25', announce:'11.09', how:['응모 추첨'], gifts:[['리센느 필름키링','200명'],['리센느 포토카드 5장 세트_Bake405 Ver.','50명']]},
-  {kind:'콜라보', cafe:'https://naver.me/G5k7rAUy', brand:'CU', who:'리센느', title:'리센느와 CU의 SWEET SCENE', isNew:true, start:'2026-10-26', end:'2026-12-06', announce:'12.10', how:['응모 추첨'], gifts:[['포토카드 스페셜 패키지','50명']]},
+  {kind:'콜라보', cafe:'https://naver.me/G5k7rAUy', brand:'CU', who:'리센느', title:'리센느와 CU의 SWEET SCENE', added:'2026-10-26', start:'2026-10-26', end:'2026-12-06', announce:'12.10', how:['응모 추첨'], gifts:[['포토카드 스페셜 패키지','50명']]},
   {kind:'콜라보', cafe:'https://naver.me/FwGMnIER', brand:'CU x 할리스커피', who:'리센느', title:'할리스 커피 마시고 리센느 스페셜 굿즈 받자!', start:'2026-09-28', end:'2026-10-27', announce:'11.06', how:['응모 추첨'], gifts:[['셀카 사인 폴라로이드 멤버별 1장','5명'],['리센느 스페셜 굿즈팩','50명'],['멤버별 포토카드 5종','1,000명']]},
   {kind:'콜라보', cafe:'https://naver.me/G2YIU1S4', brand:'GS25 x 할리스커피', who:'리센느', title:'GS25에서 만나는 HOLLYS 오늘의 커피 모먼트', start:'2026-09-29', end:'2026-10-28', announce:'11.12', how:['응모 추첨'], gifts:[['친필 사인 폴라로이드 랜덤 1종','5명'],['리센느 스페셜 굿즈팩','50명'],['멤버별 포토카드 5종','1,000명']]},
   {kind:'콜라보', cafe:'https://naver.me/x2Y1PMgF', brand:'그레인온', who:'리센느', title:'RESCENE EDITION Ver.네이버', start:'2026-10-01', how:['구매 특전'], gifts:[['포토카드 + 엽서 Ver.네이버','']]},
   {kind:'콜라보', cafe:'https://naver.me/x2Y1PMgF', brand:'그레인온', who:'리센느', title:'RESCENE EDITION Ver.카카오', start:'2026-10-01', how:['구매 특전'], gifts:[['포토카드 + 엽서 Ver.카카오','']]},
   {kind:'콜라보', cafe:'https://naver.me/x2Y1PMgF', brand:'그레인온', who:'원이', title:'첫 번째 이야기, 원이의 베리말차', start:'2026-09-21', end:'2026-10-04', announce:'10.12', how:['응모 추첨'], gifts:[['리센느 전원 친필사인 응원봉','1명'],['원이 한정 포스터','50명'],['원이 베리말차 효소 1box','30명']]},
   {kind:'콜라보', cafe:'https://naver.me/x2Y1PMgF', brand:'그레인온', who:'리브·미나미', title:'두 번째 이야기, 리브와 미나미의 맛', start:'2026-10-12', end:'2026-10-25', announce:'11.02', how:['응모 추첨'], gifts:[['리브&미나미 한정 포스터 + 제품 1box','5명'],['리브 포스터 / 미나미 포스터','각 50명'],['리브의 쿠키앤크림 / 미나미의 크림소다 1box','각 30명']]},
-  {kind:'콜라보', cafe:'https://naver.me/x2Y1PMgF', brand:'그레인온', who:'메이·제나', title:'세 번째 이야기, 메이와 제나의 맛', isNew:true, start:'2026-10-26', end:'2026-11-08', announce:'11.16', how:['응모 추첨'], gifts:[['메이&제나 한정 포스터 + 제품 1box','5명'],['메이 포스터 / 제나 포스터','각 50명'],['메이의 유자레몬 / 제나의 블루베리요거트 1box','각 30명']]},
+  {kind:'콜라보', cafe:'https://naver.me/x2Y1PMgF', brand:'그레인온', who:'메이·제나', title:'세 번째 이야기, 메이와 제나의 맛', added:'2026-10-26', start:'2026-10-26', end:'2026-11-08', announce:'11.16', how:['응모 추첨'], gifts:[['메이&제나 한정 포스터 + 제품 1box','5명'],['메이 포스터 / 제나 포스터','각 50명'],['메이의 유자레몬 / 제나의 블루베리요거트 1box','각 30명']]},
   {kind:'콜라보', cafe:'https://naver.me/FJOmH0B8', brand:'카사베르디', who:'리센느', title:'프리미엄 레드와인 비니거 스틱 기프트 에디션', start:'2026-09-24', ended:true, how:['구매 특전'], gifts:[['미니포스터(엽서)','']]},
   {kind:'콜라보', cafe:'https://naver.me/FDcqQElt', brand:'에이페', who:'리센느', title:'에이페 x 리센느 포토카드 이벤트', start:'2026-09-02', how:['구매 특전'], gifts:[['10만원 이상 구매 시 5종 SET'],['5만원 이상 구매 시 5종 中 2종 랜덤','']]},
   {kind:'콜라보', cafe:'https://naver.me/G4dCrK67', brand:'MLB', who:'리브·미나미·메이·제나', title:'MY ICONIC BEANIE, THE RESCENE WAY', start:'2026-10-07', end:'2026-10-31', note:'재고 소진 시 조기 종료', how:['구매 특전'], gifts:[['포토카드','']]},
@@ -58,16 +58,16 @@ const COLLABS = [
   {kind:'콜라보', cafe:'https://naver.me/5OljnV06', brand:'나랑드사이다', who:'리센느', title:'ZERO A NEW SCENE, IN ZERO', how:['구매 특전'], gifts:[['리센느 브로마이드 1매 + 포토카드 랜덤 1매 세트','']]},
   {kind:'콜라보', cafe:'https://naver.me/xgXiagjL', brand:'MERMONT', who:'원이', title:'MERMONT x WONI', start:'2026-10-23', end:'2026-11-06', note:'포토카드는 재고 소진 시까지', how:['구매 특전','응모 추첨'], gifts:[['포토카드',''],['친필 사인 MERMONT 신상 모자','3명'],['친필 메시지 카드','3명']]},
   {kind:'콜라보', cafe:'https://cafe.naver.com/re5cene/76555', brand:'할리스몰', who:'리센느', title:'HOLLYS x RESCENE', start:'2026-10-23', how:['구매 특전'], gifts:[['친필 사인 포토카드','']]},
-  {kind:'콜라보', cafe:'https://cafe.naver.com/re5cene/80504', brand:'거제시', who:'리센느', title:'리센느 거제 명예시민 기념', isNew:true, end:'2026-10-30', endTime:'23:59', announce:'종료 후 7일 이내', how:['응모 추첨'], gifts:[['리센느 친필 사인','5명']]},
-  {kind:'콜라보', cafe:'https://cafe.naver.com/re5cene/79050', brand:'안원잘부', who:'리센느', title:'안원잘부 유튜브 구독자 이벤트_MLB', isNew:true, start:'2026-10-25', end:'2026-11-01', announce:'11.04', how:['응모 추첨'], gifts:[['리센느PICK 커브 패딩','5명'],['미야옹 비니','5명']]},
-  {kind:'콜라보', cafe:'https://naver.me/xB7LYQHU', brand:'한스킨', who:'미나미·제나', title:'미나미&제나 친필사인 포토카드 랜덤 증정', isNew:true, start:'2026-10-25', how:['구매 특전'], gifts:[['미나미·제나 포토카드','']]},
+  {kind:'콜라보', cafe:'https://cafe.naver.com/re5cene/80504', brand:'거제시', who:'리센느', title:'리센느 거제 명예시민 기념', added:'2026-10-26', end:'2026-10-30', endTime:'23:59', announce:'종료 후 7일 이내', how:['응모 추첨'], gifts:[['리센느 친필 사인','5명']]},
+  {kind:'콜라보', cafe:'https://cafe.naver.com/re5cene/79050', brand:'안원잘부', who:'리센느', title:'안원잘부 유튜브 구독자 이벤트_MLB', added:'2026-10-26', start:'2026-10-25', end:'2026-11-01', announce:'11.04', how:['응모 추첨'], gifts:[['리센느PICK 커브 패딩','5명'],['미야옹 비니','5명']]},
+  {kind:'콜라보', cafe:'https://naver.me/xB7LYQHU', brand:'한스킨', who:'미나미·제나', title:'미나미&제나 친필사인 포토카드 랜덤 증정', added:'2026-10-26', start:'2026-10-25', how:['구매 특전'], gifts:[['미나미·제나 포토카드','']]},
   {kind:'팝업', cafe:'https://cafe.naver.com/re5cene/50492', brand:'위드뮤', who:'리센느', title:'RESCENE POP-UP MD 온라인 몰', note:'11월 순차 발송', how:['예약 구매'], gifts:[['굿즈 판매','']]},
   {kind:'팝업', cafe:'https://cafe.naver.com/re5cene/50488', brand:'가우디', who:'리센느', title:'RESCENE X GAUDI Collaboration', start:'2026-10-01', end:'2026-10-31', how:['현장 구매'], gifts:[['굿즈 판매','']]},
   // 종료된 이벤트
   {kind:'콜라보', cafe:'https://cafe.naver.com/re5cene/59295', brand:'메가스터디', who:'리센느', title:'세상아 기대해', start:'2026-10-07', end:'2026-10-20', how:['응모 추첨'], gifts:[['NFC 포토 키링','2,000명'],['CU 3,000원권','1,000명']]},
   {kind:'팝업', cafe:'https://naver.me/GwfctHXK', brand:'LIT&MAT', who:'리브·메이', title:'LIT&MAT OFFICIAL POP-UP STORE', start:'2026-10-16', end:'2026-10-22', how:['현장 구매'], gifts:[['굿즈 판매','']]},
-  {kind:'콜라보', cafe:'https://naver.me/5JqwgXLz', brand:'할리스', who:'리센느', title:'행운 담은 찹쌀떡 세트', isNew:true, start:'2026-10-27', end:'2026-11-04', how:['구매 특전'], gifts:[['리센느 행운부적','']]},
-  {kind:'콜라보', cafe:'https://naver.me/5l2AS8Mj', brand:'삼성전자', who:'리센느', title:'일잘러 필수템 vs 전송 치트키, 당신의 원픽은?', isNew:true, start:'2026-10-28', end:'2026-11-11', how:['응모 추첨'], gifts:[['갤럭시X리센느 포토카드 세트','20명']]},
+  {kind:'콜라보', cafe:'https://naver.me/5JqwgXLz', brand:'할리스', who:'리센느', title:'행운 담은 찹쌀떡 세트', added:'2026-10-26', start:'2026-10-27', end:'2026-11-04', how:['구매 특전'], gifts:[['리센느 행운부적','']]},
+  {kind:'콜라보', cafe:'https://naver.me/5l2AS8Mj', brand:'삼성전자', who:'리센느', title:'일잘러 필수템 vs 전송 치트키, 당신의 원픽은?', added:'2026-10-28', start:'2026-10-28', end:'2026-11-11', how:['응모 추첨'], gifts:[['갤럭시X리센느 포토카드 세트','20명']]},
 ];
 
 // 투표 메뉴
@@ -218,7 +218,7 @@ function dayBlock(date, evs, isPast){
   evs.forEach(e => {
     const row = el('div','ev');
     row.append(el('span','time tnum', e.time || '종일'), el('span','tag t-'+e.type, e.type));
-    const w = el('div','what'); w.append(el('b',null,e.title)); if (e.place) w.append(el('span',null,e.place));
+    const w = el('div','what'); const title = el('b'); if(e.added && dDiff(e.added)<=0 && dDiff(e.added)>=-2) title.append(el('span','new','NEW'),document.createTextNode(' '+e.title)); else title.textContent=e.title; w.append(title); if(e.place) w.append(el('span',null,e.place));
     row.append(w); list.append(row);
   });
   wrap.append(lab, list); return wrap;
