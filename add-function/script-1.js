@@ -1,7 +1,7 @@
 /* 여기부터 수정 */
 // 컴백 날짜 및 시간
 const COMEBACK = '2026-11-03T18:00';
-
+// 일정 메뉴
 // date: 날짜, tiem: 시작 시간이지 당연히 type: 공개/공연/행사/시상식/기념일, time 없으면 종일
 const SCHEDULE = [
   {date:'2026-10-13', time:'12:00', type:'공개', title:'[PULSE] PRE-ORDER'},
@@ -32,6 +32,7 @@ const SCHEDULE = [
   {date:'2026-12-20', type:'기념일', title:'리센느 데뷔 1000일'},
 ];
 
+//이벤트 메뉴
 // kind: 콜라보/팝업, end 없으면 재고 소진 시까지, endTime 기본 23:59, ended:true → 날짜와 상관없이 종료(소진·조기 마감)
 // cafe: 누르면 열릴 공지 이동 (없으면 안눌림), announce: 당첨자 발표, isNew: 새 항목 (종료되면 자동 숨김)
 // 이 문구를 찾으신 분께는 소정의 상품을 드립니다. 캡쳐해서 댓글을 남겨주세요
@@ -66,8 +67,10 @@ const COLLABS = [
   {kind:'콜라보', cafe:'https://cafe.naver.com/re5cene/59295', brand:'메가스터디', who:'리센느', title:'세상아 기대해', start:'2026-10-07', end:'2026-10-20', how:['응모 추첨'], gifts:[['NFC 포토 키링','2,000명'],['CU 3,000원권','1,000명']]},
   {kind:'팝업', cafe:'https://naver.me/GwfctHXK', brand:'LIT&MAT', who:'리브·메이', title:'LIT&MAT OFFICIAL POP-UP STORE', start:'2026-10-16', end:'2026-10-22', how:['현장 구매'], gifts:[['굿즈 판매','']]},
   {kind:'콜라보', cafe:'https://naver.me/5JqwgXLz', brand:'할리스', who:'리센느', title:'행운 담은 찹쌀떡 세트', isNew:true, start:'2026-10-27', end:'2026-11-04', how:['구매 특전'], gifts:[['리센느 행운부적','']]},
+  {kind:'콜라보', cafe:'https://naver.me/5l2AS8Mj', brand:'삼성전자', who:'리센느', title:'일잘러 필수템 vs 전송 치트키, 당신의 원픽은?', isNew:true, start:'2026-10-28', end:'2026-11-11', how:['응모 추첨'], gifts:[['갤럭시X리센느 포토카드 세트','20명']]},
 ];
 
+// 투표 메뉴
 // 투표: start/startTime 시작(있을 때만), end 마감일, endTime 마감 시각, 카페 공지 링크
 // unite: 연합 투표 — ['아이콘','부문','이름','영문','blue 또는 rose'] 형식으로 한 줄씩
 const VOTES = [
@@ -81,6 +84,8 @@ const VOTES = [
   {key:'MAMA', short:'MAMA 2차', title:"2026 MAMA FANS' CHOICE 2차", start:'2026-10-28', startTime:'18:00', end:'2026-11-08', endTime:'23:59', who:'Mnet Plus 회원', limit:'1일 1회', cafe:'https://cafe.naver.com/re5cene/81677',
     unite:[['🍀','남자 부문','앤더블','AND2BLE','blue'],['💘','여자 부문','리센느','RESCENE','rose'],['💘','올해의 팬스 초이스 With VISA','리센느','RESCENE','rose']]},
 ];
+
+// 앨범 메뉴
 // 앨범 사전예약 카운트다운
 const PREORDER = {start:'2026-10-13T12:00', end:'2026-11-02T23:59'};
 const PREORDER_NOTICE = 'https://naver.me/F8lv0dEe';
