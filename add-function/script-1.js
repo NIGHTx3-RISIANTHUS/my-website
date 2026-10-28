@@ -105,6 +105,7 @@ const COMPONENTS = {
   Guardian: {base:[['CD-R','포함'],['포토카드','5종 전부'],['포스터','95×95mm']],
              only:[['전용 패키지 BOX','1종'],['로켓 펜던트','1종','총 5종'],['펜던트 파우치','1종']]},
 };
+// 앨범 구성 추가
 // group: 특전 / 공동구매 / 오프라인
 // ended:true → 이벤트 종료 표시, optSoldOut:true → 옵션(세트) 매진 표시_img → 카드 눌렀을 때 뜨는 특전 사진 이름(파일 맨 아래 STORE_IMG)
 const STORES = [
@@ -131,9 +132,9 @@ const STORES = [
     rule:'5장 구매 시 중복 없이 증정 · 온라인과 특전 이미지 동일', event:'친필 사인 폴라로이드 (즉석 추첨 5명)', price:'20,800'},
   {group:'특전', name:'YES24', img:'yes24_guardian', ver:['Guardian'], perk:'미공개 셀피 포토카드', rnd:'랜덤 1종 · 총 5종',
     rule:'5장 이상 구매해도 중복 증정될 수 있음'},
-  {group:'특전', name:'무신사', sub:'온라인 · 무신사 드롭', ver:['Guardian'], perk:'미공개 포토카드', rnd:'랜덤 1종 · 총 5종',
+  {group:'특전', name:'무신사', img:'musinsa_guardian', sub:'온라인 · 무신사 드롭', ver:['Guardian'], perk:'미공개 포토카드', rnd:'랜덤 1종 · 총 5종',
     rule:'5장 구매 시 중복 없이 증정 · 오프라인과 특전 이미지 동일', event:'댓글 추첨 사인 CD (5명)', price:'44,600'},
-  {group:'특전', name:'무신사', sub:'오프라인 · 무신사 성수', ver:['Guardian'], perk:'미공개 포토카드', rnd:'랜덤 1종 · 총 5종',
+  {group:'특전', name:'무신사', img:'musinsa_guardian', sub:'오프라인 · 무신사 성수', ver:['Guardian'], perk:'미공개 포토카드', rnd:'랜덤 1종 · 총 5종',
     rule:'5장 구매 시 중복 없이 증정 · 온라인과 특전 이미지 동일', event:'사인 폴라로이드 랜덤 1종 (총 5종)', price:'44,600'},
 
   {group:'공동구매', name:'Ktown4U', img:'pin_artwork', ver:['ALL'], perk:'Pulse (Artwork Ver.) 핀버튼', by:'음총팀 자체 제작', rnd:'랜덤 1종 · 총 5종', rule:'한정 수량',
@@ -158,10 +159,10 @@ const STORES = [
     prize:'대면 팬사인회 참석권 + 기명 사인 앨범 1매 + 사인 포토카드 1매', event:'사인 폴라로이드 1매 (당첨자 중 5명 선정)', price:'20,800'},
   {group:'오프라인', name:'플러스챗', img:'pluschat', sub:'SHOWCASE', ver:['Limited'], perk:'미공개 포토카드 (심쿵 Ver.)', saleEnd:'2026-10-25',
     rule:'5장 구매 시 중복 없이 증정', entry:'쇼케이스 초대권 응모 · 앨범 1장당 응모권 1매', winners:'10명', prize:'쇼케이스 이벤트 초대권 (타 판매처 중복 당첨 불가)', price:'26,000'},
-  {group:'오프라인', name:'메이크스타', sub:'개인 영상통화', ver:['Standard'], perk:'미공개 셀카 포토카드 (여우 Ver.)', saleEnd:'2026-10-28',
+  {group:'오프라인', name:'메이크스타', img:'makestar_fox', sub:'개인 영상통화', ver:['Standard'], perk:'미공개 셀카 포토카드 (여우 Ver.)', saleEnd:'2026-10-28',
     rule:'5장 구매 시 중복 없이 증정', entry:'개인 영상통화 응모 · 앨범 1장당 응모권 1매', winners:'멤버별 10명',
     prize:'응모 멤버와 영상통화 + 응모 멤버 기명 사인 앨범 1매', event:'사인 폴라로이드 1매 (당첨자 중 5명 선정)', price:'20,800'},
-  {group:'오프라인', name:'메이크스타', sub:'대면 팬사인회', ver:['Standard'], perk:'미공개 셀카 포토카드 (토끼 Ver.)', saleEnd:'2026-10-28',
+  {group:'오프라인', name:'메이크스타', img:'makestar_rabbit', sub:'대면 팬사인회', ver:['Standard'], perk:'미공개 셀카 포토카드 (토끼 Ver.)', saleEnd:'2026-10-28',
     rule:'5장 구매 시 중복 없이 증정', entry:'대면 팬사인회 응모 · 앨범 1장당 응모권 1매', winners:'40명',
     prize:'대면 팬사인회 참석권 + 기명 사인 앨범 1매 + 사인 포토카드 랜덤 1매', event:'사인 폴라로이드 1매 (당첨자 중 5명 선정)', price:'20,800'},
 ];
