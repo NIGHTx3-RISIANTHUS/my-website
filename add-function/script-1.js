@@ -777,3 +777,4 @@ openTab(location.hash.slice(1) || store.get('rescene-tab') || 'home', false);
 setInterval(tick, 1000);
 let lastDay = todayStr(), lastMin = Math.floor(Date.now()/6e4);
 setInterval(() => { const m = Math.floor(Date.now()/6e4); if (m !== lastMin) { lastMin = m; renderAll(); } }, 5000);
+document.addEventListener('DOMContentLoaded',()=>{document.querySelectorAll('[data-updated]').forEach(e=>{const d=DATA_UPDATED.slice(5).replace('-','.');e.querySelector('.basis-date').textContent=d+' 기준';e.title=d+' 자료 기준';});});
