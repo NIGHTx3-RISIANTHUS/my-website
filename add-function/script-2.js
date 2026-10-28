@@ -26,6 +26,9 @@ const STORE_IMG = {
   yes24_guardian:'assets/image-25.webp',
   makestar_kitty:'assets/image-26.webp',
   makestar_bite:'assets/image-27.webp',
+  musinsa_guardian:'assets/image-,
+  makestar_fox:'assets/image-,
+  makestar_rabbit:'assets/image-,
 };
 const STORE_IMG_TITLE = {
   makestar_kitty:'메이크스타 · 털실냥이 Ver.',
@@ -46,5 +49,8 @@ const STORE_IMG_TITLE = {
   makestar_puppy:'메이크스타 단체 영상통화 · 강아지 Ver.',
   makestar_mz:'메이크스타 대면 팬사인회 · MZ 사원 Ver.',
   pluschat:'플러스챗 SHOWCASE · 심쿵 Ver.',
+  musinsa_guardian:'무신사 · Guardian',
+  makestar_fox:'메이크스타 대면 팬사인회 · 토끼 Ver-',
+  makestar_rabbit:'메이크스타 개인 영상통화 · 여우 Ver-',
 };
 renderVer(); renderStores();
