@@ -25,7 +25,7 @@ const SCHEDULE = [
   {date:'2026-10-30', time:'20:00', type:'행사', title:'네이버 쇼핑라이브 Galaxy Night'},
   {date:'2026-10-31', type:'행사', title:'경주 APEC 메모리얼 페스타 축하공연', place:'경주 엑스포대공원 선덕광장 일대'},
   {date:'2026-11-03', time:'18:00', type:'공개', title:'[PULSE] ALBUM RELEASE & MV DROP', place:'COMEBACK "PULSE"'},
-  {date:'2026-11-03', time:'20:00', type:'공개', title:'[PULSE] SHOWCASE', place:'COMEBACK "PULSE"'},
+  {date:'2026-11-03', time:'20:00', type:'공개', title:'[PULSE] SHOWCASE', place:'COMEBACK "PULSE", Stream Online on Mnet Plus'},
   {date:'2026-11-07', type:'시상식', title:'KGMA 코리아 그랜드 뮤직 어워드', place:'서울 고척 스카이돔 · MC 원이'},
   {date:'2026-11-27', type:'기념일', title:'제나(김가영) 생일'},
   {date:'2026-11-29', type:'기념일', title:'미나미(이토 미나미) 생일'},
