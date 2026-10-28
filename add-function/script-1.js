@@ -682,7 +682,7 @@ function renderAlbum(){
   else if (now > en) { ps.className = 'status ended'; ps.textContent = '예약 판매 종료'; }
   else { const d = dDiff(PREORDER.end.slice(0,10)); ps.className = 'status ' + (d<=3?'urgent':'ongoing'); ps.textContent = d===0 ? '오늘 예약 마감' : `예약 마감 D-${d}`; }
   renderVer(); renderStores();
-  const pc = ps.closest('.preorder-card'); if(pc){pc.style.cursor='pointer';pc.onclick=e=>{if(e.target.closest('a,button'))return;window.open(PREORDER_NOTICE,'_blank','noopener,noreferrer');};if(!$('preorderNoticeBtn')){const btn=el('a','preorder-notice-btn','공지로 이동 ↗');btn.id='preorderNoticeBtn';btn.href=PREORDER_NOTICE;btn.target='_blank';btn.rel='noopener noreferrer';btn.onclick=e=>e.stopPropagation();ps.insertAdjacentElement('afterend',btn);}}
+  const pc = ps.closest('.preorder-card'); if(pc){pc.style.cursor='pointer';pc.onclick=e=>{if(e.target.closest('a,button'))return;window.open(PREORDER_NOTICE,'_blank','noopener,noreferrer');};if(!$('preorderNoticeBtn')){const btn=el('a','preorder-notice-btn','공지로 이동 ↗');btn.id='preorderNoticeBtn';btn.href=PREORDER_NOTICE;btn.target='_blank';btn.rel='noopener noreferrer';btn.onclick=e=>e.stopPropagation();ps.closest('.al-hero').append(btn);}}
   const c = $('collect'); c.replaceChildren();
   COLLECT.forEach(([v,n]) => { const d = el('div'); d.append(el('span',null,v.toUpperCase()), el('b','tnum',n + '장')); c.append(d); });
   const t = el('div','total'); t.append(el('span',null,'TOTAL · 미공개 포카 전종 수집'), el('b','tnum', COLLECT.reduce((a,[,n]) => a+n, 0) + '장')); c.append(t);
