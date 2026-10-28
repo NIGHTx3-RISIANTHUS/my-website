@@ -75,10 +75,10 @@ const VOTES = [
   {key:'MAMA', title:"2026 MAMA FANS' CHOICE 1차", end:'2026-10-22', endTime:'23:59', who:'Mnet Plus 회원', limit:'1일 1회', cafe:'',
     unite:[['남자','ALPHA DRIVE ONE · AND2BLE(앤더블) · BIGBANG'],['여자','RESCENE(리센느) · BABYMONSTER · Hearts2Hearts']]},
   {key:'MMA', title:'MMA 2026 TOP10 투표', end:'2026-10-29', endTime:'23:59', who:'멜론 회원', limit:'무료회원 1일 1회 · 유료회원 1일 3회', related:'MMA 티켓 자동 응모', cafe:'https://cafe.naver.com/re5cene/67899'},
+  {key:'MMA', short:'멜론', title:'MMA', start: '2026-10-30', end:'2026-11-13', who:'추후 안내', limit:'추후 안내', cafe:'https://cafe.naver.com/re5cene/83140'},
   {key:'KAKAO BANK', short:'카뱅', title:'MMA 2026 X KAKAO BANK 특별상 투표', end:'2026-10-30', who:'카카오뱅크 계좌 또는 mini 보유자', limit:'1일 1회', related:'MMA 카카오뱅크 특별석 자동 응모', cafe:'https://cafe.naver.com/re5cene/67508'},
   {key:'MAMA', short:'MAMA 2차', title:"2026 MAMA FANS' CHOICE 2차", start:'2026-10-28', startTime:'18:00', end:'2026-11-08', endTime:'23:59', who:'Mnet Plus 회원', limit:'1일 1회', cafe:'https://cafe.naver.com/re5cene/81677',
     unite:[['🍀','남자 부문','앤더블','AND2BLE','blue'],['💘','여자 부문','리센느','RESCENE','rose']]},
-  {key:'MMA', title:"MMA 2026 Global TOP 10", start:'2026-10-30', startTime:'', end:'2026-11-13', endTime:'23:59', who:'추후공개', limit:'추후공개', cafe:'https://cafe.naver.com/re5cene/83140']]},
 ];
 
 const PREORDER = {start:'2026-10-13T12:00', end:'2026-11-02T23:59'};
