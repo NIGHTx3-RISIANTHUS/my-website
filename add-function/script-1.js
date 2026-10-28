@@ -158,7 +158,7 @@ const STORES = [
 const COLLECT = [['Standard',40],['Limited',10],['QR',25],['Wappen',7],['Guardian',10]];
 // 응원봉 판매 시작 시각
 const LIGHTSTICK_OPEN = '2026-10-26T12:00';
-const LIGHTSTICK_SOLDOUT = false; // 품절 true, 재입고 false
+const LIGHTSTICK_SOLDOUT = true; // 품절 true, 재입고 false
 /* ===== 이 문구를 찾으신 회원께서는 캡쳐해서 댓글로 남겨주시면 소정의 상품을 드립니다. ===== */
 
 const $ = id => document.getElementById(id);
