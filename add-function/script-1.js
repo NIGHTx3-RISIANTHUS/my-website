@@ -86,7 +86,7 @@ const VOTES = [
   {key:'MAMA', short:'MAMA 2차', title:"2026 MAMA FANS' CHOICE 2차", start:'2026-10-28', startTime:'18:00', end:'2026-11-08', endTime:'23:59', who:'Mnet Plus 회원', limit:'1일 1회', cafe:'https://cafe.naver.com/re5cene/81677',
     unite:[['🍀','남자 부문','앤더블','AND2BLE','blue'],['💘','여자 부문','리센느','RESCENE','rose'],['💘','올해의 팬스 초이스 With VISA','리센느','RESCENE','rose']]},
   {key:'MMA', short:'MMA 연합', title:"올해의 베스트송(Song of the Year)", start:'2026-10-30', startTime:'', end:'2026-11-03', endTime:'23:59', who:'멜론 회원', limit:'무료회원 1일 1회 · 유료회원 1일 3회', cafe:'https://cafe.naver.com/re5cene/84417',
-    unite:[['🍀','남자 부문','코르티스(CORTIS)','blue']]},
+    unite:[['🍀','남자 부문','코르티스','CORTIS','blue']]},
 ];
 
 // 앨범 메뉴
