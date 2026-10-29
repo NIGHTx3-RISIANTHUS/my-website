@@ -80,11 +80,13 @@ const VOTES = [
   {key:'MAMA', title:"2026 MAMA FANS' CHOICE 1차", end:'2026-10-22', endTime:'23:59', who:'Mnet Plus 회원', limit:'1일 1회', cafe:'',
     unite:[['남자','ALPHA DRIVE ONE · AND2BLE(앤더블) · BIGBANG'],['여자','RESCENE(리센느) · BABYMONSTER · Hearts2Hearts']]},
   {key:'MMA', title:'MMA 2026 TOP10 투표', end:'2026-10-29', endTime:'23:59', who:'멜론 회원', limit:'무료회원 1일 1회 · 유료회원 1일 3회', related:'MMA 티켓 자동 응모', cafe:'https://cafe.naver.com/re5cene/67899'},
-  {key:'MMA', title:"2026 Global TOP10", start:'2026-10-30', end:'2026-11-13', endTime:'23:59', who:'추후 안내', limit:'추후 안내', cafe:'https://cafe.naver.com/re5cene/83140',
+  {key:'MMA', title:"2026 Global TOP10", start:'2026-10-30', startTime:'18:00', end:'2026-11-13', endTime:'23:59', who:'멜론  Berriz 회원', limit:'추후 안내', cafe:'https://cafe.naver.com/re5cene/83140',
     unite:[['🍀','올해의 신인','알파드라이브원','ALPHA DRIVE ONE','blue'],['💘','Global TOP10','리센느','RESCENE','rose']]},
   {key:'KAKAO BANK', short:'카뱅', title:'MMA 2026 X KAKAO BANK 특별상 투표', end:'2026-10-30', who:'카카오뱅크 계좌 또는 mini 보유자', limit:'1일 1회', related:'MMA 카카오뱅크 특별석 자동 응모', cafe:'https://cafe.naver.com/re5cene/67508'},
   {key:'MAMA', short:'MAMA 2차', title:"2026 MAMA FANS' CHOICE 2차", start:'2026-10-28', startTime:'18:00', end:'2026-11-08', endTime:'23:59', who:'Mnet Plus 회원', limit:'1일 1회', cafe:'https://cafe.naver.com/re5cene/81677',
     unite:[['🍀','남자 부문','앤더블','AND2BLE','blue'],['💘','여자 부문','리센느','RESCENE','rose'],['💘','올해의 팬스 초이스 With VISA','리센느','RESCENE','rose']]},
+  {key:'MMA', short:'MMA 연합', title:"올해의 베스트송(Song of the Year)", start:'2026-10-30', startTime:'', end:'2026-11-03', endTime:'23:59', who:'멜론 회원', limit:'무료회원 1일 1회 · 유료회원 1일 3회', cafe:'https://cafe.naver.com/re5cene/84417',
+    unite:[['🍀','남자 부문','코르티스(CORTIS)','blue']]},
 ];
 
 // 앨범 메뉴
@@ -165,8 +167,14 @@ const STORES = [
   {group:'오프라인', name:'메이크스타', img:'makestar_rabbit', sub:'대면 팬사인회', ver:['Standard'], perk:'미공개 셀카 포토카드 (토끼 Ver.)', saleEnd:'2026-10-28',
     rule:'5장 구매 시 중복 없이 증정', entry:'대면 팬사인회 응모 · 앨범 1장당 응모권 1매', winners:'40명',
     prize:'대면 팬사인회 참석권 + 기명 사인 앨범 1매 + 사인 포토카드 랜덤 1매', event:'사인 폴라로이드 1매 (당첨자 중 5명 선정)', price:'20,800'},
+  {group:'오프라인', name:'위드뮤', img:'', sub:'대면 팬사인회', ver:['QR'], perk:''당일착장'미공개 포토카드 (공주 Ver.)', saleEnd:'2026-10-31',
+    rule:'5장 구매 시 중복 없이 증정', entry:'대면 팬사인회 응모 · 앨범 1장당 응모권 1매', winners:'40명',
+    prize:'대면 팬사인회 참석권', event:'친필 사인 폴라로이드 랜덤 1매 (당첨자 중 5명 선정)', price:'8,900'},
+  {group:'오프라인', name:'위드뮤', img:'', sub:'개인 영상통화', ver:['QR'], perk:''당일착장'미공개 포토카드 (하트뿔 Ver.)', saleEnd:'2026-10-31',
+    rule:'5장 구매 시 중복 없이 증정', entry:'개인 영상통화 응모 · 앨범 1장당 응모권 1매', winners:'멤버별 10명',
+    prize:'응모 멤버와 영상통화', event:'사인 폴라로이드 당첨 멤버 1매 (당첨자 중 5명 선정)', price:'8,900'},
 ];
-const COLLECT = [['Standard',40],['Limited',10],['QR',25],['Wappen',7],['Guardian',10]];
+const COLLECT = [['Standard',40],['Limited',10],['QR',35],['Wappen',7],['Guardian',10]];
 // 응원봉 판매 시작 시각
 const LIGHTSTICK_OPEN = '2026-10-26T12:00';
 const LIGHTSTICK_SOLDOUT = true; // 품절 true, 재입고 false
