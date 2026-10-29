@@ -433,7 +433,7 @@ function voteCard(v, s){
   const row = (k, val) => { if (!val) return; dl.append(el('dt',null,k), el('dd',null,val)); };
   if (v.start) row('기간', `${md(v.start)} (${wd(v.start)})${v.startTime ? ' ' + v.startTime : ''} ~ ${md(v.end)} (${wd(v.end)})${v.endTime ? ' ' + v.endTime : ''}`);
   else row('마감', `${md(v.end)} (${wd(v.end)})` + (v.endTime ? ` ${v.endTime}` : ''));
-  row('참여 대상', v.who); row('참여 조건', v.limit); row('연관 이벤트', v.related);
+  row('참여 대상', v.who); row('참여 조건', v.limit); if(v.limit){const dt=dl.querySelector('dt:last-of-type');if(dt)dt.classList.add('condition-label');} row('연관 이벤트', v.related);
   box.append(r1, el('div','vtitle',v.title), dl);
   if (v.unite) {
     const u = el('div','unite'); u.append(el('b',null,'연합 투표 진행'));
