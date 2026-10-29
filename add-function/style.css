@@ -353,4 +353,5 @@ body.modal-open{overflow:hidden}
 .ls-badge{font-family:var(--display);font-size:11px;font-weight:700;letter-spacing:.12em;white-space:nowrap;padding:6px 10px;border-radius:999px;background:var(--accent);color:var(--surface)}
 @media (max-width:420px){.ls-card{grid-template-columns:auto 1fr;gap:12px}.ls-img{grid-row:span 2;width:68px}.ls-badge{grid-column:2;justify-self:start;padding:4px 9px}}
 @media (prefers-reduced-motion:reduce){.ls-card{transition:none}.ls-card:hover{transform:none}}
+.vcard .vdl dd { white-space: pre-line; }
 .al-hero .preorder-notice-btn{position:absolute;right:16px;bottom:12px;display:inline-block;width:auto;margin:0;padding:0;border:0;border-radius:0;background:transparent;color:#FFFFFF;font-size:12px;font-weight:700;text-decoration:none;cursor:pointer;z-index:1}.al-hero .preorder-notice-btn:hover{color:#FFFFFF;text-decoration:underline}.al-hero .preorder-notice-btn:focus-visible{outline:2px solid #FFFFFF;outline-offset:3px}
