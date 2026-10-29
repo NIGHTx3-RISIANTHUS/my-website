@@ -355,3 +355,4 @@ body.modal-open{overflow:hidden}
 @media (prefers-reduced-motion:reduce){.ls-card{transition:none}.ls-card:hover{transform:none}}
 .vcard .vdl dd { white-space: pre-line; }
 .al-hero .preorder-notice-btn{position:absolute;right:16px;bottom:12px;display:inline-block;width:auto;margin:0;padding:0;border:0;border-radius:0;background:transparent;color:#FFFFFF;font-size:12px;font-weight:700;text-decoration:none;cursor:pointer;z-index:1}.al-hero .preorder-notice-btn:hover{color:#FFFFFF;text-decoration:underline}.al-hero .preorder-notice-btn:focus-visible{outline:2px solid #FFFFFF;outline-offset:3px}
+.vcard .vdl dt.condition-label { align-self: center; }
