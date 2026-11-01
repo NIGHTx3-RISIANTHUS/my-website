@@ -95,6 +95,7 @@ const COLLABS = [
 // 투표 메뉴
 // 투표: start/startTime 시작(있을 때만), end 마감일, endTime 마감 시각, 카페 공지 링크
 // unite: 연합 투표 — ['아이콘','부문','이름','영문','blue 또는 rose'] 형식으로 한 줄씩
+// 파랑이: 해줘요, 빨강이: 받아요 표시 추가. 뭔가 반대로 할거면 6번째에 '' 직접 추가하기
 const VOTES = [
   {key:'KGMA', title:'KGMA Berriz 글로벌 팬 초이스', end:'2026-10-19', endTime:'23:59', who:'Berriz 회원', limit:'1일 1회', related:'KGMA 투표 인증 이벤트', cafe:''},
   {key:'MAMA', title:"2026 MAMA FANS' CHOICE 1차", end:'2026-10-22', endTime:'23:59', who:'Mnet Plus 회원', limit:'1일 1회', cafe:'',
@@ -564,9 +565,13 @@ function voteCard(v, s){
     const u = el('div','unite'); u.append(el('b',null,'연합 투표 진행'));
     v.unite.forEach(x => {
       if (x.length < 4) { u.append(el('span',null,`${x[0]} · ${x[1]}`)); return; }
-      const [icon, g, name, en, color] = x, line = el('span','u-line');
-      line.append(el('span','u-ic',icon), el('span','u-g',g), el('span','u-bar','|'), el('b','u-name' + (color ? ' u-' + color : ''), name));
-      if (en) line.append(el('span','u-en',`(${en})`));
+      const [icon, g, name, en, color, dirOverride] = x, line = el('span','u-line');
+      const dir = dirOverride || (color === 'rose' ? '받아요' : color === 'blue' ? '해줘요' : '');
+      if (dir) line.append(el('span','u-dir ' + (dir === '받아요' ? 'get' : 'give'), dir));
+      const txt = el('span','u-txt');
+      txt.append(el('span','u-g',g), el('span','u-bar',' | '), el('b','u-name' + (color ? ' u-' + color : ''), name));
+      if (en) txt.append(document.createTextNode(' '), el('span','u-en',`(${en})`));
+      line.append(el('span','u-ic',icon), txt);
       u.append(line);
     });
     box.append(u);
