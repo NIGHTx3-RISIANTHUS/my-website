@@ -38,7 +38,13 @@
     </a>
     <div class="eyebrow">RESCENE · RISIANTHUS</div>
     <h1>리시안셔스 현황판</h1>
-    <div class="clock"><b class="tnum" id="clock">--:--:--</b><span id="today">KST 기준</span></div>
+        <div class="clock-row">
+      <div class="clock"><b class="tnum" id="clock">--:--:--</b><span id="today">KST 기준</span></div>
+      <button class="upd-btn" id="updBtn" type="button" aria-haspopup="dialog">
+        <svg viewBox="0 0 16 16" width="14" height="14" aria-hidden="true"><path d="M3 3.5h10M3 8h10M3 12.5h6" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg>
+        업데이트 내역<span class="upd-dot" id="updDot" hidden></span>
+      </button>
+    </div>
   </div>
   <div class="home-result" id="homeResult" aria-live="polite" hidden></div>
 
@@ -189,6 +195,14 @@
     <button class="vm-close" id="verModalClose" type="button" aria-label="닫기"><svg viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><path d="M4 4l8 8M12 4l-8 8" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></button>
   </div>
   <div class="vm-body"><img id="verModalImg" alt=""></div>
+</dialog>
+
+<dialog class="vmodal upd-modal" id="updModal" aria-labelledby="updModalTitle">
+  <div class="vm-head">
+    <h3 id="updModalTitle">업데이트 내역<small id="updCount"></small></h3>
+    <button class="vm-close" id="updModalClose" type="button" aria-label="닫기"><svg viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><path d="M4 4l8 8M12 4l-8 8" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></button>
+  </div>
+  <div class="vm-body"><ol class="upd-list" id="updList"></ol></div>
 </dialog>
 
 <div class="calcbar" id="calcBar" hidden>
