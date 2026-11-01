@@ -379,10 +379,10 @@ body.modal-open{overflow:hidden}
 .upd-items li::before{content:"";position:absolute;left:0;top:.68em;width:4px;height:4px;border-radius:999px;background:var(--muted)}
 .upd-list .empty{margin-top:14px}
 
-//업데이트 버전 표시
+/*업데이트 버전 표시*/
 .upd-version{display:inline-block;margin-left:7px;color:var(--muted);font-size:11px;font-weight:700;font-variant-numeric:tabular-nums}
 
-//연합투표 쉬운설명 추가
+/*연합투표 쉬운설명 추가*/
 .unite .u-dir{flex:none;font-size:11px;font-weight:900;line-height:1;padding:4px 7px;border-radius:999px;letter-spacing:-.01em}
 .unite .u-dir.give{background:color-mix(in srgb,#2B78DC 14%,var(--surface));color:#2B78DC}
 .unite .u-dir.get{background:color-mix(in srgb,#D8345A 14%,var(--surface));color:#D8345A}
