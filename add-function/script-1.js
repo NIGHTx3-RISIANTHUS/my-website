@@ -224,7 +224,8 @@ const store = { get(k){ try { return localStorage.getItem(k); } catch(e){ return
 const clockFmt = new Intl.DateTimeFormat('ko-KR',{timeZone:'Asia/Seoul',hour:'2-digit',minute:'2-digit',second:'2-digit',hour12:false});
 function tickLightstick(now){
   const open = kst(...LIGHTSTICK_OPEN.split('T')), d = LIGHTSTICK_OPEN.slice(0,10), t = LIGHTSTICK_OPEN.slice(11);
-  const badge = $('lsBadge'), sub = $('lsSub');
+  const badge = $('lsBadge'), sub = $('lsSub'), checked = $('lsChecked');
+if (checked) checked.textContent = `판매 상태 확인: ${LIGHTSTICK_CHECKED.replace(/-/g, '.')} 기준`;
   if (now >= open && LIGHTSTICK_SOLDOUT) { badge.textContent = 'SOLD OUT'; badge.classList.remove('on'); badge.classList.add('sold'); sub.textContent = `${md(d)} (${wd(d)}) ${t} 예약 판매 · 품절`; return; }
   if (now >= open) { badge.textContent = 'NOW ON SALE'; badge.classList.remove('sold'); badge.classList.add('on'); sub.textContent = `${md(d)} (${wd(d)}) ${t}부터 판매 중`; return; }
   let left = open - now; const dd = Math.floor(left/864e5); left -= dd*864e5;
