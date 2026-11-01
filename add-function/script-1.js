@@ -5,9 +5,10 @@ const DATA_UPDATED = '2026-11-01' // 수정 시 해당날짜로 변경해줄 것
 //윗줄에 항목 추가. date: 날짜, version: 배포 버전, tag: 일정/이벤트/투표/앨범/기능/수정, items: 변경 내용
 //같은날짜에 배포할거면 버전 수정 ㄱㄱ 그래야 빨간점 뜸 D+3
 const UPDATES = [
+  {date:'2026-11-01', version:'1.0.0', tag:'투표', items:['연합투표 설명 TAG 추가','리센느X피프티피프티 연합 추가',"연합 투표 타이틀 변경 '리센느X연합'"]},
   {date:'2026-11-01', version:'1.0.0', tag:'앨범', items:['후즈팬 오프라인 2종 추가']},
   {date:'2026-11-01', version:'1.0.0', tag:'이벤트', items:['CU 패트와 매트 그릭플레인 추가','CU 원이김치제육 추가','CU [PULSE] POP-UP STORE 추가']},
-  {date:'2026-11-01', version:'1.0.0', tag:'기능', items:['업데이트 내역 팝업 추가','이벤트 TAG 구분 관리 아이콘 추가','응원봉 마지막 확인 날짜 추가','연합투표 설명 TAG 추가']},
+  {date:'2026-11-01', version:'1.0.0', tag:'기능', items:['업데이트 내역 팝업 추가','이벤트 TAG 구분 관리 아이콘 추가','응원봉 마지막 확인 날짜 추가']},
   {date:'2026-10-28', version:'0.9.1', tag:'이벤트', items:['삼성전자 갤럭시 X 리센느 이벤트 추가']},
   {date:'2026-10-26', version:'0.9.0', tag:'이벤트', items:['CU SWEET SCENE 추가','그레인온 세 번째 이야기 추가','거제시 명예시민 기념 이벤트 추가','안원잘부 MLB 이벤트 추가','한스킨 · 할리스 찹쌀떡 세트 추가']},
 ];
@@ -101,15 +102,17 @@ const VOTES = [
   {key:'MAMA', title:"2026 MAMA FANS' CHOICE 1차", end:'2026-10-22', endTime:'23:59', who:'Mnet Plus 회원', limit:'1일 1회', cafe:'',
     unite:[['남자','ALPHA DRIVE ONE · AND2BLE(앤더블) · BIGBANG'],['여자','RESCENE(리센느) · BABYMONSTER · Hearts2Hearts']]},
   {key:'MMA', title:'MMA 2026 TOP10 투표', end:'2026-10-29', endTime:'23:59', who:'멜론 회원', limit:'무료회원 1일 1회 · 유료회원 1일 3회', related:'MMA 티켓 자동 응모', cafe:'https://cafe.naver.com/re5cene/67899'},
-  {key:'MMA', title:"2026 Global TOP10", start:'2026-10-30', startTime:'18:00', end:'2026-11-13', endTime:'23:59', who:'멜론 및 Berriz 회원', limit:'멜론: 무료회원 1일 1회 · 유료회원 1일 3회\nBerriz: 해외 거주자 1일 1회', cafe:'https://cafe.naver.com/re5cene/83140',
+  {key:'MMA', title:"리센느X알파드라이브원", start:'2026-10-30', startTime:'18:00', end:'2026-11-13', endTime:'23:59', who:'멜론 및 Berriz 회원', limit:'멜론: 무료회원 1일 1회 · 유료회원 1일 3회\nBerriz: 해외 거주자 1일 1회', cafe:'https://cafe.naver.com/re5cene/83140',
     unite:[['🍀','올해의 신인','알파드라이브원','ALPHA DRIVE ONE','blue'],['💘','Global TOP10','리센느','RESCENE','rose']]},
   {key:'KAKAO BANK', short:'카뱅', title:'MMA 2026 X KAKAO BANK 특별상 투표', end:'2026-10-30', who:'카카오뱅크 계좌 또는 mini 보유자', limit:'1일 1회', related:'MMA 카카오뱅크 특별석 자동 응모', cafe:'https://cafe.naver.com/re5cene/67508'},
-  {key:'MAMA', short:'MAMA 2차', title:"2026 MAMA FANS' CHOICE 2차", start:'2026-10-28', startTime:'10:00', end:'2026-11-08', endTime:'23:59', who:'Mnet Plus 회원', limit:'1일 1회', cafe:'https://cafe.naver.com/re5cene/81677',
+  {key:'MAMA', short:'MAMA 2차', title:"리센느X앤더블", start:'2026-10-28', startTime:'10:00', end:'2026-11-08', endTime:'23:59', who:'Mnet Plus 회원', limit:'1일 1회', cafe:'https://cafe.naver.com/re5cene/81677',
     unite:[['🍀','남자 부문','앤더블','AND2BLE','blue'],['💘','여자 부문','리센느','RESCENE','rose'],['💘','올해의 팬스 초이스 With VISA','리센느','RESCENE','rose']]},
-  {key:'MMA', short:'MMA 연합', title:"부문별 투표", start:'2026-10-30', startTime:'10:00', end:'2026-11-13', endTime:'23:59', who:'멜론 회원', limit:'무료회원 1일 1회 · 유료회원 1일 3회', cafe:'https://cafe.naver.com/re5cene/84417',
+  {key:'MMA', short:'MMA 연합', title:"리센느X코르티스", start:'2026-10-30', startTime:'10:00', end:'2026-11-13', endTime:'23:59', who:'멜론 회원', limit:'무료회원 1일 1회 · 유료회원 1일 3회', cafe:'https://cafe.naver.com/re5cene/84417',
     unite:[['🍀','올해의 베스트송(Song of the Year)','코르티스','CORTIS','blue'],['💘','컴백 시 지원','리센느','RESCENE','rose']]},
-  {key:'MAMA', short:'MAMA 연합', title:"WORLDWIDE KCONERS CHOICE", start:'2026-10-30', startTime:'', end:'2026-11-08', endTime:'23:59', who:'Mnet Plus 회원', limit:'1일 1회', cafe:'',
+  {key:'MAMA', short:'MAMA 연합', title:"리센느X제로베이스원", start:'2026-10-30', startTime:'', end:'2026-11-08', endTime:'23:59', who:'Mnet Plus 회원', limit:'1일 1회', cafe:'https://cafe.naver.com/re5cene/86025',
     unite:[['🍀','WORLDWIDE KCONERS CHOICE','제로베이스원','Customize','blue'],['💘','MMA Global TOP10','리센느','RESCENE','rose']]},
+  {key:'MMA', short:'MMA 연합', title:"리센느X피프티피프티", start:'2026-11-09', startTime:'', end:'2026-11-16', endTime:'23:59', who:'멜론 회원', limit:'음총팀 뮤직웨이브 참여', cafe:'https://cafe.naver.com/re5cene/86163',
+    unite:[['🍀','멜론 스트리밍','피프티피프티','Genie Magic','blue'],['💘','MMA Global TOP10','리센느','RESCENE','rose']]},
 ];
 
 // 앨범 메뉴
