@@ -94,7 +94,7 @@ const COLLABS = [
 ];
 
 // 투표 메뉴
-// 투표: start/startTime 시작(있을 때만), end 마감일, endTime 마감 시각, 카페 공지 링크
+// 투표: start/startTime 시작(있을 때만), end 마감일, endTime 마감 시각, 카페 공지 링크, sub: 제목 아래 작은 부제 (없으면 생략)
 // unite: 연합 투표 — ['아이콘','부문','이름','영문','blue 또는 rose'] 형식으로 한 줄씩
 // 파랑이: 해줘요, 빨강이: 받아요 표시 추가. 뭔가 반대로 할거면 6번째에 '' 직접 추가하기
 const VOTES = [
@@ -102,16 +102,16 @@ const VOTES = [
   {key:'MAMA', title:"2026 MAMA FANS' CHOICE 1차", end:'2026-10-22', endTime:'23:59', who:'Mnet Plus 회원', limit:'1일 1회', cafe:'',
     unite:[['남자','ALPHA DRIVE ONE · AND2BLE(앤더블) · BIGBANG'],['여자','RESCENE(리센느) · BABYMONSTER · Hearts2Hearts']]},
   {key:'MMA', title:'MMA 2026 TOP10 투표', end:'2026-10-29', endTime:'23:59', who:'멜론 회원', limit:'무료회원 1일 1회 · 유료회원 1일 3회', related:'MMA 티켓 자동 응모', cafe:'https://cafe.naver.com/re5cene/67899'},
-  {key:'MMA', title:"리센느X알파드라이브원", start:'2026-10-30', startTime:'18:00', end:'2026-11-13', endTime:'23:59', who:'멜론 및 Berriz 회원', limit:'멜론: 무료회원 1일 1회 · 유료회원 1일 3회\nBerriz: 해외 거주자 1일 1회', cafe:'https://cafe.naver.com/re5cene/83140',
+  {key:'MMA', title:"리센느X알파드라이브원", sub:'2026 Global TOP10', start:'2026-10-30', startTime:'18:00', end:'2026-11-13', endTime:'23:59', who:'멜론 및 Berriz 회원', limit:'멜론: 무료회원 1일 1회 · 유료회원 1일 3회\nBerriz: 해외 거주자 1일 1회', cafe:'https://cafe.naver.com/re5cene/83140',
     unite:[['🍀','올해의 신인','알파드라이브원','ALPHA DRIVE ONE','blue'],['💘','Global TOP10','리센느','RESCENE','rose']]},
   {key:'KAKAO BANK', short:'카뱅', title:'MMA 2026 X KAKAO BANK 특별상 투표', end:'2026-10-30', who:'카카오뱅크 계좌 또는 mini 보유자', limit:'1일 1회', related:'MMA 카카오뱅크 특별석 자동 응모', cafe:'https://cafe.naver.com/re5cene/67508'},
-  {key:'MAMA', short:'MAMA 2차', title:"리센느X앤더블", start:'2026-10-28', startTime:'10:00', end:'2026-11-08', endTime:'23:59', who:'Mnet Plus 회원', limit:'1일 1회', cafe:'https://cafe.naver.com/re5cene/81677',
+  {key:'MAMA', short:'MAMA 2차', title:"리센느X앤더블", sub:"2026 MAMA FANS' CHOICE 2차", start:'2026-10-28', startTime:'10:00', end:'2026-11-08', endTime:'23:59', who:'Mnet Plus 회원', limit:'1일 1회', cafe:'https://cafe.naver.com/re5cene/81677',
     unite:[['🍀','남자 부문','앤더블','AND2BLE','blue'],['💘','여자 부문','리센느','RESCENE','rose'],['💘','올해의 팬스 초이스 With VISA','리센느','RESCENE','rose']]},
-  {key:'MMA', short:'MMA 연합', title:"리센느X코르티스", start:'2026-10-30', startTime:'10:00', end:'2026-11-13', endTime:'23:59', who:'멜론 회원', limit:'무료회원 1일 1회 · 유료회원 1일 3회', cafe:'https://cafe.naver.com/re5cene/84417',
+  {key:'MMA', short:'MMA 연합', title:"리센느X코르티스", sub:'올해의 베스트송(Song of the Year)', start:'2026-10-30', startTime:'10:00', end:'2026-11-13', endTime:'23:59', who:'멜론 회원', limit:'무료회원 1일 1회 · 유료회원 1일 3회', cafe:'https://cafe.naver.com/re5cene/84417',
     unite:[['🍀','올해의 베스트송(Song of the Year)','코르티스','CORTIS','blue'],['💘','컴백 시 지원','리센느','RESCENE','rose']]},
-  {key:'MAMA', short:'MAMA 연합', title:"리센느X제로베이스원", start:'2026-10-30', startTime:'', end:'2026-11-08', endTime:'23:59', who:'Mnet Plus 회원', limit:'1일 1회', cafe:'https://cafe.naver.com/re5cene/86025',
+  {key:'MAMA', short:'MAMA 연합', title:"리센느X제로베이스원", sub:'WORLDWIDE KCONERS CHOICE', start:'2026-10-30', startTime:'', end:'2026-11-08', endTime:'23:59', who:'Mnet Plus 회원', limit:'1일 1회', cafe:'https://cafe.naver.com/re5cene/86025',
     unite:[['🍀','WORLDWIDE KCONERS CHOICE','제로베이스원','Customize','blue'],['💘','MMA Global TOP10','리센느','RESCENE','rose']]},
-  {key:'MMA', short:'MMA 연합', title:"리센느X피프티피프티", start:'2026-11-09', startTime:'', end:'2026-11-16', endTime:'23:59', who:'멜론 회원', limit:'음총팀 뮤직웨이브 참여', cafe:'https://cafe.naver.com/re5cene/86163',
+  {key:'MMA', short:'MMA 연합', title:"리센느X피프티피프티", sub:'멜론 스트리밍 Genie Magic', start:'2026-11-09', startTime:'', end:'2026-11-16', endTime:'23:59', who:'멜론 회원', limit:'음총팀 뮤직웨이브 참여', cafe:'https://cafe.naver.com/re5cene/86163',
     unite:[['🍀','멜론 스트리밍','피프티피프티','Genie Magic','blue'],['💘','MMA Global TOP10','리센느','RESCENE','rose']]},
 ];
 
@@ -563,7 +563,9 @@ function voteCard(v, s){
   if (v.start) row('기간', `${md(v.start)} (${wd(v.start)})${v.startTime ? ' ' + v.startTime : ''} ~ ${md(v.end)} (${wd(v.end)})${v.endTime ? ' ' + v.endTime : ''}`);
   else row('마감', `${md(v.end)} (${wd(v.end)})` + (v.endTime ? ` ${v.endTime}` : ''));
   row('참여 대상', v.who); row('참여 조건', v.limit); if(v.limit){const dt=dl.querySelector('dt:last-of-type');if(dt)dt.classList.add('condition-label');} row('연관 이벤트', v.related);
-  box.append(r1, el('div','vtitle',v.title), dl);
+  const head = el('div','vhead'); head.append(el('div','vtitle',v.title));
+if (v.sub) head.append(el('div','vsub',v.sub));
+box.append(r1, head, dl);
   if (v.unite) {
     const u = el('div','unite'); u.append(el('b',null,'연합 투표 진행'));
     v.unite.forEach(x => {
@@ -590,7 +592,7 @@ function renderVotes(){
     : (a,b) => (a.s.key==='soon') - (b.s.key==='soon') || a.s.sort - b.s.sort);
   const ended = items.filter(x => x.s.key==='ended').sort((a,b) => a.s.sort - b.s.sort);
   const q = query;
-  const vParts = v => [v.key, v.short, v.title, v.who, v.limit, v.related, v.uniteNote, md(v.end), v.start ? md(v.start) : '', ...(v.unite || []).flat()];
+  const vParts = v => [v.key, v.short, v.title, v.sub, v.who, v.limit, v.related, v.uniteNote, md(v.end), v.start ? md(v.start) : '', ...(v.unite || []).flat()];
   const list = q ? active.concat(ended).filter(({v}) => qHit(q, vParts(v))) : showVoteEnded ? active.concat(ended) : active;
   const box = $('votes'); box.replaceChildren(...list.map(({v,s}) => voteCard(v,s)));
   if (!list.length) box.append(el('div','empty', q ? `'${q}'(이)가 들어간 투표가 없어요.` : '지금 열려 있는 투표가 없어요.'));
