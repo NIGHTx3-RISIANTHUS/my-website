@@ -1,6 +1,6 @@
 /* 여기부터 수정 */
 // 작성 기준일
-const DATA_UPDATED = '2026-10-28' // 수정 시 해당날짜로 변경해줄 것.
+const DATA_UPDATED = '2026-11-01' // 수정 시 해당날짜로 변경해줄 것.
 // 컴백 날짜 및 시간
 const COMEBACK = '2026-11-03T18:00';
 // 일정 메뉴
@@ -38,6 +38,13 @@ const SCHEDULE = [
 // kind: 콜라보/팝업, end 없으면 재고 소진 시까지, endTime 기본 23:59, ended:true → 날짜와 상관없이 종료(소진·조기 마감)
 // cafe: 누르면 열릴 공지 이동 (없으면 안눌림), announce: 당첨자 발표, added: 업로드날짜 (업로드 날짜부터 NEW 표시. 3일 후 자동 해제)
 // 이 문구를 찾으신 분께는 소정의 상품을 드립니다. 캡쳐해서 댓글을 남겨주세요
+const HOW_STYLE = {
+  '구매 특전': {color:'#E59A35', icon:'<path d="M6 8h12l-1 12H7z"/><path d="M9 8V6a3 3 0 0 1 6 0v2"/>'},
+  '응모 추첨': {color:'#9B78D1', icon:'<path d="M3 7h18v3a2 2 0 0 0 0 4v3H3v-3a2 2 0 0 0 0-4z"/><path d="M14 7v2.2M14 11v2M14 14.8V17"/>'},
+  '현장 구매': {color:'#3CA99A', icon:'<path d="M12 21s-6.5-5.6-6.5-11a6.5 6.5 0 0 1 13 0C18.5 15.4 12 21 12 21z"/><circle cx="12" cy="10" r="2.3"/>'},
+  '예약 구매': {color:'#568DD6', icon:'<rect x="3.5" y="5" width="13" height="13" rx="2"/><path d="M3.5 9h13M7 3v3.5M13 3v3.5"/><circle cx="17.5" cy="17.5" r="3.8" fill="var(--surface)"/><path d="M17.5 15.8v1.9l1.2 .8"/>'},
+  '선착순': {color:'#E0607E', icon:'<path d="M13 3 5 13.5h6L10 21l8-10.5h-6z"/>'},
+};
 const COLLABS = [
   {kind:'콜라보', cafe:'https://naver.me/G5k7rAUy', brand:'CU', who:'리센느', title:'RESCENE x CU BAKE 405_#1', start:'2026-09-17', end:'2026-10-25', how:['구매 특전'], gifts:[['포토카드','']]},
   {kind:'콜라보', cafe:'https://naver.me/G5k7rAUy', brand:'CU', who:'리센느', title:'RESCENE x CU BAKE 405_#2', start:'2026-10-25', how:['구매 특전'], gifts:[['포토카드','']]},
@@ -70,6 +77,9 @@ const COLLABS = [
   {kind:'팝업', cafe:'https://naver.me/GwfctHXK', brand:'LIT&MAT', who:'리브·메이', title:'LIT&MAT OFFICIAL POP-UP STORE', start:'2026-10-16', end:'2026-10-22', how:['현장 구매'], gifts:[['굿즈 판매','']]},
   {kind:'콜라보', cafe:'https://naver.me/5JqwgXLz', brand:'할리스', who:'리센느', title:'행운 담은 찹쌀떡 세트', added:'2026-10-26', start:'2026-10-27', end:'2026-11-04', how:['구매 특전'], gifts:[['리센느 행운부적','']]},
   {kind:'콜라보', cafe:'https://naver.me/5l2AS8Mj', brand:'삼성전자', who:'리센느', title:'일잘러 필수템 vs 전송 치트키, 당신의 원픽은?', added:'2026-10-28', start:'2026-10-28', end:'2026-11-11', how:['응모 추첨'], gifts:[['갤럭시X리센느 포토카드 세트','20명']]},
+  {kind:'콜라보', cafe:'https://naver.me/xrzuYo9s', brand:'CU', who:'리브·메이', title:'패트와 매트 그릭플레인', added:'2026-11-01', start:'2026-10-28', end:'리트와 메트 한정수량 소진 시 까지', how:['구매 특전'], gifts:[['미니 간판 마그넷']]},
+  {kind:'콜라보', cafe:'https://naver.me/xWI0elf1', brand:'CU', who:'원이', title:'덕연이딸 원이김치제육', added:'2026-11-01', start:'2026-11-02', end:'', startOnline:'2026-11-02', endOnline:'2026-11-04', startOffline:'2026-11-11', endOffline:'재고 소진 시까지', how:['구매 특전'], gifts:[['원이 포토카드']]},
+  {kind:'팝업', cafe:'https://naver.me/xWI0egqX', brand:'CU', who:'리센느', title:'[PULSE]발매 기념 CU POP-UPSTORE 오픈!', added:'2026-11-01', start:'2026-11-03', end:'2026-11-15', how:['굿즈 판매','응모 추첨'], gifts:[['친필 사인 폴라로이드','5명')']]},
 ];
 
 // 투표 메뉴
@@ -316,7 +326,7 @@ const FILTERS = [['all','전체'],['콜라보','콜라보'],['팝업','팝업'],
 const filters = new Set();
 try { (JSON.parse(store.get('rescene-filters') || '[]') || []).forEach(k => { if (FILTERS.some(f => f[0] === k && k !== 'all')) filters.add(k); }); } catch(e){}
 const saveFilters = () => store.set('rescene-filters', JSON.stringify([...filters]));
-const oneOk = (k, c, s) => k==='urgent' ? s.key==='urgent' : k==='new' ? (!!c.isNew && s.key!=='ended') : c.kind===k;
+const oneOk = (k, c, s) => k==='urgent' ? s.key==='urgent' : k==='new' ? (s.key!=='ended' && [c.added,c.start].some(d=>d && dDiff(d)>=-2 && dDiff(d)<=0)) : c.kind===k;
 let showEnded = false;
 
 let query = '';
@@ -331,22 +341,117 @@ function matches(c, s){
 function card(c, s){
   const cls = 'card' + (s.key==='urgent'?' urgent':'') + (s.key==='ended'?' ended':'');
   let box;
-  if (c.cafe) { box = el('a', cls); box.href = c.cafe; box.target = '_blank'; box.rel = 'noopener'; box.setAttribute('aria-label', `${c.brand} ${c.title} 공지 열기`); }
-  else box = el('article', cls);
+
+  if (c.cafe) {
+    box = el('a', cls);
+    box.href = c.cafe;
+    box.target = '_blank';
+    box.rel = 'noopener';
+    box.setAttribute('aria-label', `${c.brand} ${c.title} 공지 열기`);
+  } else {
+    box = el('article', cls);
+  }
+
   const r1 = el('div','row1');
-  const br = el('div','brand'); br.append(el('span','kind', c.kind==='팝업'?'POP-UP ':'COLLAB '), el('b',null,c.brand), document.createTextNode(' · ' + c.who));
+  const br = el('div','brand');
+  br.append(
+    el('span','kind', c.kind==='팝업'?'POP-UP ':'COLLAB '),
+    el('b',null,c.brand),
+    document.createTextNode(' · ' + c.who)
+  );
   r1.append(br, el('span','status ' + s.key, s.label));
-  const t = el('div','ctitle'); if (c.isNew && s.key!=='ended') t.append(el('span','new','NEW')); t.append(document.createTextNode(c.title));
+
+  const t = el('div','ctitle');
+  if (s.key!=='ended' && [c.added,c.start].some(d=>d && dDiff(d)>=-2 && dDiff(d)<=0)) {
+  t.append(el('span','new','NEW'));
+}
+  t.append(document.createTextNode(c.title));
+
   const meta = el('div','meta');
-  c.how.forEach(h => meta.append(el('span','how',h)));
-  const period = c.start ? `${md(c.start)} ~ ${c.end ? md(c.end) : ''}` : c.end ? `~ ${md(c.end)}${c.endTime ? ' ' + c.endTime : ''}` : '';
-  const tail = [period, !c.end ? '재고 소진 시까지' : '', c.note || ''].filter(Boolean).join(' · ');
+
+  // 구매 특전, 응모 추첨 등의 아이콘
+  c.how.forEach(h => {
+    const st = HOW_STYLE[h], tag = el('span','how');
+
+    if (st) {
+      tag.style.setProperty('--hc', st.color);
+      tag.insertAdjacentHTML(
+        'beforeend',
+        `<svg viewBox="0 0 24 24" width="14" height="14" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">${st.icon}</svg>`
+      );
+    }
+
+    tag.append(document.createTextNode(h));
+    meta.append(tag);
+  });
+
+  // 기존 이벤트 기간 표시
+  const hasSeparateDates = !!(c.startOnline || c.startOffline);
+
+const period = hasSeparateDates ? '' :
+  c.start ? `${md(c.start)} ~ ${c.end ? md(c.end) : ''}` :
+  c.end ? `~ ${md(c.end)}${c.endTime ? ' ' + c.endTime : ''}` : '';
+
+const tail = [
+  period,
+  c.note || ''
+].filter(Boolean).join(' · ');
+
   if (tail) meta.append(el('span','tnum',tail));
-  if (c.announce) meta.append(el('span','ann', '당첨 발표 ' + c.announce));
+
+  // 온라인·오프라인 기간 표시
+if (c.startOnline || c.endOnline || c.startOffline || c.endOffline) {
+  const dates = el('span', 'collab-start-dates');
+
+  const formatDate = value =>
+    /^\d{4}-\d{2}-\d{2}$/.test(value || '') ? md(value) : (value || '');
+
+  if (c.startOnline || c.endOnline) {
+    const online =
+  `사전예약 ${c.startOnline ? md(c.startOnline) : ''}` +
+  (c.endOnline ? ' ~ ' + formatDate(c.endOnline) : '');
+
+    dates.append(el('span', null, online));
+  }
+
+  if (c.startOffline || c.endOffline) {
+    if (c.startOnline || c.endOnline) {
+      dates.append(document.createTextNode(' · '));
+    }
+
+    const offline =
+      `오프라인 ${c.startOffline ? md(c.startOffline) : ''}` +
+      (c.endOffline ? ' ~ ' + formatDate(c.endOffline) : '');
+
+    dates.append(el('span', null, offline));
+  }
+
+  meta.append(dates);
+}
+
+  if (c.announce) {
+    meta.append(el('span','ann','당첨 발표 ' + c.announce));
+  }
+
   const ul = el('ul','gifts');
-  c.gifts.forEach(([g,n]) => { const li = el('li'); li.append(el('span',null,g)); if (n) li.append(el('span','tnum',n)); ul.append(li); });
+  c.gifts.forEach(([g,n]) => {
+    const li = el('li');
+    li.append(el('span',null,g));
+    if (n) li.append(el('span','tnum',n));
+    ul.append(li);
+  });
+
   box.append(r1, t, meta, ul);
-  if (c.cafe) { const go = el('span','go','공지로 이동'); go.insertAdjacentHTML('beforeend','<svg viewBox="0 0 16 16" width="13" height="13" aria-hidden="true"><path d="M6 3h7v7M13 3 4 12" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>'); box.append(go); }
+
+  if (c.cafe) {
+    const go = el('span','go','공지로 이동');
+    go.insertAdjacentHTML(
+      'beforeend',
+      '<svg viewBox="0 0 16 16" width="13" height="13" aria-hidden="true"><path d="M6 3h7v7M13 3 4 12" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>'
+    );
+    box.append(go);
+  }
+
   return box;
 }
 function highlight(root, q = query){
