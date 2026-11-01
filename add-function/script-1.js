@@ -7,7 +7,7 @@ const DATA_UPDATED = '2026-11-01' // 수정 시 해당날짜로 변경해줄 것
 const UPDATES = [
   {date:'2026-11-01', version:'1.0.0', tag:'투표', items:['연합투표 설명 TAG 추가','리센느X피프티피프티 연합 추가',"연합 투표 타이틀 변경 '리센느X연합'"]},
   {date:'2026-11-01', version:'1.0.0', tag:'앨범', items:['후즈팬 오프라인 2종 추가']},
-  {date:'2026-11-01', version:'1.0.0', tag:'이벤트', items:['CU 패트와 매트 그릭플레인 추가','CU 원이김치제육 추가','CU [PULSE] POP-UP STORE 추가']},
+  {date:'2026-11-01', version:'1.0.0', tag:'이벤트', items:['CU 패트와 매트 그릭플레인 추가','CU 원이김치제육 추가','CU [PULSE] POP-UP STORE 추가','우리은행X리센느 추가']},
   {date:'2026-11-01', version:'1.0.0', tag:'기능', items:['업데이트 내역 팝업 추가','이벤트 TAG 구분 관리 아이콘 추가','응원봉 마지막 확인 날짜 추가']},
   {date:'2026-10-28', version:'0.9.1', tag:'이벤트', items:['삼성전자 갤럭시 X 리센느 이벤트 추가']},
   {date:'2026-10-26', version:'0.9.0', tag:'이벤트', items:['CU SWEET SCENE 추가','그레인온 세 번째 이야기 추가','거제시 명예시민 기념 이벤트 추가','안원잘부 MLB 이벤트 추가','한스킨 · 할리스 찹쌀떡 세트 추가']},
@@ -91,6 +91,7 @@ const COLLABS = [
   {kind:'콜라보', cafe:'https://naver.me/xrzuYo9s', brand:'CU', who:'리브·메이', title:'패트와 매트 그릭플레인', added:'2026-11-01', start:'2026-10-28', end:'리트와 메트 한정수량 소진 시 까지', how:['구매 특전'], gifts:[['미니 간판 마그넷']]},
   {kind:'콜라보', cafe:'https://naver.me/xWI0elf1', brand:'CU', who:'원이', title:'덕연이딸 원이김치제육', added:'2026-11-01', start:'2026-11-02', end:'', startOnline:'2026-11-02', endOnline:'2026-11-04', startOffline:'2026-11-11', endOffline:'재고 소진 시까지', how:['구매 특전'], gifts:[['원이 포토카드']]},
   {kind:'팝업', cafe:'https://naver.me/xWI0egqX', brand:'CU', who:'리센느', title:'[PULSE]발매 기념 CU POP-UPSTORE 오픈!', added:'2026-11-01', start:'2026-11-03', end:'2026-11-15', how:['굿즈 판매','응모 추첨'], gifts:[['친필 사인 폴라로이드','5명']]},
+  {kind:'콜라보', cafe:'https://naver.me/GDQAFijF', brand:'우리은행', who:'리센느', title:'우리는 해', added:'2026-11-01', start:'', end:'2026-11-10', startOnline:'', endOnline:'', startOffline:'', endOffline:'', how:['응모 추첨'], gifts:[['친필 사인 폴라로이드','5명']]},
 ];
 
 // 투표 메뉴
