@@ -88,7 +88,7 @@ const COLLABS = [
   {kind:'팝업', cafe:'https://naver.me/GwfctHXK', brand:'LIT&MAT', who:'리브·메이', title:'LIT&MAT OFFICIAL POP-UP STORE', start:'2026-10-16', end:'2026-10-22', how:['현장 구매'], gifts:[['굿즈 판매','']]},
   {kind:'콜라보', cafe:'https://naver.me/5JqwgXLz', brand:'할리스', who:'리센느', title:'행운 담은 찹쌀떡 세트', added:'2026-10-26', start:'2026-10-27', end:'2026-11-04', how:['구매 특전'], gifts:[['리센느 행운부적','']]},
   {kind:'콜라보', cafe:'https://naver.me/5l2AS8Mj', brand:'삼성전자', who:'리센느', title:'일잘러 필수템 vs 전송 치트키, 당신의 원픽은?', added:'2026-10-28', start:'2026-10-28', end:'2026-11-11', how:['응모 추첨'], gifts:[['갤럭시X리센느 포토카드 세트','20명']]},
-  {kind:'콜라보', cafe:'https://naver.me/xrzuYo9s', brand:'CU', who:'리브·메이', title:'패트와 매트 그릭플레인', added:'2026-11-01', start:'2026-10-28', end:'리트와 메트 한정수량 소진 시 까지', how:['구매 특전'], gifts:[['미니 간판 마그넷']]},
+  {kind:'콜라보', cafe:'https://naver.me/xrzuYo9s', brand:'CU', who:'리브·메이', title:'패트와 매트 그릭플레인', added:'2026-11-01', start:'2026-10-28', end:'한정수량 소진 시 까지', how:['구매 특전'], gifts:[['미니 간판 마그넷']]},
   {kind:'콜라보', cafe:'https://naver.me/xWI0elf1', brand:'CU', who:'원이', title:'덕연이딸 원이김치제육', added:'2026-11-01', start:'2026-11-02', end:'', startOnline:'2026-11-02', endOnline:'2026-11-04', startOffline:'2026-11-11', endOffline:'재고 소진 시까지', how:['구매 특전'], gifts:[['원이 포토카드']]},
   {kind:'팝업', cafe:'https://naver.me/xWI0egqX', brand:'CU', who:'리센느', title:'[PULSE]발매 기념 CU POP-UPSTORE 오픈!', added:'2026-11-01', start:'2026-11-03', end:'2026-11-15', how:['굿즈 판매','응모 추첨'], gifts:[['친필 사인 폴라로이드','5명']]},
   {kind:'콜라보', cafe:'https://naver.me/GDQAFijF', brand:'우리은행', who:'리센느', title:'우리는 해', added:'2026-11-01', start:'', end:'2026-11-10', startOnline:'', endOnline:'', startOffline:'', endOffline:'', how:['응모 추첨'], gifts:[['친필 사인 폴라로이드','5명']]},
