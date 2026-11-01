@@ -896,6 +896,63 @@ const calcToggle = $('calcToggle');
 calcToggle.checked = calcOn;
 calcToggle.addEventListener('change', () => { calcOn = calcToggle.checked; store.set('rescene-calc', calcOn ? '1' : '0'); renderStores(); renderCalcBar(); });
 $('calcReset').addEventListener('click', () => { cart = {}; store.set('rescene-cart', '{}'); renderStores(); renderCalcBar(); });
+const UPD_TAG = {'일정':'t-공개','이벤트':'t-행사','투표':'t-시상식','앨범':'t-공연','기능':'t-기념일','수정':''};
+//버전 번호 비교 1.0.0 → 1.0.1 → 1.1.0 순
+const compareUpdVersion = (a,b) => {
+  const x = String(a || '0').replace(/^v/i,'').split('.').map(Number);
+  const y = String(b || '0').replace(/^v/i,'').split('.').map(Number);
+  for (let i=0; i<Math.max(x.length,y.length); i++) {
+    const d=(x[i]||0)-(y[i]||0); if(d) return d;
+  }
+  return 0;
+};
+const updSorted = () => [...UPDATES].map((u,i) => ({u,i})).sort((a,b) => b.u.date.localeCompare(a.u.date) || compareUpdVersion(b.u.version,a.u.version) || a.i - b.i).map(x => x.u);
+const latestUpdKey = () => {
+  const latest=updSorted()[0];
+  return latest ? `${latest.date}@${latest.version || '0'}` : '';
+};
+function renderUpdates(){
+  const list = $('updList'); list.replaceChildren();
+  const all = updSorted();
+  $('updCount').textContent = all.length ? ` ${all.reduce((a,u) => a + u.items.length, 0)}건` : '';
+  if (!all.length) { list.append(el('li','empty','아직 업데이트 내역이 없어요.')); return; }
+  const byDate = all.reduce((m,u) => ((m[u.date] ||= []).push(u), m), {});
+  Object.keys(byDate).forEach((d, k) => {
+    const li = el('li','upd-day');
+    const head = el('div','upd-date');
+    head.append(el('b','tnum', d.slice(0,4) === todayStr().slice(0,4) ? md(d) : d.replace(/-/g,'.')), el('span',null, wd(d) + '요일'));
+    if (k === 0 && dDiff(d) >= -2) head.append(el('span','new','NEW'));
+    li.append(head);
+    byDate[d].forEach(u => {
+      const g = el('div','upd-group');
+      if (u.tag) g.append(el('span','tag ' + (UPD_TAG[u.tag] ?? ''), u.tag));
+      if (u.version) g.append(el('span','upd-version', 'v' + u.version.replace(/^v/i,'')));
+      const ul = el('ul','upd-items'); u.items.forEach(t => ul.append(el('li',null,t)));
+      g.append(ul); li.append(g);
+    });
+    list.append(li);
+  });
+}
+function syncUpdDot(){
+  const latest = updSorted()[0];
+  $('updDot').hidden = !latest || dDiff(latest.date) > 0 || dDiff(latest.date) < -2 || store.get('rescene-upd-seen-version') === latestUpdKey();
+}
+function openUpdModal(){
+  renderUpdates();
+  const m = $('updModal');
+  m.querySelector('.vm-body').scrollTop = 0;
+  if (m.showModal) m.showModal(); else m.setAttribute('open','');
+  document.body.classList.add('modal-open');
+  const key = latestUpdKey(); if (key) store.set('rescene-upd-seen-version', key);
+  syncUpdDot();
+}
+function closeUpdModal(){ const m = $('updModal'); if (m.close) m.close(); else m.removeAttribute('open'); document.body.classList.remove('modal-open'); }
+$('updBtn').addEventListener('click', openUpdModal);
+$('updModalClose').addEventListener('click', closeUpdModal);
+$('updModal').addEventListener('click', e => { if (e.target === e.currentTarget) closeUpdModal(); });
+$('updModal').addEventListener('close', () => document.body.classList.remove('modal-open'));
+syncUpdDot();
+
 function renderAll(){ renderSchedule(); renderCollabs(); renderVotes(); renderAlbum(); renderHomeResult(); }
 tick(); renderAll();
 openTab(location.hash.slice(1) || store.get('rescene-tab') || 'home', false);
