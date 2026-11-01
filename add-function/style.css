@@ -395,3 +395,7 @@ body.modal-open{overflow:hidden}
 .unite .u-txt .u-en{margin-left:0}
 .upd-group{grid-template-columns:52px 1fr}
 .upd-group .upd-items{grid-column:1 / -1}
+
+/*투표 서브타이틀*/
+.vhead{display:flex;flex-direction:column;gap:6px}
+.vsub{align-self:flex-start;font-size:14px;font-weight:700;line-height:1.4;color:var(--accent);background:var(--accent-soft);padding:4px 10px;border-radius:8px;overflow-wrap:anywhere}
