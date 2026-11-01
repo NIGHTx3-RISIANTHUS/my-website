@@ -394,3 +394,4 @@ body.modal-open{overflow:hidden}
 .unite .u-txt{min-width:0}
 .unite .u-txt .u-en{margin-left:0}
 .upd-group{grid-template-columns:52px 1fr}
+.upd-group .upd-items{grid-column:1 / -1}
