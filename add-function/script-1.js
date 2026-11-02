@@ -121,7 +121,7 @@ const VOTES = [
   {key:'MMA', short:'MMA 연합', title:"리센느X피프티피프티", sub:'멜론 스트리밍 Genie Magic', start:'2026-11-09', startTime:'', end:'2026-11-16', endTime:'23:59', who:'멜론 회원', limit:'음총팀 뮤직웨이브 참여', cafe:'https://cafe.naver.com/re5cene/86163',
     unite:[['🍀','멜론 스트리밍','피프티피프티','Genie Magic','blue'],['💘','MMA Global TOP10','리센느','RESCENE','rose']]},
   {key:'FBA', short:'FB연합', title:"2027 대한민국 퍼스트브랜드 대상", sub:'FBA 2027 연합', start:'2026-11-02', startTime:'', end:'2026-11-15', endTime:'23:59', who:'누구나', limit:'email 당 1회', cafe:'https://cafe.naver.com/re5cene/89636',
-    unite:[['💘','여자아이돌(핫트렌드)','리센느','RESCENE','rose'],['💘','광고모델(여)','리센느','RESCENE','rose'],['🍀','남자아이돌','코르티스','CORTIS','blue'],['🍀','남자아이돌(신인)','앤더블','AND2BLE','blue'],['🍀','밴드','데이식스','DAY6','blue']]},
+    unite:[['💘','여자아이돌(핫트렌드)','리센느','RESCENE','rose'],['💘','광고모델(여)','리센느','RESCENE','rose'],['1⃣','남자아이돌','코르티스','CORTIS','blue'],['2⃣','남자아이돌(신인)','앤더블','AND2BLE','blue'],['3⃣','밴드','데이식스','DAY6','blue'],['4⃣','싱어송라이터','이승윤','','blue']]},
 ];
 
 // 앨범 메뉴
@@ -445,12 +445,8 @@ if (c.startOnline || c.endOnline || c.startOffline || c.endOffline) {
     dates.append(el('span', null, online));
   }
 
-  if (c.startOffline || c.endOffline) {
-    if (c.startOnline || c.endOnline) {
-      dates.append(document.createTextNode(' · '));
-    }
-
-    const offline =
+if (c.startOffline || c.endOffline) {
+  const offline =
       `오프라인 ${c.startOffline ? md(c.startOffline) : ''}` +
       (c.endOffline ? ' ~ ' + formatDate(c.endOffline) : '');
 
