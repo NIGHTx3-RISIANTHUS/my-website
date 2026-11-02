@@ -1,10 +1,12 @@
 /* 여기부터 수정 */
 // 작성 기준일
-const DATA_UPDATED = '2026-11-01' // 수정 시 해당날짜로 변경해줄 것.
+const DATA_UPDATED = '2026-11-02' // 수정 시 해당날짜로 변경해줄 것.
 //업데이트 버튼 팝업 표시 내용
 //윗줄에 항목 추가. date: 날짜, version: 배포 버전, tag: 일정/이벤트/투표/앨범/기능/수정, items: 변경 내용
 //같은날짜에 배포할거면 버전 수정 ㄱㄱ 그래야 빨간점 뜸 D+3
 const UPDATES = [
+  {date:'2026-11-02', version:'1.0.0', tag:'이벤트', items:['할리스 미니 팬미팅 추가','RESCENE PLUSE 팝업 추가']},  
+  {date:'2026-11-02', version:'1.0.0', tag:'투표', items:['MAMA 2026 연합 내용 변경','2027 대한민국 퍼스트 브랜드 투표 추가']},  
   {date:'2026-11-01', version:'1.0.0', tag:'투표', items:['리센느X피프티피프티 연합 추가',"연합 투표 타이틀 변경 '리센느X연합'"]},
   {date:'2026-11-01', version:'1.0.0', tag:'앨범', items:['후즈팬 오프라인 2종 추가']},
   {date:'2026-11-01', version:'1.0.0', tag:'이벤트', items:['CU 패트와 매트 그릭플레인 추가','CU 원이김치제육 추가','CU [PULSE] POP-UP STORE 추가','우리은행X리센느 추가']},
@@ -92,6 +94,8 @@ const COLLABS = [
   {kind:'콜라보', cafe:'https://naver.me/xWI0elf1', brand:'CU', who:'원이', title:'덕연이딸 원이김치제육', added:'2026-11-01', start:'2026-11-02', end:'', startOnline:'2026-11-02', endOnline:'2026-11-04', startOffline:'2026-11-11', endOffline:'재고 소진 시까지', how:['구매 특전'], gifts:[['원이 포토카드']]},
   {kind:'팝업', cafe:'https://naver.me/xWI0egqX', brand:'CU', who:'리센느', title:'[PULSE]발매 기념 CU POP-UPSTORE 오픈!', added:'2026-11-01', start:'2026-11-03', end:'2026-11-15', how:['굿즈 판매','응모 추첨'], gifts:[['친필 사인 폴라로이드','5명']]},
   {kind:'콜라보', cafe:'https://naver.me/GDQAFijF', brand:'우리은행', who:'리센느', title:'우리는 해', added:'2026-11-01', start:'', end:'2026-11-10', startOnline:'', endOnline:'', startOffline:'', endOffline:'', how:['응모 추첨'], gifts:[['친필 사인 폴라로이드','5명']]},
+  {kind:'팝업', cafe:'https://naver.me/xoGzrV3L', brand:'PULSE', who:'리센느', title:'RESCENE 4th Mini Album POP-UP STORE <PULSE>', added:'2026-11-02', start:'2026-11-06', end:'2026-11-10', startOnline:'2026-11-04 15:00', endOnline:'', startOffline:'', endOffline:'2026-11-10', how:['현장 구매'], gifts:[['RESCENE MD']]},
+  {kind:'콜라보', cafe:'https://cafe.naver.com/re5cene/89767', brand:'할리스', who:'리센느', title:'HOLLYS X RESCENE SPECIAL FAN MEETING', added:'2026-11-02', start:'2026-11-03', end:'2026-11-15', startOnline:'', endOnline:'', startOffline:'', endOffline:'', how:['응모 추첨'], gifts:[['미니 팬미팅 참여','50명']]},
 ];
 
 // 투표 메뉴
@@ -107,13 +111,15 @@ const VOTES = [
     unite:[['🍀','올해의 신인','알파드라이브원','ALPHA DRIVE ONE','blue'],['💘','Global TOP10','리센느','RESCENE','rose']]},
   {key:'KAKAO BANK', short:'카뱅', title:'MMA 2026 X KAKAO BANK 특별상 투표', end:'2026-10-30', who:'카카오뱅크 계좌 또는 mini 보유자', limit:'1일 1회', related:'MMA 카카오뱅크 특별석 자동 응모', cafe:'https://cafe.naver.com/re5cene/67508'},
   {key:'MAMA', short:'MAMA 2차', title:"리센느X앤더블", sub:"2026 MAMA FANS' CHOICE 2차", start:'2026-10-28', startTime:'10:00', end:'2026-11-08', endTime:'23:59', who:'Mnet Plus 회원', limit:'1일 1회', cafe:'https://cafe.naver.com/re5cene/81677',
-    unite:[['🍀','남자 부문','앤더블','AND2BLE','blue'],['💘','여자 부문','리센느','RESCENE','rose'],['💘','올해의 팬스 초이스 With VISA','리센느','RESCENE','rose']]},
+    unite:[['🍀','남자 부문','앤더블','AND2BLE','blue'],['💘','여자 부문','리센느','RESCENE','rose'],['🌟','올해의 팬스 초이스 With VISA','엔하이픈','ENHYPEN','blue']]},
   {key:'MMA', short:'MMA 연합', title:"리센느X코르티스", sub:'올해의 베스트송(Song of the Year)', start:'2026-10-30', startTime:'10:00', end:'2026-11-13', endTime:'23:59', who:'멜론 회원', limit:'무료회원 1일 1회 · 유료회원 1일 3회', cafe:'https://cafe.naver.com/re5cene/84417',
     unite:[['🍀','올해의 베스트송(Song of the Year)','코르티스','CORTIS','blue'],['💘','컴백 시 지원','리센느','RESCENE','rose']]},
   {key:'MAMA', short:'MAMA 연합', title:"리센느X제로베이스원", sub:'WORLDWIDE KCONERS CHOICE', start:'2026-10-30', startTime:'', end:'2026-11-08', endTime:'23:59', who:'Mnet Plus 회원', limit:'1일 1회', cafe:'https://cafe.naver.com/re5cene/86025',
     unite:[['🍀','WORLDWIDE KCONERS CHOICE','제로베이스원','Customize','blue'],['💘','MMA Global TOP10','리센느','RESCENE','rose']]},
   {key:'MMA', short:'MMA 연합', title:"리센느X피프티피프티", sub:'멜론 스트리밍 Genie Magic', start:'2026-11-09', startTime:'', end:'2026-11-16', endTime:'23:59', who:'멜론 회원', limit:'음총팀 뮤직웨이브 참여', cafe:'https://cafe.naver.com/re5cene/86163',
     unite:[['🍀','멜론 스트리밍','피프티피프티','Genie Magic','blue'],['💘','MMA Global TOP10','리센느','RESCENE','rose']]},
+  {key:'FBA', short:'FB연합', title:"2027 대한민국 퍼스트브랜드 대상", sub:'FBA 2027 연합', start:'2026-11-02', startTime:'', end:'2026-11-15', endTime:'23:59', who:'누구나', limit:'email 당 1회', cafe:'https://cafe.naver.com/re5cene/89636',
+    unite:[['💘','여자아이돌(핫트렌드)','리센느','RESCENE','rose'],['💘','광고모델(여)','리센느','RESCENE','rose'],['🍀','남자아이돌','코르티스','CORTIS','blue'],['🍀','남자아이돌(신인)','앤더블','AND2BLE','blue'],['🍀','밴드','데이식스','DAY6','blue']},
 ];
 
 // 앨범 메뉴
