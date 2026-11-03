@@ -1,10 +1,12 @@
 /* 여기부터 수정 */
 // 작성 기준일
-const DATA_UPDATED = '2026-11-02' // 수정 시 해당날짜로 변경해줄 것.
+const DATA_UPDATED = '2026-11-03' // 수정 시 해당날짜로 변경해줄 것.
 //업데이트 버튼 팝업 표시 내용
 //윗줄에 항목 추가. date: 날짜, version: 배포 버전, tag: 일정/이벤트/투표/앨범/기능/수정, items: 변경 내용
 //같은날짜에 배포할거면 버전 수정 ㄱㄱ 그래야 빨간점 뜸 D+3
 const UPDATES = [
+  {date:'2026-11-03', version:'1.0.3', tag:'수정', items:['할리스몰/할리스 매장 구분','할리스매장 이벤트 정보 추가']},  
+  {date:'2026-11-03', version:'1.0.3', tag:'이벤트', items:['리센느X도미노 추가','할리스몰 미니팬미팅 추가']},  
   {date:'2026-11-02', version:'1.0.2', tag:'기능', items:['이벤트 메뉴 가독성 향상 업데이트']},  
   {date:'2026-11-02', version:'1.0.2', tag:'이벤트', items:['2027 대한민국 퍼스트 브랜드 연합 추가']},  
   {date:'2026-11-02', version:'1.0.1', tag:'이벤트', items:['포토이즘 추가']},  
@@ -98,8 +100,10 @@ const COLLABS = [
   {kind:'팝업', cafe:'https://naver.me/xWI0egqX', brand:'CU', who:'리센느', title:'[PULSE]발매 기념 CU POP-UPSTORE 오픈!', added:'2026-11-01', start:'2026-11-03', end:'2026-11-15', how:['현장 구매','응모 추첨'], gifts:[['친필 사인 폴라로이드','5명']]},
   {kind:'콜라보', cafe:'https://naver.me/GDQAFijF', brand:'우리은행', who:'리센느', title:'우리는 해', added:'2026-11-01', start:'', end:'2026-11-10', startOnline:'', endOnline:'', startOffline:'', endOffline:'', how:['응모 추첨'], gifts:[['친필 사인 폴라로이드','5명']]},
   {kind:'팝업', cafe:'https://naver.me/xoGzrV3L', brand:'PULSE', who:'리센느', title:'RESCENE 4th Mini Album POP-UP STORE <PULSE>', added:'2026-11-02', start:'2026-11-04', end:'2026-11-10', startOnline:'2026-11-04 15:00 ~', endOnline:'', startOffline:'2026-11-06', endOffline:'2026-11-10', how:['현장 구매'], gifts:[['RESCENE MD']]},
-  {kind:'콜라보', cafe:'https://cafe.naver.com/re5cene/89767', brand:'할리스', who:'리센느', title:'HOLLYS X RESCENE SPECIAL FAN MEETING', added:'2026-11-02', start:'2026-11-03', end:'2026-11-15', startOnline:'', endOnline:'', startOffline:'', endOffline:'', how:['응모 추첨'], gifts:[['미니 팬미팅 참여','50명']]},
+  {kind:'콜라보', cafe:'https://cafe.naver.com/re5cene/89767', brand:'할리스 매장', who:'리센느', title:'HOLLYS X RESCENE SPECIAL FAN MEETING', added:'2026-11-02', start:'2026-11-03', end:'2026-11-15', startOnline:'', endOnline:'', startOffline:'', endOffline:'', how:['응모 추첨'], gifts:[['팬미팅 참여권','50명'],['전멤버 포토카드 세트','120명'],['전멤버 브로마이드','240명']]},
   {kind:'콜라보', cafe:'https://naver.me/FHOGcElh', brand:'포토이즘', who:'리센느', title:'포토이즘으로 리마인 부르는 echo 🔊💓', added:'2026-11-02', start:'2026-11-03', end:'2026-12-31', startOnline:'', endOnline:'', startOffline:'', endOffline:'', how:['현장 구매'], gifts:[['포토이즘 프레임 및 스내피즘']]},
+  {kind:'콜라보', cafe:'https://naver.me/5fdtPmxr', brand:'할리스몰', who:'리센느', title:'할리스와 리센느의 특별한 만남', added:'2026-11-03', start:'2026-11-03', end:'2026-11-15', startOnline:'', endOnline:'', startOffline:'', endOffline:'', how:['응모 추첨'], gifts:[['팬미팅 참여권','3명'],['리센느 굿즈 스페셜팩','5명'],['할리스몰 적립금 3천원','20명']]},
+  {kind:'콜라보', cafe:'https://cafe.naver.com/re5cene/90786', brand:'도미노', who:'리센느', title:'천사로 돌아온 리센느😇 신곡 발매 기념', added:'2026-11-03', start:'2026-11-03', end:'2026-11-10', startOnline:'', endOnline:'', startOffline:'', endOffline:'', how:['응모 추첨'], gifts:[["리센느 4번째 미니앨범 'PULSE' 사인CD",'5명'],['도미노 랜덤피자 1판','5명']]},
 ];
 
 // 투표 메뉴
