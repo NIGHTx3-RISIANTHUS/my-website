@@ -369,7 +369,7 @@ function statusOf(c){
 }
 const FILTERS = [['all','전체'],['콜라보','콜라보'],['팝업','팝업'],['urgent','마감 임박'],['new','New'],['ann','당첨자 발표']];
 /* 당첨자 발표 날짜 읽기 — '11.06', '2026-11-20', '종료 후 7일 이내' 가능. 개별 이메일 발송 등 못읽음 ㅜㅜ */
-const ANN_NEAR = 2; // 오늘 기준 쁠마 며칠까지
+const ANN_NEAR = 3; // 오늘 기준 쁠마 며칠까지
 const ymdOf = n => new Date(n*864e5).toISOString().slice(0,10);
 function annRange(c){
   const a = String(c.announce || '').trim();
