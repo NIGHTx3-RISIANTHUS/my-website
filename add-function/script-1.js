@@ -367,11 +367,37 @@ function statusOf(c){
   if (d === 0) return {key:'urgent', label: c.endTime ? `오늘 ${c.endTime} 마감` : '오늘 마감', rank:0, sort:endMs};
   return {key: d <= 3 ? 'urgent' : 'open', label:`D-${d} 마감`, rank:0, sort:endMs};
 }
-const FILTERS = [['all','전체'],['콜라보','콜라보'],['팝업','팝업'],['urgent','마감 임박'],['new','New']];
+const FILTERS = [['all','전체'],['콜라보','콜라보'],['팝업','팝업'],['urgent','마감 임박'],['new','New'],['ann','당첨자 발표']];
+/* 당첨자 발표 날짜 읽기 — '11.06', '2026-11-20', '종료 후 7일 이내' 가능. 개별 이메일 발송 등 못읽음 ㅜㅜ */
+const ANN_NEAR = 2; // 오늘 기준 쁠마 며칠까지
+const ymdOf = n => new Date(n*864e5).toISOString().slice(0,10);
+function annRange(c){
+  const a = String(c.announce || '').trim();
+  if (!a) return null;
+  let m = a.match(/^(\d{4})-(\d{2})-(\d{2})/);
+  if (m) return [m[0], m[0]];
+  m = a.match(/^(\d{1,2})\.(\d{1,2})/);
+  if (m) {
+    const y = Number(todayStr().slice(0,4)), mmdd = `-${m[1].padStart(2,'0')}-${m[2].padStart(2,'0')}`;
+    let d = y + mmdd;
+    if (dDiff(d) > 180) d = (y-1) + mmdd; else if (dDiff(d) < -180) d = (y+1) + mmdd;
+    return [d, d];
+  }
+  m = a.match(/종료\s*후\s*(\d+)\s*일/);
+  if (m && c.end) { const e = c.end.slice(0,10); return [e, ymdOf(dayNum(e) + Number(m[1]))]; }
+  return null;
+}
+const annNear = c => { const r = annRange(c); return !!r && dDiff(r[1]) >= -ANN_NEAR && dDiff(r[0]) <= ANN_NEAR; };
+function annWhen(c){
+  const r = annRange(c); if (!r || !annNear(c)) return '';
+  if (r[0] !== r[1]) return dDiff(r[0]) > 0 ? '곧 발표' : '발표 기간';
+  const d = dDiff(r[0]);
+  return d === 0 ? '오늘' : d === 1 ? '내일' : d === 2 ? '모레' : d === -1 ? '어제' : `${-d}일 전`;
+}
 const filters = new Set();
 try { (JSON.parse(store.get('rescene-filters') || '[]') || []).forEach(k => { if (FILTERS.some(f => f[0] === k && k !== 'all')) filters.add(k); }); } catch(e){}
 const saveFilters = () => store.set('rescene-filters', JSON.stringify([...filters]));
-const oneOk = (k, c, s) => k==='urgent' ? s.key==='urgent' : k==='new' ? (s.key!=='ended' && [c.added,c.start].some(d=>d && dDiff(d)>=-2 && dDiff(d)<=0)) : c.kind===k;
+const oneOk = (k, c, s) => k==='ann' ? annNear(c) : k==='urgent' ? s.key==='urgent' : k==='new' ? (s.key!=='ended' && [c.added,c.start].some(d=>d && dDiff(d)>=-2 && dDiff(d)<=0)) : c.kind===k;
 let showEnded = false;
 
 let query = '';
@@ -471,7 +497,8 @@ if (c.startOffline || c.endOffline) {
 }
 
   if (c.announce) {
-    meta.append(el('span','ann','당첨 발표 ' + c.announce));
+    const when = annWhen(c);
+    meta.append(el('span','ann' + (when ? ' near' : ''),'당첨 발표 ' + c.announce + (when ? ' · ' + when : '')));
   }
 
   const ul = el('ul','gifts');
@@ -516,21 +543,25 @@ function renderCollabs(){
   const items = COLLABS.map(c => ({c, s:statusOf(c)}));
   const fb = $('filters'); fb.replaceChildren();
   FILTERS.forEach(([k,label]) => {
-    const n = items.filter(({c,s}) => s.key!=='ended' && hit(c) && (k==='all' || oneOk(k, c, s))).length;
+        const n = items.filter(({c,s}) => (k==='ann' || s.key!=='ended') && hit(c) && (k==='all' || oneOk(k, c, s))).length;
     const b = el('button','chip'); b.type = 'button'; b.setAttribute('aria-pressed', String(k==='all' ? !filters.size : filters.has(k)));
     b.append(document.createTextNode(label), el('span','n',String(n)));
     b.onclick = () => { if (k==='all') filters.clear(); else if (filters.has(k)) filters.delete(k); else filters.add(k); saveFilters(); renderCollabs(); };
     fb.append(b);
   });
-  const list = items.filter(({c,s}) => matches(c,s) && (showEnded || s.key!=='ended'))
-    .sort(SORT.collab === 'start' ? collabByStart : (a,b) => a.s.rank - b.s.rank || a.s.sort - b.s.sort);
+    const annShown = ({c,s}) => s.key==='ended' && filters.has('ann') && annNear(c) && hit(c);
+  const annOnly = filters.size===1 && filters.has('ann');
+  const list = items.filter(x => (matches(x.c,x.s) && (showEnded || x.s.key!=='ended')) || annShown(x))
+    .sort(annOnly ? (a,b) => annRange(a.c)[0].localeCompare(annRange(b.c)[0])
+      : SORT.collab === 'start' ? collabByStart : (a,b) => a.s.rank - b.s.rank || a.s.sort - b.s.sort);
   const box = $('cards'); box.replaceChildren(...list.map(({c,s}) => card(c,s)));
+    box.classList.toggle('ann-view', filters.has('ann'));
   highlight(box);
-  if (!list.length) box.append(el('div','empty', query ? `'${query}'(이)가 들어간 이벤트가 없어요.` : filters.size===1 && filters.has('urgent') ? '3일 안에 마감되는 이벤트가 없어요.' : '해당하는 이벤트가 없어요.'));
+    if (!list.length) box.append(el('div','empty', query ? `'${query}'(이)가 들어간 이벤트가 없어요.` : filters.size===1 && filters.has('urgent') ? '3일 안에 마감되는 이벤트가 없어요.' : annOnly ? `오늘 앞뒤 ${ANN_NEAR}일 안에 당첨자 발표가 없어요.` : '해당하는 이벤트가 없어요.'));
   COUNT.collab = list.length;
   const rs = $('searchResult'); rs.hidden = !query;
   if (query) { rs.replaceChildren(document.createTextNode(`'${query}' 검색 결과 `), el('b',null,`${list.length}건`)); }
-  const endedN = items.filter(({c,s}) => s.key==='ended' && matches(c,s)).length;
+    const endedN = items.filter(x => x.s.key==='ended' && matches(x.c,x.s) && !annShown(x)).length;
   const eb = $('endedBtn'); eb.hidden = !endedN;
   eb.textContent = showEnded ? '종료된 이벤트 숨기기' : `종료된 이벤트 ${endedN}개 보기`;
   eb.onclick = () => { showEnded = !showEnded; renderCollabs(); };
@@ -550,6 +581,7 @@ function renderSummary(){
   sm.append(tile(SCHEDULE.filter(e => evTime(e) >= Date.now() && dDiff(e.date) <= 7).length,'7일 안 일정', '', go('schedule', () => { months.clear(); store.set('rescene-months','[]'); renderSchedule(); })),
     tile(items.filter(s => s.key!=='ended' && s.key!=='soon').length,'진행 중 이벤트', '', go('collab', () => { filters.clear(); saveFilters(); renderCollabs(); })),
     tile(items.filter(s => s.key==='urgent').length,'3일 안에 마감','hot', go('collab', () => { filters.clear(); filters.add('urgent'); saveFilters(); renderCollabs(); })),
+    tile(COLLABS.filter(annNear).length,'당첨자 발표 ±2일','ann-tile', go('collab', () => { filters.clear(); filters.add('ann'); saveFilters(); renderCollabs(); })),
     tile(VOTES.filter(v => voteStatus(v).key!=='ended').length,'진행 중 투표', '', go('vote')));
 }
 
