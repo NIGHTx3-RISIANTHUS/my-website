@@ -1,10 +1,11 @@
 /* 여기부터 수정 */
 // 작성 기준일
-const DATA_UPDATED = '2026-11-04' // 수정 시 해당날짜로 변경해줄 것.
+const DATA_UPDATED = '2026-11-05' // 수정 시 해당날짜로 변경해줄 것.
 //업데이트 버튼 팝업 표시 내용
 //윗줄에 항목 추가. date: 날짜, version: 배포 버전, tag: 일정/이벤트/투표/앨범/기능/수정, items: 변경 내용
 //같은날짜에 배포할거면 버전 수정 ㄱㄱ 그래야 빨간점 뜸 D+3
 const UPDATES = [
+  {date:'2026-11-05', version:'1.0.5', tag:'이벤트', items:['지니뮤직 감상 추가','지니뮤직 런데이 굿즈 추가','리센느X드래곤빌리지 추가','리센느X할리스 포토스트립 추가']},  
   {date:'2026-11-04', version:'1.0.4', tag:'이벤트', items:['리센느X올리브영 추가','STAGE99 초대 이벤트 추가','멜론 PULSE 발매 기념 이벤트 추가','원이X바이오던스 추가','플챗 PULSE 발매 기념 이벤트 추가','리센느X그레인온 추가','미나미X아이돌스테이블 추가']},  
   {date:'2026-11-03', version:'1.0.3', tag:'수정', items:['할리스몰/할리스 매장 구분','할리스매장 이벤트 정보 추가']},  
   {date:'2026-11-03', version:'1.0.3', tag:'이벤트', items:['리센느X도미노 추가','할리스몰 미니팬미팅 추가']},  
@@ -111,7 +112,11 @@ const COLLABS = [
   {kind:'콜라보', cafe:'https://naver.me/FSvlLcXv', brand:'바이오던스', who:'원이', title:'BIODANCE X WONI EVENT! 🎁💗', added:'2026-11-04', start:'2026-11-05', end:'2026-11-12', startOnline:'', endOnline:'', startOffline:'', endOffline:'', announce:'', how:['구매 특전'], gifts:[['원이 스티커+바이오던스 손거울']]},
   {kind:'콜라보', cafe:'https://cafe.naver.com/re5cene/93120', brand:'플러스챗(더뮤즈)', who:'리센느', title:"4th Mini Album [PULSE] 'With' 발매 기념 이벤트", added:'2026-11-04', start:'2026-11-04', end:'2026-11-10', startOnline:'', endOnline:'', startOffline:'', endOffline:'', announce:'', how:['응모 추첨'], gifts:[['(음원)미공개 폴라로이드 랜덤 1장','5명'],['(뮤비)미공개 폴라로이드 랜덤 1장','5명']]},
   {kind:'콜라보', cafe:'https://cafe.naver.com/re5cene/93143', brand:'그레인온', who:'리센느', title:'💗 그레인온 X 리센느 컴백 축하 EVENT 💗', added:'2026-11-04', start:'2026-11-03', end:'2026-11-09', startOnline:'', endOnline:'', startOffline:'', endOffline:'', announce:'2026-11-16', how:['응모 추첨'], gifts:[['리센느 4집 미니 앨범+그레인온X리센느 에디션 랜덤 1종','5명']]},
-  {kind:'콜라보', cafe:'https://naver.me/xeF5aoR0', brand:'아이돌스 테이블', who:'미나미', title:'EP.5 TABLE QUIZ signed polaroid EVENT', added:'2026-11-04', start:'2026-11-04', end:'2026-11-09 12:00', startOnline:'', endOnline:'', startOffline:'', endOffline:'', announce:'', how:['응모 추첨'], gifts:[['출연진 사인 폴라로이드']]}, 
+  {kind:'콜라보', cafe:'https://naver.me/xeF5aoR0', brand:'아이돌스 테이블', who:'미나미', title:'EP.5 TABLE QUIZ signed polaroid EVENT', added:'2026-11-04', start:'2026-11-04', end:'2026-11-09 12:00', startOnline:'', endOnline:'', startOffline:'', endOffline:'', announce:'', how:['응모 추첨'], gifts:[['출연진 사인 폴라로이드']]},
+  {kind:'콜라보', cafe:'https://cafe.naver.com/re5cene/94657', brand:'지니 뮤직', who:'리센느', title:'내 이름의 친필 사인 앨범 증정', added:'2026-11-06', start:'2026-11-03', end:'2026-11-12', startOnline:'', endOnline:'', startOffline:'', endOffline:'', announce:'2026-12-07', how:['응모 추첨'], gifts:[['To.당첨자명 사인 앨범','5명'],['사인 폴라로이드 랜덤 1종','5명']]}, 
+  {kind:'콜라보', cafe:'https://naver.me/xnO2XpdS', brand:'지니 뮤직', who:'리센느', title:'런데이와 지니뮤직이 함께하는 뮤직런', added:'2026-11-06', start:'2026-11-05', end:'2026-11-22', startOnline:'', endOnline:'', startOffline:'', endOffline:'', announce:'', how:['응모 추첨'], gifts:[['친필 사인 티셔츠','5명'],['친필 사인 앨범','5명'],['할리스 커피 기프티콘','100명']]}, 
+  {kind:'콜라보', cafe:'https://cafe.naver.com/re5cene/96910', brand:'드래곤빌리지3', who:'리센느', title:'0.5주년 스페셜 콜라보 리센느X드빌3', added:'2026-11-06', start:'2026-11-06', end:'2026-12-17', startOnline:'', endOnline:'', startOffline:'', endOffline:'', announce:'', how:['응모 추첨'], gifts:[['친필 사인 앨범+드래곤 쿠션 랜덤 1종+달력','5명'],['사인 드래곤 쿠션 랜덤 1종+달력','5명'],['드래곤 쿠션 랜덤 1종','90명']]}, 
+  {kind:'콜라보', cafe:'https://naver.me/xAfwy6Er', brand:'할리스 네이버 스토어', who:'리센느', title:'포토스트립 증정 이벤트', added:'2026-11-06', start:'2026-11-08', end:'2026-11-09', startOnline:'', endOnline:'', startOffline:'', endOffline:'', announce:'', how:['선착순'], gifts:[['리센느 포토스트립 랜덤 1장','ID당 1회']]}, 
 ];
 
 // 투표 메뉴
