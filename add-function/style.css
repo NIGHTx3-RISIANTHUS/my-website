@@ -397,6 +397,13 @@ body.modal-open{overflow:hidden}
 .upd-group{grid-template-columns:52px 1fr}
 .upd-group .upd-items{grid-column:1 / -1}
 
+/* 당첨자 발표 필터 홈 요약 카드 */
+@media (min-width:521px){.summary{grid-template-columns:repeat(5,1fr)}}
+@media (max-width:520px){.summary button:last-child:nth-child(odd){grid-column:1 / -1}}
+.summary .ann-tile b{color:var(--violet)}
+.ann.near{background:var(--violet-soft);color:var(--violet)}
+.cards.ann-view .card.ended{opacity:1}
+
 /*투표 서브타이틀*/
 .vhead{display:flex;flex-direction:column;gap:6px}
 .vsub{align-self:flex-start;font-size:14px;font-weight:700;line-height:1.4;color:var(--accent);background:var(--accent-soft);padding:4px 10px;border-radius:8px;overflow-wrap:anywhere}
