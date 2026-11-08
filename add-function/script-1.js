@@ -273,12 +273,6 @@ function tick(){
   $('clock').textContent = clockFmt.format(now);
   const t = todayStr();
   $('today').textContent = `${md(t)} (${wd(t)}) KST 기준`;
-  let left = Math.max(0, kst(...COMEBACK.split('T')) - now);
-  const d = Math.floor(left/864e5); left -= d*864e5;
-  const h = Math.floor(left/36e5); left -= h*36e5;
-  const m = Math.floor(left/6e4); const s = Math.floor((left - m*6e4)/1000);
-  $('cd-d').textContent = d; $('cd-h').textContent = String(h).padStart(2,'0');
-  $('cd-m').textContent = String(m).padStart(2,'0'); $('cd-s').textContent = String(s).padStart(2,'0');
 }
 
 const evTime = e => kst(e.date, '23:59'); // 일정은 그날 23:59까지 표시
