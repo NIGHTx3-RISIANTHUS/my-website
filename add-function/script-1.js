@@ -120,6 +120,7 @@ const COLLABS = [
   {kind:'콜라보', cafe:'https://naver.me/xnO2XpdS', brand:'지니 뮤직', who:'리센느', title:'런데이와 지니뮤직이 함께하는 뮤직런', added:'2026-11-06', start:'2026-11-05', end:'2026-11-22', startOnline:'', endOnline:'', startOffline:'', endOffline:'', announce:'', how:['응모 추첨'], gifts:[['친필 사인 티셔츠','5명'],['친필 사인 앨범','5명'],['할리스 커피 기프티콘','100명']]}, 
   {kind:'콜라보', cafe:'https://cafe.naver.com/re5cene/96910', brand:'드래곤빌리지3', who:'리센느', title:'0.5주년 스페셜 콜라보 리센느X드빌3', added:'2026-11-06', start:'2026-11-06', end:'2026-12-17', startOnline:'', endOnline:'', startOffline:'', endOffline:'', announce:'', how:['응모 추첨'], gifts:[['친필 사인 앨범+드래곤 쿠션 랜덤 1종+달력','5명'],['사인 드래곤 쿠션 랜덤 1종+달력','5명'],['드래곤 쿠션 랜덤 1종','90명']]}, 
   {kind:'콜라보', cafe:'https://naver.me/xAfwy6Er', brand:'할리스 네이버 스토어', who:'리센느', title:'포토스트립 증정 이벤트', added:'2026-11-06', start:'2026-11-08', end:'2026-11-09', startOnline:'', endOnline:'', startOffline:'', endOffline:'', announce:'', how:['선착순'], gifts:[['리센느 포토스트립 랜덤 1장','ID당 1회']]}, 
+  {kind:'콜라보', cafe:'https://cafe.naver.com/re5cene/100692', brand:'CU x 그레인온', who:'리센느', title:'효소 구매 이벤트', added:'2026-11-08', start:'2026-11-09', end:'2026-11-15', startOnline:'', endOnline:'', startOffline:'', endOffline:'', announce:'', how:['구매 특전'], gifts:[['포토카드 2매'],['엽서카드 1매']]}, 
 ];
 
 // 투표 메뉴
