@@ -108,6 +108,7 @@ h1{margin:0;font-size:28px;font-weight:900;letter-spacing:-.01em;text-wrap:balan
 .cb-top{display:flex;justify-content:space-between;align-items:center;gap:12px}
 .cb-text{display:flex;flex-direction:column;gap:6px;min-width:0}
 .pulse-logo{height:76px;width:auto;flex:none;margin:-6px -2px -4px 0}
+.comeback-banner {display: block;width: 100%;height: auto;border-radius: 20px;}
 .banner{display:block;width:100%;height:auto;aspect-ratio:1080/340;object-fit:cover;border-radius:18px;background:var(--line)}
 
 .summary{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
