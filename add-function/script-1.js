@@ -1,10 +1,13 @@
 /* 여기부터 수정 */
 // 작성 기준일
-const DATA_UPDATED = '2026-11-08' // 수정 시 해당날짜로 변경해줄 것.
+const DATA_UPDATED = '2026-11-13' // 수정 시 해당날짜로 변경해줄 것.
 //업데이트 버튼 팝업 표시 내용
 //윗줄에 항목 추가. date: 날짜, version: 배포 버전, tag: 일정/이벤트/투표/앨범/기능/수정, items: 변경 내용
-//같은날짜에 배포할거면 버전 수정 ㄱㄱ 그래야 빨간점 뜸 D+3
+//같은날짜에 배포할거면 버전 수정 ㄱㄱ 그래야 빨간점 D+3
 const UPDATES = [
+  {date:'2026-11-13', version:'1.3.6', tag:'일정', items:['SBS 2026 가요대전']}, 
+  {date:'2026-11-13', version:'1.3.6', tag:'이벤트', items:['CU x 그레인온 오프라인 이벤트 추가','카카오모빌리티 추가','숨바꼭질2 이벤트 추가','도미노피자 이벤트 추가','우리은행 인스타 댓글 이벤트 추가' ]}, 
+  {date:'2026-11-13', version:'1.3.6', tag:'기능', items:['필독공지 바로가기 추가']}, 
   {date:'2026-11-08', version:'1.2.6', tag:'이벤트', items:['CU x 그레인온 이벤트 추가']}, 
   {date:'2026-11-08', version:'1.2.6', tag:'기능', items:['컴백! 홈 화면 이미지 변경','하단 푸터 디자인 추가']}, 
   {date:'2026-11-06', version:'1.1.6', tag:'기능', items:['당첨자 발표 구분 탭 및 홈 알림 추가']}, 
@@ -56,6 +59,7 @@ const SCHEDULE = [
   {date:'2026-12-05', type:'시상식', title:'AAA 아시아 아티스트 어워즈', place:'대만 가오슝'},
   {date:'2026-12-06', type:'시상식', title:'AAA 아시아 아티스트 어워즈', place:'대만 가오슝'},
   {date:'2026-12-20', type:'기념일', title:'리센느 데뷔 1000일'},
+  {date:'2026-12-24', type:'행사', title:'SBS 2026 가요대전'},
 ];
 
 //이벤트 메뉴
@@ -121,7 +125,12 @@ const COLLABS = [
   {kind:'콜라보', cafe:'https://naver.me/xnO2XpdS', brand:'지니 뮤직', who:'리센느', title:'런데이와 지니뮤직이 함께하는 뮤직런', added:'2026-11-06', start:'2026-11-05', end:'2026-11-22', startOnline:'', endOnline:'', startOffline:'', endOffline:'', announce:'', how:['응모 추첨'], gifts:[['친필 사인 티셔츠','5명'],['친필 사인 앨범','5명'],['할리스 커피 기프티콘','100명']]}, 
   {kind:'콜라보', cafe:'https://cafe.naver.com/re5cene/96910', brand:'드래곤빌리지3', who:'리센느', title:'0.5주년 스페셜 콜라보 리센느X드빌3', added:'2026-11-06', start:'2026-11-06', end:'2026-12-17', startOnline:'', endOnline:'', startOffline:'', endOffline:'', announce:'', how:['응모 추첨'], gifts:[['친필 사인 앨범+드래곤 쿠션 랜덤 1종+달력','5명'],['사인 드래곤 쿠션 랜덤 1종+달력','5명'],['드래곤 쿠션 랜덤 1종','90명']]}, 
   {kind:'콜라보', cafe:'https://naver.me/xAfwy6Er', brand:'할리스 네이버 스토어', who:'리센느', title:'포토스트립 증정 이벤트', added:'2026-11-06', start:'2026-11-08', end:'2026-11-09', startOnline:'', endOnline:'', startOffline:'', endOffline:'', announce:'', how:['선착순'], gifts:[['리센느 포토스트립 랜덤 1장','ID당 1회']]}, 
-  {kind:'콜라보', cafe:'https://cafe.naver.com/re5cene/100692', brand:'CU x 그레인온', who:'리센느', title:'효소 구매 이벤트', added:'2026-11-08', start:'2026-11-09', end:'2026-11-15', startOnline:'', endOnline:'', startOffline:'', endOffline:'', announce:'', how:['구매 특전'], gifts:[['포토카드 2매'],['엽서카드 1매']]}, 
+  {kind:'콜라보', cafe:'https://cafe.naver.com/re5cene/100692', brand:'CU x 그레인온', who:'리센느', title:'효소 구매 이벤트', added:'2026-11-08', start:'2026-11-09', end:'2026-11-15', startOnline:'', endOnline:'', startOffline:'', endOffline:'', announce:'', how:['구매 특전'], gifts:[['포토카드 2종(카카오Ver.)'],['엽서카드 1매']]}, 
+  {kind:'콜라보', cafe:'https://cafe.naver.com/re5cene/100692', brand:'CU x 그레인온', who:'리센느', title:'효소 구매 이벤트(오프라인)', added:'2026-11-13', start:'2026-11-24', end:'', startOnline:'', endOnline:'', startOffline:'', endOffline:'', announce:'', how:['구매 특전'], gifts:[['포토카드 1종']]}, 
+  {kind:'콜라보', cafe:'https://cafe.naver.com/re5cene/100318', brand:'카카오 모빌리티', who:'리센느', title:'미니4집 컴백 이벤트', added:'2026-11-13', start:'2026-11-07', end:'2026-11-15', startOnline:'', endOnline:'', startOffline:'', endOffline:'', announce:'', how:['응모 추첨'], gifts:[['친필 사인 폴라로이드 1장','5명'],['친필 사인 앨범','10명']]}, 
+  {kind:'콜라보', cafe:'https://cafe.naver.com/re5cene/101590', brand:'Mnet Plus 숨바꼭질2', who:'리센느', title:'술래를 이겨라! 투표 인증 이벤트', added:'2026-11-13', start:'2026-11-09', end:'2026-11-15', startOnline:'', endOnline:'', startOffline:'', endOffline:'', announce:'', how:['응모 추첨'], gifts:[['사인 폴라로이드 1장','5명']]}, 
+  {kind:'콜라보', cafe:'https://naver.me/5Hyb320a', brand:'도미노 피자', who:'리센느', title:'포토카드 선착순 증정', added:'2026-11-13', start:'2026-11-16', end:'소진 시 까지', startOnline:'', endOnline:'', startOffline:'', endOffline:'', announce:'', how:['구매 특전'], gifts:[['포토카드 5종 set']]}, 
+  {kind:'콜라보', cafe:'https://naver.me/5Hyb342l', brand:'우리은행', who:'리센느', title:'리센느가 전하는 수능 응원송', added:'2026-11-13', start:'', end:'2026-11-18', startOnline:'', endOnline:'', startOffline:'', endOffline:'', announce:'2026-11-20', how:['응모 추첨'], gifts:[['친필 사인 폴라로이드 1장','5명']]},
 ];
 
 // 투표 메뉴
