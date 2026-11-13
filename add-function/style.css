@@ -414,4 +414,17 @@ body.modal-open{overflow:hidden}
 .cards.ann-view .card.ended{opacity:1}
 /*투표 서브타이틀*/
 .vhead{display:flex;flex-direction:column;gap:6px}
+/* 공지 바로가기 */
+.hp-row{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.hp-card{display:flex;flex-direction:column;gap:10px;padding:14px;border-radius:16px;background:var(--surface);border:1px solid var(--line);color:var(--ink);text-decoration:none;min-width:0;transition:transform .15s,border-color .15s,background .15s}
+.hp-card:hover{border-color:var(--accent);background:var(--accent-soft);transform:translateY(-1px)}
+.hp-top{display:flex;justify-content:space-between;align-items:flex-start;gap:8px}
+.hp-ic{width:42px;height:42px;border-radius:12px;background:var(--accent-soft);color:var(--accent);display:inline-flex;align-items:center;justify-content:center;flex:none}
+.hp-card:hover .hp-ic{background:var(--surface)}
+.hp-go{width:30px;height:30px;border-radius:999px;display:inline-flex;align-items:center;justify-content:center;color:var(--accent);border:1px solid var(--line);flex:none}
+.hp-card:hover .hp-go{border-color:var(--accent)}
+.hp-title{font-size:15px;font-weight:900;line-height:1.3;word-break:keep-all;overflow-wrap:anywhere}
+.hp-card .ls-eyebrow{letter-spacing:.14em}
+@media (max-width:360px){.hp-card{padding:12px}.hp-title{font-size:14px}}
+@media (prefers-reduced-motion:reduce){.hp-card{transition:none}.hp-card:hover{transform:none}}
 .vsub{align-self:flex-start;font-size:14px;font-weight:700;line-height:1.4;color:var(--accent);background:var(--accent-soft);padding:4px 10px;border-radius:8px;overflow-wrap:anywhere}
