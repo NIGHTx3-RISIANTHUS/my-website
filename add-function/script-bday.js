@@ -1,3 +1,5 @@
+// 카카오 API 키
+const KAKAO_JS_KEY = 'd357ba487fe55e1a741ba3a1b84b1c54';
 // 멤버 생일 (D-day 표시용)
 const BDAY_MEMBERS = [['제나','2026-11-27'],['미나미','2026-11-29']];
 // 카페 목록 — who: 생일 멤버, start/end: 운영 기간, host: 주최 X 계정, x: 주최 공지 링크
@@ -29,7 +31,7 @@ const BDAY_CAFES = [
   {who:['미나미'], title:'내친구냠밍뿌', cafe:'멜랑쥬', addr:'서울 마포구 와우산로27길 14', lat:37.554137, lng:126.927578, start:'2026-11-28', end:'2026-11-29', host:'@333clover_', x:'https://x.com/333clover_/status/2116560840908484711'},
   {who:['미나미'], title:'❦ 𝟤𝟢𝟤𝟨 𝐌𝐈𝐍𝐀𝐌𝐈 𝐁𝐈𝐑𝐓𝐇𝐃𝐀𝐘 𝐄𝐕𝐄𝐍𝐓-빛의 소원 ❦', cafe:'카페 아히', addr:'서울 마포구 잔다리로 30-26', lat:37.551737, lng:126.920109, start:'2026-11-28', end:'2026-11-29', host:'@luckmiy', x:'https://x.com/luckmiy/status/2116139264996184074'},
 ];
-/* 여기까지 수정 */
+
 
 const bdYmd = n => new Date(n*864e5).toISOString().slice(0,10);
 const BD_REGIONS = ['서울','경기','인천','부산','대구','대전','광주','울산'];
@@ -93,20 +95,108 @@ function bdCard(c, s){
   highlight(box);
   return box;
 }
-// 좌표(lat, lng)가 있는 카페만 지도에, 없으면 안나옴
-let bdMap = null, bdLayer = null, bdItems = [], bdSig = '', bdLeaflet = null;
-function bdLoadLeaflet(){
-  if (window.L) return Promise.resolve();
-  if (bdLeaflet) return bdLeaflet;
-  bdLeaflet = new Promise((res, rej) => {
+// 생일카페 지도
+// 기본 카카오맵 OpenStreetMap으로 자동 전환.
+// 좌표(lat, lng) 없으면 목록에만. 좌표 넣을 것. 쿼터 낭비 방지용
+let bdEng = null, bdItems = [], bdSig = '', bdEngP = null;
+const bdDark = () => document.documentElement.dataset.theme === 'dark' || (document.documentElement.dataset.theme !== 'light' && matchMedia('(prefers-color-scheme: dark)').matches);
+function bdScript(src){
+  return new Promise((res, rej) => { const s = document.createElement('script'); s.src = src; s.onload = res; s.onerror = rej; document.head.append(s); });
+}
+function bdPinEl(tone, n, cluster){
+  const w = el('span','bm-wrap' + (cluster ? ' c' : ''));
+  const p = el('span','bm-pin ' + tone + (cluster ? ' cluster' : '')); p.append(el('i', null, n > 1 ? String(n) : ''));
+  w.append(p); return w;
+}
+// 카카오맵
+async function bdKakao(box){
+  if (!KAKAO_JS_KEY) throw new Error('no key');
+  if (!(window.kakao && kakao.maps && kakao.maps.Map)) {
+    await bdScript('https://dapi.kakao.com/v2/maps/sdk.js?autoload=false&appkey=' + encodeURIComponent(KAKAO_JS_KEY));
+    await new Promise((res, rej) => {
+      if (!(window.kakao && kakao.maps && kakao.maps.load)) return rej(new Error('sdk'));
+      const t = setTimeout(() => rej(new Error('timeout')), 6000);
+      kakao.maps.load(() => { clearTimeout(t); res(); });
+    });
+  }
+  const K = kakao.maps;
+  box.replaceChildren();
+  const map = new K.Map(box, {center: new K.LatLng(36.3, 127.8), level: 13});
+  map.addControl(new K.ZoomControl(), K.ControlPosition.BOTTOMRIGHT);
+  let overlays = [], pop = null;
+  const closePop = () => { if (pop) { pop.setMap(null); pop = null; } };
+  K.event.addListener(map, 'click', closePop);
+  return {
+    name: 'kakao',
+    relayout(){ map.relayout(); },
+    fit(pts){
+      if (!pts.length) { map.setLevel(13); map.setCenter(new K.LatLng(36.3, 127.8)); return; }
+      if (pts.length === 1) { map.setLevel(3); map.setCenter(new K.LatLng(pts[0].lat, pts[0].lng)); return; }
+      const b = new K.LatLngBounds(); pts.forEach(p => b.extend(new K.LatLng(p.lat, p.lng)));
+      map.setBounds(b, 40, 40, 40, 40);
+    },
+    project(p){ const q = map.getProjection().containerPointFromCoords(new K.LatLng(p.lat, p.lng)); return {x:q.x, y:q.y}; },
+    clear(){ overlays.forEach(o => o.setMap(null)); overlays = []; closePop(); },
+    pin(at, tone, n, cluster, onClick){
+      const node = bdPinEl(tone, n, cluster);
+      node.addEventListener('click', e => { e.stopPropagation(); onClick(); });
+      const o = new K.CustomOverlay({position: new K.LatLng(at.lat, at.lng), content: node, xAnchor: .5, yAnchor: cluster ? .5 : 1, zIndex: cluster ? 3 : 2, clickable: true});
+      o.setMap(map); overlays.push(o);
+    },
+    popup(at, node){
+      closePop();
+      const wrap = el('div','bm-kpop'); const x = el('button','bm-x','✕'); x.type = 'button'; x.setAttribute('aria-label','닫기');
+      x.onclick = e => { e.stopPropagation(); closePop(); };
+      wrap.append(x, node);
+      ['click','mousedown','touchstart','wheel'].forEach(ev => wrap.addEventListener(ev, e => e.stopPropagation(), {passive:true}));
+      pop = new K.CustomOverlay({position: new K.LatLng(at.lat, at.lng), content: wrap, xAnchor: .5, yAnchor: 1, zIndex: 10, clickable: true});
+      pop.setMap(map);
+      map.panTo(new K.LatLng(at.lat, at.lng));
+    },
+    closePopup: closePop,
+    onZoom(cb){ let lv = map.getLevel(); K.event.addListener(map, 'idle', () => { if (map.getLevel() !== lv) { lv = map.getLevel(); cb(); } }); },
+  };
+}
+// OpenStreetMap (예비)
+async function bdLeaflet(box){
+  if (!window.L) {
     const css = document.createElement('link'); css.rel = 'stylesheet';
     css.href = 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css'; document.head.append(css);
-    const js = document.createElement('script'); js.src = 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js';
-    js.onload = res; js.onerror = () => { bdLeaflet = null; rej(); }; document.head.append(js);
-  });
-  return bdLeaflet;
+    await bdScript('https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js');
+  }
+  box.replaceChildren(); box.classList.toggle('dark', bdDark());
+  const map = L.map(box, {scrollWheelZoom:false, zoomControl:false, attributionControl:true});
+  L.control.zoom({position:'bottomright'}).addTo(map);
+  L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {maxZoom:19,
+    attribution:'&copy; <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OpenStreetMap</a>'}).addTo(map);
+  const layer = L.layerGroup().addTo(map);
+  return {
+    name: 'osm',
+    relayout(){ map.invalidateSize(); },
+    fit(pts){
+      if (!pts.length) { map.setView([36.3, 127.8], 6); return; }
+      map.fitBounds(L.latLngBounds(pts.map(p => [p.lat, p.lng])), {padding:[36,36], maxZoom:16, animate:false});
+    },
+    project(p){ return map.latLngToContainerPoint([p.lat, p.lng]); },
+    clear(){ layer.clearLayers(); map.closePopup(); },
+    pin(at, tone, n, cluster, onClick){
+      const node = bdPinEl(tone, n, cluster);
+      const icon = L.divIcon({className:'', html:node, iconSize:[30,30], iconAnchor:[15, cluster ? 15 : 30], popupAnchor:[0,-26]});
+      L.marker([at.lat, at.lng], {icon}).on('click', onClick).addTo(layer);
+    },
+    popup(at, node){ L.popup({maxWidth:260, minWidth:200, offset:[0,-26]}).setLatLng([at.lat, at.lng]).setContent(node).openOn(map); },
+    closePopup(){ map.closePopup(); },
+    onZoom(cb){ map.on('zoomend', cb); },
+  };
 }
-const bdDark = () => document.documentElement.dataset.theme === 'dark' || (document.documentElement.dataset.theme !== 'light' && matchMedia('(prefers-color-scheme: dark)').matches);
+function bdEngine(){
+  if (bdEng) return Promise.resolve(bdEng);
+  if (bdEngP) return bdEngP;
+  const box = $('bdMapBox');
+  bdEngP = bdKakao(box).catch(() => bdLeaflet(box)).then(e => { bdEng = e; e.onZoom(bdDraw); return e; })
+    .catch(e => { bdEngP = null; throw e; });
+  return bdEngP;
+}
 function bdMapSync(list){
   const wrap = $('bdMap');
   wrap.hidden = !bdMapOpen;
@@ -121,48 +211,33 @@ function bdMapSync(list){
   const regs = [...new Set(pts.map(({c}) => bdRegion(c)))].sort((a,b) => (BD_REGIONS.indexOf(a)+1 || 99) - (BD_REGIONS.indexOf(b)+1 || 99));
   if (regs.length > 1) [['전체', pts], ...regs.map(r => [r, pts.filter(({c}) => bdRegion(c) === r)])].forEach(([label, arr]) => {
     const b = el('button', null, label + (label === '전체' ? '' : ` ${arr.length}`)); b.type = 'button';
-    b.onclick = () => bdMap && bdFit(arr);
+    b.onclick = () => bdEng && bdFit(arr);
     jump.append(b);
   });
   bdItems = pts;
   const sig = pts.map(({c}) => BDAY_CAFES.indexOf(c)).join(',');
   const changed = sig !== bdSig; bdSig = sig;
-  bdLoadLeaflet().then(() => {
-    if (!bdMap) {
-      $('bdMapBox').replaceChildren();
-      $('bdMapBox').classList.toggle('dark', bdDark());
-      bdMap = L.map('bdMapBox', {scrollWheelZoom:false, zoomControl:false, attributionControl:true});
-      L.control.zoom({position:'bottomright'}).addTo(bdMap);
-      L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
-        maxZoom:19, attribution:'&copy; <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OpenStreetMap</a>'
-      }).addTo(bdMap);
-      bdLayer = L.layerGroup().addTo(bdMap);
-      bdMap.on('zoomend', bdDraw);
-      bdFit(bdItems);
-    } else {
-      bdMap.invalidateSize();
-      if (changed || bdMapFit) bdFit(bdItems); // 내용이 그대로면 다시 그리지 않음 (1분마다 갱신될 때 열린 팝업이 닫히지 않게)
-    }
+  const first = !bdEng;
+  bdEngine().then(() => {
+    bdEng.relayout();
+    if (first || changed || bdMapFit) bdFit(bdItems); // 내용이 그대로면 다시 그리지 않음 (1분마다 갱신될 때 열린 팝업이 닫히지 않게)
     bdMapFit = false;
   }).catch(() => {
     $('bdMapBox').replaceChildren(el('div', 'b-map-err', '지도를 불러오지 못했어요. 잠시 뒤 다시 열어 주세요.'));
   });
 }
 function bdFit(arr){
-  if (!arr.length) { bdMap.setView([36.3, 127.8], 6); bdDraw(); return; }
-  const b = L.latLngBounds(arr.map(({c}) => [c.lat, c.lng]));
-  bdMap.fitBounds(b, {padding:[36, 36], maxZoom:16, animate:false});
-  bdDraw();
+  bdEng.fit(arr.map(({c}) => c));
+  setTimeout(bdDraw, 0);
 }
 // 가까운 마커는 숫자로 묶고, 누르면 그 자리로 확대
 function bdDraw(){
-  if (!bdMap) return;
-  bdLayer.clearLayers();
-  const z = bdMap.getZoom();
+  if (!bdEng) return;
+  bdEng.clear();
   const groups = [];
   bdItems.forEach(it => {
-    const p = bdMap.project([it.c.lat, it.c.lng], z);
-    const g = groups.find(g => g.p.distanceTo(p) < 34);
+    const p = bdEng.project(it.c);
+    const g = groups.find(g => Math.hypot(g.p.x - p.x, g.p.y - p.y) < 34);
     if (g) g.items.push(it); else groups.push({p, items:[it]});
   });
   groups.forEach(g => {
@@ -170,13 +245,9 @@ function bdDraw(){
     const same = cs.every(c => c.lat === cs[0].lat && c.lng === cs[0].lng);
     const zena = cs.some(c => c.who.includes('제나')), minami = cs.some(c => c.who.includes('미나미'));
     const tone = zena && minami ? 'both' : zena ? 'zena' : 'minami';
-    const ll = bdMap.unproject(g.p, z);
-    const n = cs.length;
-    const icon = L.divIcon({className:'', iconSize:[30,30], iconAnchor:[15, n > 1 && !same ? 15 : 28], popupAnchor:[0,-24],
-      html:`<span class="bm-pin ${tone}${n > 1 && !same ? ' cluster' : ''}"><i>${n > 1 ? n : ''}</i></span>`});
-    const mk = L.marker(ll, {icon, keyboard:true, title: n > 1 ? `카페 ${n}곳` : cs[0].cafe}).addTo(bdLayer);
-    if (n > 1 && !same) mk.on('click', () => bdMap.fitBounds(L.latLngBounds(cs.map(c => [c.lat, c.lng])), {padding:[48,48], maxZoom:18}));
-    else mk.bindPopup(() => bdPopup(g.items), {maxWidth:260, minWidth:200});
+    const n = cs.length, cluster = n > 1 && !same;
+    const at = cluster ? {lat: cs.reduce((a,c) => a + c.lat, 0) / n, lng: cs.reduce((a,c) => a + c.lng, 0) / n} : cs[0];
+    bdEng.pin(at, tone, n, cluster, cluster ? () => bdEng.fit(cs) : () => bdEng.popup(cs[0], bdPopup(g.items)));
   });
 }
 function bdPopup(items){
@@ -187,12 +258,13 @@ function bdPopup(items){
     one.append(who, el('b','bm-t', c.title), el('span','bm-c', c.cafe), el('span','bm-d tnum', `${md(c.start)} ~ ${md(c.end)} · ${s.label}`));
     const links = el('div','bm-links');
     const go = el('button', null, '카드 보기'); go.type = 'button';
-    go.onclick = () => { const t = $('bd-' + BDAY_CAFES.indexOf(c)); if (!t) return; bdMap.closePopup(); t.scrollIntoView({block:'center', behavior:'smooth'}); t.classList.add('flash'); setTimeout(() => t.classList.remove('flash'), 1600); };
-    const nav = el('a', null, '길찾기'); nav.href = 'https://map.naver.com/p/search/' + encodeURIComponent(c.addr + ' ' + c.cafe); nav.target = '_blank'; nav.rel = 'noopener';
+    go.onclick = () => { const t = $('bd-' + BDAY_CAFES.indexOf(c)); if (!t) return; bdEng.closePopup(); t.scrollIntoView({block:'center', behavior:'smooth'}); t.classList.add('flash'); setTimeout(() => t.classList.remove('flash'), 1600); };
+    const nav = el('a', null, '길찾기'); nav.href = 'https://map.kakao.com/link/to/' + encodeURIComponent(c.cafe) + ',' + c.lat + ',' + c.lng; nav.target = '_blank'; nav.rel = 'noopener';
     links.append(go, nav); one.append(links); box.append(one);
   });
   return box;
 }
+
 document.addEventListener('click', e => { if (e.target.closest && e.target.closest('#bdMapClose')) { bdMapOpen = false; bdState.who = 'all'; renderBday(); } });
 
 function renderBday(){
@@ -256,13 +328,18 @@ function renderBday(){
 }
 renderBday();
 
-/* 하단 메뉴 글자가 칸을 넘치면(폰 글자 크기를 키운 경우 등) '생일카페' → '생카'로 줄여 표시 */
-function bdNavFit(){
-  const nav = document.querySelector('.bnav'); if (!nav) return;
-  nav.classList.remove('tight');
-  const over = [...nav.querySelectorAll('.bn-l')].some(l => l.getBoundingClientRect().width > l.parentElement.clientWidth - 8);
-  nav.classList.toggle('tight', over);
-}
-bdNavFit();
-addEventListener('resize', bdNavFit);
-if (document.fonts && document.fonts.ready) document.fonts.ready.then(bdNavFit);
+// 하단 메뉴 칸이 모자랄 때 좌우 스크롤 + 양 끝 흐림 표시, 선택한 탭은 화면 안으로
+(function(){
+  const nav = document.querySelector('.bnav-in'); if (!nav) return;
+  const sync = () => {
+    const max = nav.scrollWidth - nav.clientWidth;
+    nav.classList.toggle('more-r', max > 2 && nav.scrollLeft < max - 2);
+    nav.classList.toggle('more-l', max > 2 && nav.scrollLeft > 2);
+  };
+  const showSel = () => { const b = nav.querySelector('[aria-selected="true"]'); if (b && nav.scrollWidth > nav.clientWidth) b.scrollIntoView({inline:'nearest', block:'nearest'}); sync(); };
+  nav.addEventListener('scroll', sync, {passive:true});
+  addEventListener('resize', showSel);
+  new MutationObserver(showSel).observe(nav, {subtree:true, attributes:true, attributeFilter:['aria-selected']});
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(showSel);
+  showSel();
+})();
