@@ -131,7 +131,8 @@ function bdMapSync(list){
     if (!bdMap) {
       $('bdMapBox').replaceChildren();
       $('bdMapBox').classList.toggle('dark', bdDark());
-      bdMap = L.map('bdMapBox', {scrollWheelZoom:false, zoomControl:true, attributionControl:true});
+      bdMap = L.map('bdMapBox', {scrollWheelZoom:false, zoomControl:false, attributionControl:true});
+      L.control.zoom({position:'bottomright'}).addTo(bdMap);
       L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
         maxZoom:19, attribution:'&copy; <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OpenStreetMap</a>'
       }).addTo(bdMap);
@@ -140,7 +141,7 @@ function bdMapSync(list){
       bdFit(bdItems);
     } else {
       bdMap.invalidateSize();
-      if (changed || bdMapFit) bdFit(bdItems); else bdDraw();
+      if (changed || bdMapFit) bdFit(bdItems); // 내용이 그대로면 다시 그리지 않음 (1분마다 갱신될 때 열린 팝업이 닫히지 않게)
     }
     bdMapFit = false;
   }).catch(() => {
