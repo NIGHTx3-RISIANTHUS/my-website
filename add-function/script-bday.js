@@ -1,5 +1,3 @@
-/* ===== 생일카페 ===== */
-/* 여기부터 수정 */
 // 멤버 생일 (D-day 표시용)
 const BDAY_MEMBERS = [['제나','2026-11-27'],['미나미','2026-11-29']];
 // 카페 목록 — who: 생일 멤버, start/end: 운영 기간, host: 주최 X 계정, x: 주최 공지 링크
@@ -11,7 +9,7 @@ const BDAY_CAFES = [
   {who:['제나','미나미'], title:'ふたりの季節 두 사람의 계절', cafe:'노스폴', addr:'대구 중구 중앙대로 392', lat:35.868012, lng:128.593703, start:'2026-11-26', end:'2026-11-28', host:'@rescene_Day', x:'https://x.com/rescene_Day/status/2121224497164653046'},
   {who:['제나','미나미'], title:'ふたりの季節 두 사람의 계절', cafe:'카페 시츠', addr:'부산 부산진구 전포대로162번길 25', lat:35.151062, lng:129.067016, start:'2026-11-26', end:'2026-11-28', host:'@rescene_Day', x:'https://x.com/rescene_Day/status/2121224497164653046'},
   {who:['제나','미나미'], title:'𝙰𝚏𝚝𝚎𝚛𝚜𝚌𝚎𝚗𝚎 𝟸𝟽:𝟸𝟿', cafe:'포츈맨션', addr:'서울 마포구 어울마당로 155', lat:37.556863, lng:126.926984, start:'2026-11-26', end:'2026-11-29', host:'@afterscene_2729', x:'https://x.com/afterscene_2729/status/2122681109951685087'},
-  {who:['제나','미나미'], title:'ふたりの季節 두 사람의 계절', cafe:'카페클로버 홍대', addr:'서울 마포구 와우산로29가길 13', lat:37.554262, lng:126.928672, start:'2026-11-26', end:'2026-11-29', host:'@rescene_Day', x:'https://x.com/rescene_Day/status/2121224497164653046', perks:{basic:['엽서','종이컵','폴라로이드'], special:['키링'], extra:['럭키 드로우']}},
+  {who:['제나','미나미'], title:'ふたりの季節 두 사람의 계절', cafe:'카페클로버 홍대', addr:'서울 마포구 와우산로29가길 13', lat:37.554262, lng:126.928672, start:'2026-11-26', end:'2026-11-29', host:'@rescene_Day', x:'https://x.com/rescene_Day/status/2121224497164653046'},
   {who:['제나','미나미'], title:'도플갱어즈의 생일소동', cafe:'카페몽글', addr:'서울 마포구 와우산로29라길 21', lat:37.554862, lng:126.926891, start:'2026-11-26', end:'2026-11-29', host:'@5Angel_Forever', x:'https://x.com/5Angel_Forever/status/2119712215439929614'},
   {who:['제나'], title:'#zena season1127 #제나의 계절속에 피어나는', cafe:'카페 이상현상', addr:'서울 마포구 와우산로35길 9-7', lat:37.555537, lng:126.929609, start:'2026-11-27', end:'2026-11-27', host:'@zena_season1127', x:'https://x.com/zena_season1127/status/2124025173569687577'},
   {who:['제나','미나미'], title:'우리들의 반짝이는 페이지', cafe:'카페 가벼운날', addr:'서울 마포구 동교로34길 8', lat:37.560912, lng:126.924797, start:'2026-11-27', end:'2026-11-29', host:'@cafe_gabeounnal', x:'https://x.com/cafe_gabeounnal/status/2123344341968318475'},
@@ -95,8 +93,7 @@ function bdCard(c, s){
   highlight(box);
   return box;
 }
-/* ----- 생일카페 지도 (Leaflet + OpenStreetMap, API 키 없음) ----- */
-// 좌표(lat, lng)가 있는 카페만 지도에 찍혀요. 없으면 목록에만 나와요.
+// 좌표(lat, lng)가 있는 카페만 지도에, 없으면 안나옴
 let bdMap = null, bdLayer = null, bdItems = [], bdSig = '', bdLeaflet = null;
 function bdLoadLeaflet(){
   if (window.L) return Promise.resolve();
