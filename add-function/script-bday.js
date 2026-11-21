@@ -70,7 +70,7 @@ function bdCard(c, s){
   const t = el('div','b-title', c.title);
   const place = el('div','b-place');
   place.append(el('span','b-region', bdRegion(c)), el('b', null, c.cafe));
-  const map = el('a','b-addr'); map.href = 'https://map.naver.com/p/search/' + encodeURIComponent(c.addr + ' ' + c.cafe);
+  const map = el('a','b-addr'); map.href = typeof c.lat === 'number' ? 'https://map.kakao.com/link/map/' + encodeURIComponent(c.cafe) + ',' + c.lat + ',' + c.lng : 'https://map.kakao.com/link/search/' + encodeURIComponent(c.addr);
   map.target = '_blank'; map.rel = 'noopener'; map.textContent = c.addr;
   map.insertAdjacentHTML('beforeend','<svg viewBox="0 0 16 16" width="12" height="12" aria-hidden="true"><path d="M8 14.5s-4.5-3.9-4.5-7.6a4.5 4.5 0 0 1 9 0C12.5 10.6 8 14.5 8 14.5z" fill="none" stroke="currentColor" stroke-width="1.6"/><circle cx="8" cy="6.9" r="1.6" fill="none" stroke="currentColor" stroke-width="1.6"/></svg>');
   const days = dayNum(c.end) - dayNum(c.start) + 1;
