@@ -5,6 +5,7 @@ const DATA_UPDATED = '2026-11-04' // 수정 시 해당날짜로 변경해줄 것
 //윗줄에 항목 추가. date: 날짜, version: 배포 버전, tag: 일정/이벤트/투표/앨범/기능/수정, items: 변경 내용
 //같은날짜에 배포할거면 버전 수정 ㄱㄱ 그래야 빨간점 뜸 D+3
 const UPDATES = [
+  {date:'2026-11-22', version:'1.4.0', tag:'기능', items:['생일카페 메뉴 추가','생일카페 지도 추가']},
   {date:'2026-11-04', version:'1.0.4', tag:'이벤트', items:['리센느X올리브영 추가','STAGE99 초대 이벤트 추가','멜론 PULSE 발매 기념 이벤트 추가','원이X바이오던스 추가','플챗 PULSE 발매 기념 이벤트 추가','리센느X그레인온 추가','미나미X아이돌스테이블 추가']},  
   {date:'2026-11-03', version:'1.0.3', tag:'수정', items:['할리스몰/할리스 매장 구분','할리스매장 이벤트 정보 추가']},  
   {date:'2026-11-03', version:'1.0.3', tag:'이벤트', items:['리센느X도미노 추가','할리스몰 미니팬미팅 추가']},  
@@ -884,14 +885,15 @@ function renderAlbum(){
   const t = el('div','total'); t.append(el('span',null,'TOTAL · 미공개 포카 전종 수집'), el('b','tnum', COLLECT.reduce((a,[,n]) => a+n, 0) + '장')); c.append(t);
 }
 
-const TABS = ['home','schedule','collab','vote','album'];
-const TAB_LABEL = {schedule:'일정', collab:'이벤트', vote:'투표', album:'앨범'};
+const TABS = ['home','schedule','collab','vote','album','bday'];
+const TAB_LABEL = {schedule:'일정', collab:'이벤트', vote:'투표', album:'앨범', bday:'생일카페'};
 const PLACEHOLDER = {
   home:'일정·이벤트·투표·앨범 검색',
   schedule:'일정·장소 검색',
   collab:'업체·멤버·특전 검색',
   vote:'투표·플랫폼 검색',
   album:'판매처·특전·버전 검색',
+  bday:'카페·멤버·지역 검색',
 };
 let curTab = 'home';
 function toTop(){
@@ -941,7 +943,7 @@ window.addEventListener('hashchange', () => openTab(location.hash.slice(1), true
 const qInput = $('q'), qClear = $('qClear');
 function setQuery(v){
   query = v; qClear.hidden = !v;
-  renderSchedule(); renderCollabs(); renderVotes(); renderStores(); renderHomeResult();
+  renderSchedule(); renderCollabs(); renderVotes(); renderStores(); if (typeof renderBday === 'function') renderBday(); renderHomeResult();
 }
 qInput.addEventListener('input', () => setQuery(qInput.value.trim()));
 qInput.addEventListener('keydown', e => { if (e.key === 'Escape') { qInput.value = ''; setQuery(''); } });
@@ -1017,7 +1019,7 @@ $('updModal').addEventListener('click', e => { if (e.target === e.currentTarget)
 $('updModal').addEventListener('close', () => document.body.classList.remove('modal-open'));
 syncUpdDot();
 
-function renderAll(){ renderSchedule(); renderCollabs(); renderVotes(); renderAlbum(); renderHomeResult(); }
+function renderAll(){ renderSchedule(); renderCollabs(); renderVotes(); renderAlbum(); if (typeof renderBday === 'function') renderBday(); renderHomeResult(); }
 tick(); renderAll();
 openTab(location.hash.slice(1) || store.get('rescene-tab') || 'home', false);
 setInterval(tick, 1000);
