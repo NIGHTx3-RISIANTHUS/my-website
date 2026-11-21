@@ -1037,7 +1037,7 @@ $('updModal').addEventListener('click', e => { if (e.target === e.currentTarget)
 $('updModal').addEventListener('close', () => document.body.classList.remove('modal-open'));
 syncUpdDot();
 
-function renderAll(){ renderSchedule(); renderCollabs(); renderVotes(); renderAlbum(); if (typeof renderBday === 'function') renderBday(); 
+function renderAll(){ ... if (typeof renderBday === 'function') renderBday(); renderHomeResult(); }
 tick(); renderAll();
 openTab(location.hash.slice(1) || store.get('rescene-tab') || 'home', false);
 setInterval(tick, 1000);
