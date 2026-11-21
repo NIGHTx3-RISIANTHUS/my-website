@@ -1,10 +1,14 @@
 /* 여기부터 수정 */
 // 작성 기준일
-const DATA_UPDATED = '2026-11-13' // 수정 시 해당날짜로 변경해줄 것.
+const DATA_UPDATED = '2026-11-22' // 수정 시 해당날짜로 변경해줄 것.
 //업데이트 버튼 팝업 표시 내용
 //윗줄에 항목 추가. date: 날짜, version: 배포 버전, tag: 일정/이벤트/투표/앨범/기능/수정, items: 변경 내용
 //같은날짜에 배포할거면 버전 수정 ㄱㄱ 그래야 빨간점 D+3
 const UPDATES = [
+  {date:'2026-11-22', version:'1.4.0', tag:'수정', items:['이벤트 메뉴 용어 번경: 콜라보→이벤트']}, 
+  {date:'2026-11-22', version:'1.4.0', tag:'일정', items:['헥스: 마녀왕국 무대인사']}, 
+  {date:'2026-11-22', version:'1.4.0', tag:'이벤트', items:['여담 이벤트 추가','할리스 매장 3차 이벤트 추가','할리스 몰 이벤트 추가','삼성전자 이벤트 추가','가요대전 방청 초대권 이벤트 추가']}, 
+  {date:'2026-11-22', version:'1.4.0', tag:'기능', items:['생일카페 메뉴 추가']}, 
   {date:'2026-11-13', version:'1.3.6', tag:'일정', items:['SBS 2026 가요대전']}, 
   {date:'2026-11-13', version:'1.3.6', tag:'이벤트', items:['CU x 그레인온 오프라인 이벤트 추가','카카오모빌리티 추가','숨바꼭질2 이벤트 추가','도미노피자 이벤트 추가','우리은행 인스타 댓글 이벤트 추가' ]}, 
   {date:'2026-11-13', version:'1.3.6', tag:'기능', items:['필독공지 바로가기 추가']}, 
@@ -60,10 +64,11 @@ const SCHEDULE = [
   {date:'2026-12-06', type:'시상식', title:'AAA 아시아 아티스트 어워즈', place:'대만 가오슝'},
   {date:'2026-12-20', type:'기념일', title:'리센느 데뷔 1000일'},
   {date:'2026-12-24', type:'행사', title:'SBS 2026 가요대전'},
+  {date:'2026-11-25', type:'행사', title:'헥스: 마녀왕국 스페셜 무대인사'},
 ];
 
 //이벤트 메뉴
-// kind: 콜라보/팝업, end 없으면 재고 소진 시까지, endTime 기본 23:59, ended:true → 날짜와 상관없이 종료(소진·조기 마감)
+// kind: 이벤트/팝업, end 없으면 재고 소진 시까지, endTime 기본 23:59, ended:true → 날짜와 상관없이 종료(소진·조기 마감)
 // cafe: 누르면 열릴 공지 이동 (없으면 안눌림), announce: 당첨자 발표, added: 업로드날짜 (업로드 날짜부터 NEW 표시. 3일 후 자동 해제)
 // 이 문구를 찾으신 분께는 소정의 상품을 드립니다. 캡쳐해서 댓글을 남겨주세요
 const HOW_STYLE = {
@@ -74,63 +79,68 @@ const HOW_STYLE = {
   '선착순': {color:'#E0607E', icon:'<path d="M13 3 5 13.5h6L10 21l8-10.5h-6z"/>'},
 };
 const COLLABS = [
-  {kind:'콜라보', cafe:'https://naver.me/G5k7rAUy', brand:'CU', who:'리센느', title:'RESCENE x CU BAKE 405_#1', start:'2026-09-17', end:'2026-10-25', how:['구매 특전'], gifts:[['포토카드','']]},
-  {kind:'콜라보', cafe:'https://naver.me/G5k7rAUy', brand:'CU', who:'리센느', title:'RESCENE x CU BAKE 405_#2', start:'2026-10-25', how:['구매 특전'], gifts:[['포토카드','']]},
-  {kind:'콜라보', cafe:'https://naver.me/G5k7rAUy', brand:'CU', who:'리센느', title:'리센느와 완성하는 일상 #1', start:'2026-09-17', end:'2026-10-25', announce:'11.02', how:['응모 추첨'], gifts:[['포토카드 5장 세트_아궁빵 Ver.','50명'],['키캡키링 5종 中 1종 랜덤','200명']]},
-  {kind:'콜라보', cafe:'https://naver.me/G5k7rAUy', brand:'CU', who:'리센느', title:'리센느와 완성하는 일상 #2', start:'2026-09-23', end:'2026-10-25', announce:'11.09', how:['응모 추첨'], gifts:[['리센느 필름키링','200명'],['리센느 포토카드 5장 세트_Bake405 Ver.','50명']]},
-  {kind:'콜라보', cafe:'https://naver.me/G5k7rAUy', brand:'CU', who:'리센느', title:'리센느와 CU의 SWEET SCENE', added:'2026-10-26', start:'2026-10-26', end:'2026-12-06', announce:'12.10', how:['응모 추첨'], gifts:[['포토카드 스페셜 패키지','50명']]},
-  {kind:'콜라보', cafe:'https://naver.me/FwGMnIER', brand:'CU x 할리스커피', who:'리센느', title:'할리스 커피 마시고 리센느 스페셜 굿즈 받자!', start:'2026-09-28', end:'2026-10-27', announce:'11.06', how:['응모 추첨'], gifts:[['셀카 사인 폴라로이드 멤버별 1장','5명'],['리센느 스페셜 굿즈팩','50명'],['멤버별 포토카드 5종','1,000명']]},
-  {kind:'콜라보', cafe:'https://naver.me/G2YIU1S4', brand:'GS25 x 할리스커피', who:'리센느', title:'GS25에서 만나는 HOLLYS 오늘의 커피 모먼트', start:'2026-09-29', end:'2026-10-28', announce:'11.12', how:['응모 추첨'], gifts:[['친필 사인 폴라로이드 랜덤 1종','5명'],['리센느 스페셜 굿즈팩','50명'],['멤버별 포토카드 5종','1,000명']]},
-  {kind:'콜라보', cafe:'https://naver.me/x2Y1PMgF', brand:'그레인온', who:'리센느', title:'RESCENE EDITION Ver.네이버', start:'2026-10-01', how:['구매 특전'], gifts:[['포토카드 + 엽서 Ver.네이버','']]},
-  {kind:'콜라보', cafe:'https://naver.me/x2Y1PMgF', brand:'그레인온', who:'리센느', title:'RESCENE EDITION Ver.카카오', start:'2026-10-01', how:['구매 특전'], gifts:[['포토카드 + 엽서 Ver.카카오','']]},
-  {kind:'콜라보', cafe:'https://naver.me/x2Y1PMgF', brand:'그레인온', who:'원이', title:'첫 번째 이야기, 원이의 베리말차', start:'2026-09-21', end:'2026-10-04', announce:'10.12', how:['응모 추첨'], gifts:[['리센느 전원 친필사인 응원봉','1명'],['원이 한정 포스터','50명'],['원이 베리말차 효소 1box','30명']]},
-  {kind:'콜라보', cafe:'https://naver.me/x2Y1PMgF', brand:'그레인온', who:'리브·미나미', title:'두 번째 이야기, 리브와 미나미의 맛', start:'2026-10-12', end:'2026-10-25', announce:'11.02', how:['응모 추첨'], gifts:[['리브&미나미 한정 포스터 + 제품 1box','5명'],['리브 포스터 / 미나미 포스터','각 50명'],['리브의 쿠키앤크림 / 미나미의 크림소다 1box','각 30명']]},
-  {kind:'콜라보', cafe:'https://naver.me/x2Y1PMgF', brand:'그레인온', who:'메이·제나', title:'세 번째 이야기, 메이와 제나의 맛', added:'2026-10-26', start:'2026-10-26', end:'2026-11-08', announce:'11.16', how:['응모 추첨'], gifts:[['메이&제나 한정 포스터 + 제품 1box','5명'],['메이 포스터 / 제나 포스터','각 50명'],['메이의 유자레몬 / 제나의 블루베리요거트 1box','각 30명']]},
-  {kind:'콜라보', cafe:'https://naver.me/FJOmH0B8', brand:'카사베르디', who:'리센느', title:'프리미엄 레드와인 비니거 스틱 기프트 에디션', start:'2026-09-24', ended:true, how:['구매 특전'], gifts:[['미니포스터(엽서)','']]},
-  {kind:'콜라보', cafe:'https://naver.me/FDcqQElt', brand:'에이페', who:'리센느', title:'에이페 x 리센느 포토카드 이벤트', start:'2026-09-02', how:['구매 특전'], gifts:[['10만원 이상 구매 시 5종 SET'],['5만원 이상 구매 시 5종 中 2종 랜덤','']]},
-  {kind:'콜라보', cafe:'https://naver.me/G4dCrK67', brand:'MLB', who:'리브·미나미·메이·제나', title:'MY ICONIC BEANIE, THE RESCENE WAY', start:'2026-10-07', end:'2026-10-31', note:'재고 소진 시 조기 종료', how:['구매 특전'], gifts:[['포토카드','']]},
-  {kind:'콜라보', cafe:'https://cafe.naver.com/re5cene/65012', brand:'와키윌리', who:'원이', title:'Wacky WiLLy X WONI', start:'2026-10-13', end:'2026-10-27', note:'재고 소진 시 조기 종료', how:['구매 특전'], gifts:[['원이 싸인 포토카드','']]},
-  {kind:'콜라보', cafe:'https://naver.me/GvWYU81x', brand:'포토이즘', who:'리센느', title:'PHOTOISM x 리센느', start:'2026-09-01', end:'2026-10-31', how:['현장 구매'], gifts:[['포토이즘 프레임 및 스내피즘','']]},
-  {kind:'콜라보', cafe:'https://naver.me/G3veWqYW', brand:'포토이즘', who:'리브', title:'PHOTOISM x 리센느 리브', start:'2026-10-11', end:'2026-11-09', how:['현장 구매'], gifts:[['포토이즘 프레임 및 스내피즘','']]},
-  {kind:'콜라보', cafe:'https://naver.me/5OljnV06', brand:'나랑드사이다', who:'리센느', title:'ZERO A NEW SCENE, IN ZERO', how:['구매 특전'], gifts:[['리센느 브로마이드 1매 + 포토카드 랜덤 1매 세트','']]},
-  {kind:'콜라보', cafe:'https://naver.me/xgXiagjL', brand:'MERMONT', who:'원이', title:'MERMONT x WONI', start:'2026-10-23', end:'2026-11-06', note:'포토카드는 재고 소진 시까지', how:['구매 특전','응모 추첨'], gifts:[['포토카드',''],['친필 사인 MERMONT 신상 모자','3명'],['친필 메시지 카드','3명']]},
-  {kind:'콜라보', cafe:'https://cafe.naver.com/re5cene/76555', brand:'할리스몰', who:'리센느', title:'HOLLYS x RESCENE', start:'2026-10-23', how:['구매 특전'], gifts:[['친필 사인 포토카드','']]},
-  {kind:'콜라보', cafe:'https://cafe.naver.com/re5cene/80504', brand:'거제시', who:'리센느', title:'리센느 거제 명예시민 기념', added:'2026-10-26', end:'2026-10-30', endTime:'23:59', announce:'종료 후 7일 이내', how:['응모 추첨'], gifts:[['리센느 친필 사인','5명']]},
-  {kind:'콜라보', cafe:'https://cafe.naver.com/re5cene/79050', brand:'안원잘부', who:'리센느', title:'안원잘부 유튜브 구독자 이벤트_MLB', added:'2026-10-26', start:'2026-10-25', end:'2026-11-01', announce:'11.04', how:['응모 추첨'], gifts:[['리센느PICK 커브 패딩','5명'],['미야옹 비니','5명']]},
-  {kind:'콜라보', cafe:'https://naver.me/xB7LYQHU', brand:'한스킨', who:'미나미·제나', title:'미나미&제나 친필사인 포토카드 랜덤 증정', added:'2026-10-26', start:'2026-10-25', how:['구매 특전'], gifts:[['미나미·제나 포토카드','']]},
+  {kind:'이벤트', cafe:'https://naver.me/G5k7rAUy', brand:'CU', who:'리센느', title:'RESCENE x CU BAKE 405_#1', start:'2026-09-17', end:'2026-10-25', how:['구매 특전'], gifts:[['포토카드','']]},
+  {kind:'이벤트', cafe:'https://naver.me/G5k7rAUy', brand:'CU', who:'리센느', title:'RESCENE x CU BAKE 405_#2', start:'2026-10-25', how:['구매 특전'], gifts:[['포토카드','']]},
+  {kind:'이벤트', cafe:'https://naver.me/G5k7rAUy', brand:'CU', who:'리센느', title:'리센느와 완성하는 일상 #1', start:'2026-09-17', end:'2026-10-25', announce:'11.02', how:['응모 추첨'], gifts:[['포토카드 5장 세트_아궁빵 Ver.','50명'],['키캡키링 5종 中 1종 랜덤','200명']]},
+  {kind:'이벤트', cafe:'https://naver.me/G5k7rAUy', brand:'CU', who:'리센느', title:'리센느와 완성하는 일상 #2', start:'2026-09-23', end:'2026-10-25', announce:'11.09', how:['응모 추첨'], gifts:[['리센느 필름키링','200명'],['리센느 포토카드 5장 세트_Bake405 Ver.','50명']]},
+  {kind:'이벤트', cafe:'https://naver.me/G5k7rAUy', brand:'CU', who:'리센느', title:'리센느와 CU의 SWEET SCENE', added:'2026-10-26', start:'2026-10-26', end:'2026-12-06', announce:'12.10', how:['응모 추첨'], gifts:[['포토카드 스페셜 패키지','50명']]},
+  {kind:'이벤트', cafe:'https://naver.me/FwGMnIER', brand:'CU x 할리스커피', who:'리센느', title:'할리스 커피 마시고 리센느 스페셜 굿즈 받자!', start:'2026-09-28', end:'2026-10-27', announce:'11.06', how:['응모 추첨'], gifts:[['셀카 사인 폴라로이드 멤버별 1장','5명'],['리센느 스페셜 굿즈팩','50명'],['멤버별 포토카드 5종','1,000명']]},
+  {kind:'이벤트', cafe:'https://naver.me/G2YIU1S4', brand:'GS25 x 할리스커피', who:'리센느', title:'GS25에서 만나는 HOLLYS 오늘의 커피 모먼트', start:'2026-09-29', end:'2026-10-28', announce:'11.12', how:['응모 추첨'], gifts:[['친필 사인 폴라로이드 랜덤 1종','5명'],['리센느 스페셜 굿즈팩','50명'],['멤버별 포토카드 5종','1,000명']]},
+  {kind:'이벤트', cafe:'https://naver.me/x2Y1PMgF', brand:'그레인온', who:'리센느', title:'RESCENE EDITION Ver.네이버', start:'2026-10-01', how:['구매 특전'], gifts:[['포토카드 + 엽서 Ver.네이버','']]},
+  {kind:'이벤트', cafe:'https://naver.me/x2Y1PMgF', brand:'그레인온', who:'리센느', title:'RESCENE EDITION Ver.카카오', start:'2026-10-01', how:['구매 특전'], gifts:[['포토카드 + 엽서 Ver.카카오','']]},
+  {kind:'이벤트', cafe:'https://naver.me/x2Y1PMgF', brand:'그레인온', who:'원이', title:'첫 번째 이야기, 원이의 베리말차', start:'2026-09-21', end:'2026-10-04', announce:'10.12', how:['응모 추첨'], gifts:[['리센느 전원 친필사인 응원봉','1명'],['원이 한정 포스터','50명'],['원이 베리말차 효소 1box','30명']]},
+  {kind:'이벤트', cafe:'https://naver.me/x2Y1PMgF', brand:'그레인온', who:'리브·미나미', title:'두 번째 이야기, 리브와 미나미의 맛', start:'2026-10-12', end:'2026-10-25', announce:'11.02', how:['응모 추첨'], gifts:[['리브&미나미 한정 포스터 + 제품 1box','5명'],['리브 포스터 / 미나미 포스터','각 50명'],['리브의 쿠키앤크림 / 미나미의 크림소다 1box','각 30명']]},
+  {kind:'이벤트', cafe:'https://naver.me/x2Y1PMgF', brand:'그레인온', who:'메이·제나', title:'세 번째 이야기, 메이와 제나의 맛', added:'2026-10-26', start:'2026-10-26', end:'2026-11-08', announce:'11.16', how:['응모 추첨'], gifts:[['메이&제나 한정 포스터 + 제품 1box','5명'],['메이 포스터 / 제나 포스터','각 50명'],['메이의 유자레몬 / 제나의 블루베리요거트 1box','각 30명']]},
+  {kind:'이벤트', cafe:'https://naver.me/FJOmH0B8', brand:'카사베르디', who:'리센느', title:'프리미엄 레드와인 비니거 스틱 기프트 에디션', start:'2026-09-24', ended:true, how:['구매 특전'], gifts:[['미니포스터(엽서)','']]},
+  {kind:'이벤트', cafe:'https://naver.me/FDcqQElt', brand:'에이페', who:'리센느', title:'에이페 x 리센느 포토카드 이벤트', start:'2026-09-02', how:['구매 특전'], gifts:[['10만원 이상 구매 시 5종 SET'],['5만원 이상 구매 시 5종 中 2종 랜덤','']]},
+  {kind:'이벤트', cafe:'https://naver.me/G4dCrK67', brand:'MLB', who:'리브·미나미·메이·제나', title:'MY ICONIC BEANIE, THE RESCENE WAY', start:'2026-10-07', end:'2026-10-31', note:'재고 소진 시 조기 종료', how:['구매 특전'], gifts:[['포토카드','']]},
+  {kind:'이벤트', cafe:'https://cafe.naver.com/re5cene/65012', brand:'와키윌리', who:'원이', title:'Wacky WiLLy X WONI', start:'2026-10-13', end:'2026-10-27', note:'재고 소진 시 조기 종료', how:['구매 특전'], gifts:[['원이 싸인 포토카드','']]},
+  {kind:'이벤트', cafe:'https://naver.me/GvWYU81x', brand:'포토이즘', who:'리센느', title:'PHOTOISM x 리센느', start:'2026-09-01', end:'2026-10-31', how:['현장 구매'], gifts:[['포토이즘 프레임 및 스내피즘','']]},
+  {kind:'이벤트', cafe:'https://naver.me/G3veWqYW', brand:'포토이즘', who:'리브', title:'PHOTOISM x 리센느 리브', start:'2026-10-11', end:'2026-11-09', how:['현장 구매'], gifts:[['포토이즘 프레임 및 스내피즘','']]},
+  {kind:'이벤트', cafe:'https://naver.me/5OljnV06', brand:'나랑드사이다', who:'리센느', title:'ZERO A NEW SCENE, IN ZERO', how:['구매 특전'], gifts:[['리센느 브로마이드 1매 + 포토카드 랜덤 1매 세트','']]},
+  {kind:'이벤트', cafe:'https://naver.me/xgXiagjL', brand:'MERMONT', who:'원이', title:'MERMONT x WONI', start:'2026-10-23', end:'2026-11-06', note:'포토카드는 재고 소진 시까지', how:['구매 특전','응모 추첨'], gifts:[['포토카드',''],['친필 사인 MERMONT 신상 모자','3명'],['친필 메시지 카드','3명']]},
+  {kind:'이벤트', cafe:'https://cafe.naver.com/re5cene/76555', brand:'할리스몰', who:'리센느', title:'HOLLYS x RESCENE', start:'2026-10-23', how:['구매 특전'], gifts:[['친필 사인 포토카드','']]},
+  {kind:'이벤트', cafe:'https://cafe.naver.com/re5cene/80504', brand:'거제시', who:'리센느', title:'리센느 거제 명예시민 기념', added:'2026-10-26', end:'2026-10-30', endTime:'23:59', announce:'종료 후 7일 이내', how:['응모 추첨'], gifts:[['리센느 친필 사인','5명']]},
+  {kind:'이벤트', cafe:'https://cafe.naver.com/re5cene/79050', brand:'안원잘부', who:'리센느', title:'안원잘부 유튜브 구독자 이벤트_MLB', added:'2026-10-26', start:'2026-10-25', end:'2026-11-01', announce:'11.04', how:['응모 추첨'], gifts:[['리센느PICK 커브 패딩','5명'],['미야옹 비니','5명']]},
+  {kind:'이벤트', cafe:'https://naver.me/xB7LYQHU', brand:'한스킨', who:'미나미·제나', title:'미나미&제나 친필사인 포토카드 랜덤 증정', added:'2026-10-26', start:'2026-10-25', how:['구매 특전'], gifts:[['미나미·제나 포토카드','']]},
   {kind:'팝업', cafe:'https://cafe.naver.com/re5cene/50492', brand:'위드뮤', who:'리센느', title:'RESCENE POP-UP MD 온라인 몰', note:'11월 순차 발송', how:['예약 구매'], gifts:[['굿즈 판매','']]},
   {kind:'팝업', cafe:'https://cafe.naver.com/re5cene/50488', brand:'가우디', who:'리센느', title:'RESCENE X GAUDI Collaboration', start:'2026-10-01', end:'2026-10-31', how:['현장 구매'], gifts:[['굿즈 판매','']]},
   // 종료된 이벤트
-  {kind:'콜라보', cafe:'https://cafe.naver.com/re5cene/59295', brand:'메가스터디', who:'리센느', title:'세상아 기대해', start:'2026-10-07', end:'2026-10-20', how:['응모 추첨'], gifts:[['NFC 포토 키링','2,000명'],['CU 3,000원권','1,000명']]},
+  {kind:'이벤트', cafe:'https://cafe.naver.com/re5cene/59295', brand:'메가스터디', who:'리센느', title:'세상아 기대해', start:'2026-10-07', end:'2026-10-20', how:['응모 추첨'], gifts:[['NFC 포토 키링','2,000명'],['CU 3,000원권','1,000명']]},
   {kind:'팝업', cafe:'https://naver.me/GwfctHXK', brand:'LIT&MAT', who:'리브·메이', title:'LIT&MAT OFFICIAL POP-UP STORE', start:'2026-10-16', end:'2026-10-22', how:['현장 구매'], gifts:[['굿즈 판매','']]},
-  {kind:'콜라보', cafe:'https://naver.me/5JqwgXLz', brand:'할리스', who:'리센느', title:'행운 담은 찹쌀떡 세트', added:'2026-10-26', start:'2026-10-27', end:'2026-11-04', how:['구매 특전'], gifts:[['리센느 행운부적','']]},
-  {kind:'콜라보', cafe:'https://naver.me/5l2AS8Mj', brand:'삼성전자', who:'리센느', title:'일잘러 필수템 vs 전송 치트키, 당신의 원픽은?', added:'2026-10-28', start:'2026-10-28', end:'2026-11-11', announce:'2026-11-20', how:['응모 추첨'], gifts:[['갤럭시X리센느 포토카드 세트','20명']]},
-  {kind:'콜라보', cafe:'https://naver.me/xrzuYo9s', brand:'CU', who:'리브·메이', title:'패트와 매트 그릭플레인', added:'2026-11-01', start:'2026-10-28', end:'한정수량 소진 시 까지', how:['구매 특전'], gifts:[['미니 간판 마그넷']]},
-  {kind:'콜라보', cafe:'https://naver.me/xWI0elf1', brand:'CU', who:'원이', title:'덕연이딸 원이김치제육', added:'2026-11-01', start:'2026-11-02', end:'', startOnline:'2026-11-02', endOnline:'2026-11-04', startOffline:'2026-11-11', endOffline:'재고 소진 시까지', how:['구매 특전'], gifts:[['원이 포토카드']]},
+  {kind:'이벤트', cafe:'https://naver.me/5JqwgXLz', brand:'할리스', who:'리센느', title:'행운 담은 찹쌀떡 세트', added:'2026-10-26', start:'2026-10-27', end:'2026-11-04', how:['구매 특전'], gifts:[['리센느 행운부적','']]},
+  {kind:'이벤트', cafe:'https://naver.me/5l2AS8Mj', brand:'삼성전자', who:'리센느', title:'일잘러 필수템 vs 전송 치트키, 당신의 원픽은?', added:'2026-10-28', start:'2026-10-28', end:'2026-11-11', announce:'2026-11-20', how:['응모 추첨'], gifts:[['갤럭시X리센느 포토카드 세트','20명']]},
+  {kind:'이벤트', cafe:'https://naver.me/xrzuYo9s', brand:'CU', who:'리브·메이', title:'패트와 매트 그릭플레인', added:'2026-11-01', start:'2026-10-28', end:'한정수량 소진 시 까지', how:['구매 특전'], gifts:[['미니 간판 마그넷']]},
+  {kind:'이벤트', cafe:'https://naver.me/xWI0elf1', brand:'CU', who:'원이', title:'덕연이딸 원이김치제육', added:'2026-11-01', start:'2026-11-02', end:'', startOnline:'2026-11-02', endOnline:'2026-11-04', startOffline:'2026-11-11', endOffline:'재고 소진 시까지', how:['구매 특전'], gifts:[['원이 포토카드']]},
   {kind:'팝업', cafe:'https://naver.me/xWI0egqX', brand:'CU', who:'리센느', title:'[PULSE]발매 기념 CU POP-UPSTORE 오픈!', added:'2026-11-01', start:'2026-11-03', end:'2026-11-15',announce:'2026-11-20',how:['현장 구매','응모 추첨'], gifts:[['친필 사인 폴라로이드','5명']]},
-  {kind:'콜라보', cafe:'https://naver.me/GDQAFijF', brand:'우리은행', who:'리센느', title:'우리는 해', added:'2026-11-01', start:'', end:'2026-11-10', startOnline:'', endOnline:'', startOffline:'', endOffline:'', announce:'2026-11-13', how:['응모 추첨'], gifts:[['친필 사인 폴라로이드','5명']]},
+  {kind:'이벤트', cafe:'https://naver.me/GDQAFijF', brand:'우리은행', who:'리센느', title:'우리는 해', added:'2026-11-01', start:'', end:'2026-11-10', startOnline:'', endOnline:'', startOffline:'', endOffline:'', announce:'2026-11-13', how:['응모 추첨'], gifts:[['친필 사인 폴라로이드','5명']]},
   {kind:'팝업', cafe:'https://naver.me/xoGzrV3L', brand:'PULSE', who:'리센느', title:'RESCENE 4th Mini Album POP-UP STORE <PULSE>', added:'2026-11-02', start:'2026-11-04', end:'2026-11-10', startOnline:'2026-11-04 15:00 ~', endOnline:'', startOffline:'2026-11-06', endOffline:'2026-11-10', how:['현장 구매'], gifts:[['RESCENE MD']]},
-  {kind:'콜라보', cafe:'https://cafe.naver.com/re5cene/89767', brand:'할리스 매장', who:'리센느', title:'HOLLYS X RESCENE SPECIAL FAN MEETING', added:'2026-11-02', start:'2026-11-03', end:'2026-11-15', startOnline:'', endOnline:'', startOffline:'', endOffline:'', how:['응모 추첨'], gifts:[['팬미팅 참여권','50명'],['전멤버 포토카드 세트','120명'],['전멤버 브로마이드','240명']]},
-  {kind:'콜라보', cafe:'https://naver.me/FHOGcElh', brand:'포토이즘', who:'리센느', title:'포토이즘으로 리마인 부르는 echo 🔊💓', added:'2026-11-02', start:'2026-11-03', end:'2026-12-31', startOnline:'', endOnline:'', startOffline:'', endOffline:'', how:['현장 구매'], gifts:[['포토이즘 프레임 및 스내피즘']]},
-  {kind:'콜라보', cafe:'https://naver.me/5fdtPmxr', brand:'할리스몰', who:'리센느', title:'할리스와 리센느의 특별한 만남', added:'2026-11-03', start:'2026-11-03', end:'2026-11-15', startOnline:'', endOnline:'', startOffline:'', endOffline:'',announce:'2026-11-19', how:['응모 추첨'], gifts:[['팬미팅 참여권','3명'],['리센느 굿즈 스페셜팩','5명'],['할리스몰 적립금 3천원','20명']]},
-  {kind:'콜라보', cafe:'https://cafe.naver.com/re5cene/90786', brand:'도미노', who:'리센느', title:'천사로 돌아온 리센느😇 신곡 발매 기념', added:'2026-11-03', start:'2026-11-03', end:'2026-11-10', startOnline:'', endOnline:'', startOffline:'', endOffline:'',announce:'2026-11-13', how:['응모 추첨'], gifts:[["리센느 4번째 미니앨범 'PULSE' 사인CD",'5명'],['도미노 랜덤피자 1판','5명']]},
-  {kind:'콜라보', cafe:'https://naver.me/IMZgYuM6', brand:'올리브영', who:'리센느', title:'리센느 미니 4집 [PULSE] 발매 기념 댓글 이벤트', added:'2026-11-04', start:'2026-11-03', end:'2026-11-06', startOnline:'', endOnline:'', startOffline:'', endOffline:'', announce:'2026-11-18', how:['응모 추첨'], gifts:[['친필 사인 앨범','3명']]},
-  {kind:'콜라보', cafe:'https://cafe.naver.com/re5cene/91546', brand:'멜론', who:'리센느', title:'뮤직웨이브 STAGE99 초대 이벤트', added:'2026-11-04', start:'2026-11-03', end:'2026-11-12', startOnline:'', endOnline:'', startOffline:'', endOffline:'', announce:'2026-11-18', how:['응모 추첨'], gifts:[['STAGE99 초대권','총 560명']]},
-  {kind:'콜라보', cafe:'https://naver.me/xLN675z7', brand:'멜론', who:'리센느', title:'RESCENE 이벤트 참여하고 선물 받자!', added:'2026-11-04', start:'2026-11-04', end:'2026-11-17', startOnline:'', endOnline:'', startOffline:'', endOffline:'', announce:'2026-12-01', how:['응모 추첨'], gifts:[['사인CD + 사인폴라로이드 세트','총 10명']]},
-  {kind:'콜라보', cafe:'https://naver.me/FSvlLcXv', brand:'바이오던스', who:'원이', title:'BIODANCE X WONI EVENT! 🎁💗', added:'2026-11-04', start:'2026-11-05', end:'2026-11-12', startOnline:'', endOnline:'', startOffline:'', endOffline:'', announce:'', how:['구매 특전'], gifts:[['원이 스티커+바이오던스 손거울']]},
-  {kind:'콜라보', cafe:'https://cafe.naver.com/re5cene/93120', brand:'플러스챗(더뮤즈)', who:'리센느', title:"4th Mini Album [PULSE] 'With' 발매 기념 이벤트", added:'2026-11-04', start:'2026-11-04', end:'2026-11-10', startOnline:'', endOnline:'', startOffline:'', endOffline:'', announce:'개별 이메일 발송', how:['응모 추첨'], gifts:[['(음원)미공개 폴라로이드 랜덤 1장','5명'],['(뮤비)미공개 폴라로이드 랜덤 1장','5명']]},
-  {kind:'콜라보', cafe:'https://cafe.naver.com/re5cene/93143', brand:'그레인온', who:'리센느', title:'💗 그레인온 X 리센느 컴백 축하 EVENT 💗', added:'2026-11-04', start:'2026-11-03', end:'2026-11-09', startOnline:'', endOnline:'', startOffline:'', endOffline:'', announce:'2026-11-16', how:['응모 추첨'], gifts:[['리센느 4집 미니 앨범+그레인온X리센느 에디션 랜덤 1종','5명']]},
-  {kind:'콜라보', cafe:'https://naver.me/xeF5aoR0', brand:'아이돌스 테이블', who:'미나미', title:'EP.5 TABLE QUIZ signed polaroid EVENT', added:'2026-11-04', start:'2026-11-04', end:'2026-11-09 12:00', startOnline:'', endOnline:'', startOffline:'', endOffline:'', announce:'', how:['응모 추첨'], gifts:[['출연진 사인 폴라로이드']]},
-  {kind:'콜라보', cafe:'https://cafe.naver.com/re5cene/94657', brand:'지니 뮤직', who:'리센느', title:'내 이름의 친필 사인 앨범 증정', added:'2026-11-06', start:'2026-11-03', end:'2026-11-12', startOnline:'', endOnline:'', startOffline:'', endOffline:'', announce:'2026-12-07', how:['응모 추첨'], gifts:[['To.당첨자명 사인 앨범','5명'],['사인 폴라로이드 랜덤 1종','5명']]}, 
-  {kind:'콜라보', cafe:'https://naver.me/xnO2XpdS', brand:'지니 뮤직', who:'리센느', title:'런데이와 지니뮤직이 함께하는 뮤직런', added:'2026-11-06', start:'2026-11-05', end:'2026-11-22', startOnline:'', endOnline:'', startOffline:'', endOffline:'', announce:'', how:['응모 추첨'], gifts:[['친필 사인 티셔츠','5명'],['친필 사인 앨범','5명'],['할리스 커피 기프티콘','100명']]}, 
-  {kind:'콜라보', cafe:'https://cafe.naver.com/re5cene/96910', brand:'드래곤빌리지3', who:'리센느', title:'0.5주년 스페셜 콜라보 리센느X드빌3', added:'2026-11-06', start:'2026-11-06', end:'2026-12-17', startOnline:'', endOnline:'', startOffline:'', endOffline:'', announce:'', how:['응모 추첨'], gifts:[['친필 사인 앨범+드래곤 쿠션 랜덤 1종+달력','5명'],['사인 드래곤 쿠션 랜덤 1종+달력','5명'],['드래곤 쿠션 랜덤 1종','90명']]}, 
-  {kind:'콜라보', cafe:'https://naver.me/xAfwy6Er', brand:'할리스 네이버 스토어', who:'리센느', title:'포토스트립 증정 이벤트', added:'2026-11-06', start:'2026-11-08', end:'2026-11-09', startOnline:'', endOnline:'', startOffline:'', endOffline:'', announce:'', how:['선착순'], gifts:[['리센느 포토스트립 랜덤 1장','ID당 1회']]}, 
-  {kind:'콜라보', cafe:'https://cafe.naver.com/re5cene/100692', brand:'CU x 그레인온', who:'리센느', title:'효소 구매 이벤트', added:'2026-11-08', start:'2026-11-09', end:'2026-11-15', startOnline:'', endOnline:'', startOffline:'', endOffline:'', announce:'', how:['구매 특전'], gifts:[['포토카드 2종(카카오Ver.)'],['엽서카드 1매']]}, 
-  {kind:'콜라보', cafe:'https://cafe.naver.com/re5cene/100692', brand:'CU x 그레인온', who:'리센느', title:'효소 구매 이벤트(오프라인)', added:'2026-11-13', start:'2026-11-24', end:'', startOnline:'', endOnline:'', startOffline:'', endOffline:'', announce:'', how:['구매 특전'], gifts:[['포토카드 1종']]}, 
-  {kind:'콜라보', cafe:'https://cafe.naver.com/re5cene/100318', brand:'카카오 모빌리티', who:'리센느', title:'미니4집 컴백 이벤트', added:'2026-11-13', start:'2026-11-07', end:'2026-11-15', startOnline:'', endOnline:'', startOffline:'', endOffline:'', announce:'', how:['응모 추첨'], gifts:[['친필 사인 폴라로이드 1장','5명'],['친필 사인 앨범','10명']]}, 
-  {kind:'콜라보', cafe:'https://cafe.naver.com/re5cene/101590', brand:'Mnet Plus 숨바꼭질2', who:'리센느', title:'술래를 이겨라! 투표 인증 이벤트', added:'2026-11-13', start:'2026-11-09', end:'2026-11-15', startOnline:'', endOnline:'', startOffline:'', endOffline:'', announce:'', how:['응모 추첨'], gifts:[['사인 폴라로이드 1장','5명']]}, 
-  {kind:'콜라보', cafe:'https://naver.me/5Hyb320a', brand:'도미노 피자', who:'리센느', title:'포토카드 선착순 증정', added:'2026-11-13', start:'2026-11-16', end:'소진 시 까지', startOnline:'', endOnline:'', startOffline:'', endOffline:'', announce:'', how:['구매 특전'], gifts:[['포토카드 5종 set']]}, 
-  {kind:'콜라보', cafe:'https://naver.me/5Hyb342l', brand:'우리은행', who:'리센느', title:'리센느가 전하는 수능 응원송', added:'2026-11-13', start:'', end:'2026-11-18', startOnline:'', endOnline:'', startOffline:'', endOffline:'', announce:'2026-11-20', how:['응모 추첨'], gifts:[['친필 사인 폴라로이드 1장','5명']]},
+  {kind:'이벤트', cafe:'https://cafe.naver.com/re5cene/89767', brand:'할리스 매장', who:'리센느', title:'HOLLYS X RESCENE SPECIAL FAN MEETING', added:'2026-11-02', start:'2026-11-03', end:'2026-11-15', startOnline:'', endOnline:'', startOffline:'', endOffline:'', how:['응모 추첨'], gifts:[['팬미팅 참여권','50명'],['전멤버 포토카드 세트','120명'],['전멤버 브로마이드','240명']]},
+  {kind:'이벤트', cafe:'https://naver.me/FHOGcElh', brand:'포토이즘', who:'리센느', title:'포토이즘으로 리마인 부르는 echo 🔊💓', added:'2026-11-02', start:'2026-11-03', end:'2026-12-31', startOnline:'', endOnline:'', startOffline:'', endOffline:'', how:['현장 구매'], gifts:[['포토이즘 프레임 및 스내피즘']]},
+  {kind:'이벤트', cafe:'https://naver.me/5fdtPmxr', brand:'할리스몰', who:'리센느', title:'할리스와 리센느의 특별한 만남', added:'2026-11-03', start:'2026-11-03', end:'2026-11-15', startOnline:'', endOnline:'', startOffline:'', endOffline:'',announce:'2026-11-19', how:['응모 추첨'], gifts:[['팬미팅 참여권','3명'],['리센느 굿즈 스페셜팩','5명'],['할리스몰 적립금 3천원','20명']]},
+  {kind:'이벤트', cafe:'https://cafe.naver.com/re5cene/90786', brand:'도미노', who:'리센느', title:'천사로 돌아온 리센느😇 신곡 발매 기념', added:'2026-11-03', start:'2026-11-03', end:'2026-11-10', startOnline:'', endOnline:'', startOffline:'', endOffline:'',announce:'2026-11-13', how:['응모 추첨'], gifts:[["리센느 4번째 미니앨범 'PULSE' 사인CD",'5명'],['도미노 랜덤피자 1판','5명']]},
+  {kind:'이벤트', cafe:'https://naver.me/IMZgYuM6', brand:'올리브영', who:'리센느', title:'리센느 미니 4집 [PULSE] 발매 기념 댓글 이벤트', added:'2026-11-04', start:'2026-11-03', end:'2026-11-06', startOnline:'', endOnline:'', startOffline:'', endOffline:'', announce:'2026-11-18', how:['응모 추첨'], gifts:[['친필 사인 앨범','3명']]},
+  {kind:'이벤트', cafe:'https://cafe.naver.com/re5cene/91546', brand:'멜론', who:'리센느', title:'뮤직웨이브 STAGE99 초대 이벤트', added:'2026-11-04', start:'2026-11-03', end:'2026-11-12', startOnline:'', endOnline:'', startOffline:'', endOffline:'', announce:'2026-11-18', how:['응모 추첨'], gifts:[['STAGE99 초대권','총 560명']]},
+  {kind:'이벤트', cafe:'https://naver.me/xLN675z7', brand:'멜론', who:'리센느', title:'RESCENE 이벤트 참여하고 선물 받자!', added:'2026-11-04', start:'2026-11-04', end:'2026-11-17', startOnline:'', endOnline:'', startOffline:'', endOffline:'', announce:'2026-12-01', how:['응모 추첨'], gifts:[['사인CD + 사인폴라로이드 세트','총 10명']]},
+  {kind:'이벤트', cafe:'https://naver.me/FSvlLcXv', brand:'바이오던스', who:'원이', title:'BIODANCE X WONI EVENT! 🎁💗', added:'2026-11-04', start:'2026-11-05', end:'2026-11-12', startOnline:'', endOnline:'', startOffline:'', endOffline:'', announce:'', how:['구매 특전'], gifts:[['원이 스티커+바이오던스 손거울']]},
+  {kind:'이벤트', cafe:'https://cafe.naver.com/re5cene/93120', brand:'플러스챗(더뮤즈)', who:'리센느', title:"4th Mini Album [PULSE] 'With' 발매 기념 이벤트", added:'2026-11-04', start:'2026-11-04', end:'2026-11-10', startOnline:'', endOnline:'', startOffline:'', endOffline:'', announce:'개별 이메일 발송', how:['응모 추첨'], gifts:[['(음원)미공개 폴라로이드 랜덤 1장','5명'],['(뮤비)미공개 폴라로이드 랜덤 1장','5명']]},
+  {kind:'이벤트', cafe:'https://cafe.naver.com/re5cene/93143', brand:'그레인온', who:'리센느', title:'💗 그레인온 X 리센느 컴백 축하 EVENT 💗', added:'2026-11-04', start:'2026-11-03', end:'2026-11-09', startOnline:'', endOnline:'', startOffline:'', endOffline:'', announce:'2026-11-16', how:['응모 추첨'], gifts:[['리센느 4집 미니 앨범+그레인온X리센느 에디션 랜덤 1종','5명']]},
+  {kind:'이벤트', cafe:'https://naver.me/xeF5aoR0', brand:'아이돌스 테이블', who:'미나미', title:'EP.5 TABLE QUIZ signed polaroid EVENT', added:'2026-11-04', start:'2026-11-04', end:'2026-11-09 12:00', startOnline:'', endOnline:'', startOffline:'', endOffline:'', announce:'', how:['응모 추첨'], gifts:[['출연진 사인 폴라로이드']]},
+  {kind:'이벤트', cafe:'https://cafe.naver.com/re5cene/94657', brand:'지니 뮤직', who:'리센느', title:'내 이름의 친필 사인 앨범 증정', added:'2026-11-06', start:'2026-11-03', end:'2026-11-12', startOnline:'', endOnline:'', startOffline:'', endOffline:'', announce:'2026-12-07', how:['응모 추첨'], gifts:[['To.당첨자명 사인 앨범','5명'],['사인 폴라로이드 랜덤 1종','5명']]}, 
+  {kind:'이벤트', cafe:'https://naver.me/xnO2XpdS', brand:'지니 뮤직', who:'리센느', title:'런데이와 지니뮤직이 함께하는 뮤직런', added:'2026-11-06', start:'2026-11-05', end:'2026-11-22', startOnline:'', endOnline:'', startOffline:'', endOffline:'', announce:'', how:['응모 추첨'], gifts:[['친필 사인 티셔츠','5명'],['친필 사인 앨범','5명'],['할리스 커피 기프티콘','100명']]}, 
+  {kind:'이벤트', cafe:'https://cafe.naver.com/re5cene/96910', brand:'드래곤빌리지3', who:'리센느', title:'0.5주년 스페셜 콜라보 리센느X드빌3', added:'2026-11-06', start:'2026-11-06', end:'2026-12-17', startOnline:'', endOnline:'', startOffline:'', endOffline:'', announce:'', how:['응모 추첨'], gifts:[['친필 사인 앨범+드래곤 쿠션 랜덤 1종+달력','5명'],['사인 드래곤 쿠션 랜덤 1종+달력','5명'],['드래곤 쿠션 랜덤 1종','90명']]}, 
+  {kind:'이벤트', cafe:'https://naver.me/xAfwy6Er', brand:'할리스 네이버 스토어', who:'리센느', title:'포토스트립 증정 이벤트', added:'2026-11-06', start:'2026-11-08', end:'2026-11-09', startOnline:'', endOnline:'', startOffline:'', endOffline:'', announce:'', how:['선착순'], gifts:[['리센느 포토스트립 랜덤 1장','ID당 1회']]}, 
+  {kind:'이벤트', cafe:'https://cafe.naver.com/re5cene/100692', brand:'CU x 그레인온', who:'리센느', title:'효소 구매 이벤트', added:'2026-11-08', start:'2026-11-09', end:'2026-11-15', startOnline:'', endOnline:'', startOffline:'', endOffline:'', announce:'', how:['구매 특전'], gifts:[['포토카드 2종(카카오Ver.)'],['엽서카드 1매']]}, 
+  {kind:'이벤트', cafe:'https://cafe.naver.com/re5cene/100692', brand:'CU x 그레인온', who:'리센느', title:'효소 구매 이벤트(오프라인)', added:'2026-11-13', start:'2026-11-24', end:'', startOnline:'', endOnline:'', startOffline:'', endOffline:'', announce:'', how:['구매 특전'], gifts:[['포토카드 1종']]}, 
+  {kind:'이벤트', cafe:'https://cafe.naver.com/re5cene/100318', brand:'카카오 모빌리티', who:'리센느', title:'미니4집 컴백 이벤트', added:'2026-11-13', start:'2026-11-07', end:'2026-11-15', startOnline:'', endOnline:'', startOffline:'', endOffline:'', announce:'', how:['응모 추첨'], gifts:[['친필 사인 폴라로이드 1장','5명'],['친필 사인 앨범','10명']]}, 
+  {kind:'이벤트', cafe:'https://cafe.naver.com/re5cene/101590', brand:'Mnet Plus 숨바꼭질2', who:'리센느', title:'술래를 이겨라! 투표 인증 이벤트', added:'2026-11-13', start:'2026-11-09', end:'2026-11-15', startOnline:'', endOnline:'', startOffline:'', endOffline:'', announce:'', how:['응모 추첨'], gifts:[['사인 폴라로이드 1장','5명']]}, 
+  {kind:'이벤트', cafe:'https://naver.me/5Hyb320a', brand:'도미노 피자', who:'리센느', title:'포토카드 선착순 증정', added:'2026-11-13', start:'2026-11-16', end:'소진 시 까지', startOnline:'', endOnline:'', startOffline:'', endOffline:'', announce:'', how:['구매 특전'], gifts:[['포토카드 5종 set']]}, 
+  {kind:'이벤트', cafe:'https://naver.me/5Hyb342l', brand:'우리은행', who:'리센느', title:'리센느가 전하는 수능 응원송', added:'2026-11-13', start:'', end:'2026-11-18', startOnline:'', endOnline:'', startOffline:'', endOffline:'', announce:'2026-11-20', how:['응모 추첨'], gifts:[['친필 사인 폴라로이드 1장','5명']]},
+  {kind:'이벤트', cafe:'https://naver.me/5p0KnfDn', brand:'여담', who:['미나미','제나','메이'], title:'사인 폴라로이드 이벤트', added:'2026-11-22', start:'2026-11-13', end:'2026-11-29', startOnline:'', endOnline:'', startOffline:'', endOffline:'', announce:'', how:['응모 추첨'], gifts:[['사인 폴라로이드 랜덤 1장','3명']]},
+  {kind:'이벤트', cafe:'https://naver.me/Ffs5NcTH', brand:'할리스 매장', who:['리센느'], title:'다시 돌아온 겨울, 리센느와 함께', added:'2026-11-22', start:'2026-11-16', end:'소진 시 까지', startOnline:'', endOnline:'', startOffline:'', endOffline:'', announce:'', how:['구매 특전'], gifts:[['3차 사인 포토카드']]},
+  {kind:'이벤트', cafe:'https://naver.me/xRgF3LNb', brand:'할리스 몰', who:['리센느'], title:'할리스 X 리센느 패키지', added:'2026-11-22', start:'2026-11-16', end:'소진 시 까지', startOnline:'', endOnline:'', startOffline:'', endOffline:'', announce:'', how:['구매 특전'], gifts:[['리센느 포토키링']]},
+  {kind:'이벤트', cafe:'https://naver.me/I5wM6UQK', brand:'삼성전자', who:['리센느'], title:'리센느와 함께하는 갤럭시 최애 기능 밸런스 게임', added:'2026-11-22', start:'2026-11-17', end:'2026-11-30', startOnline:'', endOnline:'', startOffline:'', endOffline:'', announce:'2026-12-10', how:['응모 추첨'], gifts:[['Galaxy Z Fold8 자급제(256GB)','1명'],['도미노피자 모바일 상품권 3만원권','4명'],['리센느 X 갤럭시 포토카드 세트','20명']]},
+  {kind:'이벤트', cafe:'https://naver.me/5o0KCSLh', brand:'SBS 가요대전', who:['리센느'], title:'2026 가요대전 30주년 방청 신청', added:'2026-11-22', start:'2026-11-19', end:'2026-12-02', startOnline:'', endOnline:'', startOffline:'', endOffline:'', announce:'', how:['응모 추첨'], gifts:[['2026 SBS 가요대전 30주년 방청권','1인 1매']]},
 ];
 
 // 투표 메뉴
@@ -380,7 +390,7 @@ function statusOf(c){
   if (d === 0) return {key:'urgent', label: c.endTime ? `오늘 ${c.endTime} 마감` : '오늘 마감', rank:0, sort:endMs};
   return {key: d <= 3 ? 'urgent' : 'open', label:`D-${d} 마감`, rank:0, sort:endMs};
 }
-const FILTERS = [['all','전체'],['콜라보','콜라보'],['팝업','팝업'],['urgent','마감 임박'],['new','New'],['ann','당첨자 발표']];
+const FILTERS = [['all','전체'],['콜라보','이벤트'],['팝업','팝업'],['urgent','마감 임박'],['new','New'],['ann','당첨자 발표']];
 // 당발날짜 가능 형식 — '11.06', '2026-11-20', '종료 후 7일 이내'. 개별 이메일 발송 등 안됨
 const ANN_NEAR = 2; // 오늘 기준 며칠까지
 const ymdOf = n => new Date(n*864e5).toISOString().slice(0,10);
@@ -415,7 +425,7 @@ let showEnded = false;
 
 let query = '';
 const norm = v => String(v).toLowerCase().replace(/\s+/g,' ');
-const haystack = c => norm([c.kind, c.kind==='팝업'?'popup':'collab', c.brand, c.who, c.title, c.note||'', c.announce||'', ...c.how, ...c.gifts.flat()].join(' '));
+const haystack = c => norm([c.kind, c.kind==='팝업'?'popup':'collab 이벤트', c.brand, c.who, c.title, c.note||'', c.announce||'', ...c.how, ...c.gifts.flat()].join(' '));
 const hit = c => !query || query.toLowerCase().split(/[\s,]+/).filter(Boolean).every(w => haystack(c).includes(w));
 function matches(c, s){
   if (!hit(c)) return false;
@@ -439,7 +449,7 @@ function card(c, s){
   const r1 = el('div','row1');
   const br = el('div','brand');
   br.append(
-    el('span','kind', c.kind==='팝업'?'POP-UP ':'COLLAB '),
+    el('span','kind', c.kind==='팝업'?'POP-UP ':'EVENT '),
     el('b',null,c.brand),
     document.createTextNode(' · ' + c.who)
   );
