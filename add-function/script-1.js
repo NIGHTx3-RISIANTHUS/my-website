@@ -903,14 +903,15 @@ function renderAlbum(){
   const t = el('div','total'); t.append(el('span',null,'TOTAL · 미공개 포카 전종 수집'), el('b','tnum', COLLECT.reduce((a,[,n]) => a+n, 0) + '장')); c.append(t);
 }
 
-const TABS = ['home','schedule','collab','vote','album'];
-const TAB_LABEL = {schedule:'일정', collab:'이벤트', vote:'투표', album:'앨범'};
+const TABS = ['home','schedule','collab','vote','album','bday'];
+const TAB_LABEL = {schedule:'일정', collab:'이벤트', vote:'투표', album:'앨범', bday:'생일카페'};
 const PLACEHOLDER = {
   home:'일정·이벤트·투표·앨범 검색',
   schedule:'일정·장소 검색',
   collab:'업체·멤버·특전 검색',
   vote:'투표·플랫폼 검색',
   album:'판매처·특전·버전 검색',
+  bday:'카페·멤버·지역 검색',
 };
 let curTab = 'home';
 function toTop(){
@@ -960,7 +961,7 @@ window.addEventListener('hashchange', () => openTab(location.hash.slice(1), true
 const qInput = $('q'), qClear = $('qClear');
 function setQuery(v){
   query = v; qClear.hidden = !v;
-  renderSchedule(); renderCollabs(); renderVotes(); renderStores(); renderHomeResult();
+  renderSchedule(); renderCollabs(); renderVotes(); renderStores(); if (typeof renderBday === 'function') renderBday(); renderHomeResult();
 }
 qInput.addEventListener('input', () => setQuery(qInput.value.trim()));
 qInput.addEventListener('keydown', e => { if (e.key === 'Escape') { qInput.value = ''; setQuery(''); } });
@@ -1036,7 +1037,7 @@ $('updModal').addEventListener('click', e => { if (e.target === e.currentTarget)
 $('updModal').addEventListener('close', () => document.body.classList.remove('modal-open'));
 syncUpdDot();
 
-function renderAll(){ renderSchedule(); renderCollabs(); renderVotes(); renderAlbum(); renderHomeResult(); }
+function renderAll(){ renderSchedule(); renderCollabs(); renderVotes(); renderAlbum(); if (typeof renderBday === 'function') renderBday(); 
 tick(); renderAll();
 openTab(location.hash.slice(1) || store.get('rescene-tab') || 'home', false);
 setInterval(tick, 1000);
