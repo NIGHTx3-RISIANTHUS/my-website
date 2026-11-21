@@ -378,18 +378,21 @@ function renderSchedule(){
   pb.onclick = () => { $('pastDays').hidden = !$('pastDays').hidden; sync(); };
   sync();
 }
-
+// 숫자는 날짜로, 글자는 재고 소진으로 봄
+const endDate = c => { const m = String(c.end || '').trim().match(/^(\d{4}-\d{2}-\d{2})(?:[ T](\d{1,2}:\d{2}))?/); return m ? {d:m[1], t:m[2] || c.endTime || '23:59', timed:!!(m[2] || c.endTime)} : null; };
+const endText = c => (c.end && !endDate(c)) ? String(c.end).trim() : '';
 function statusOf(c){
-  const now = Date.now();
-  if (c.ended) return {key:'ended', label:'종료', rank:3, sort: c.end ? -kst(c.end, c.endTime || '23:59') : 0};
+  const now = Date.now(), ed = endDate(c);
+  if (c.ended) return {key:'ended', label:'종료', rank:3, sort: ed ? -kst(ed.d, ed.t) : 0};
   if (c.start && kst(c.start) > now) { const d = dDiff(c.start); return {key:'soon', label: d===1?'내일 시작':`D-${d} 시작`, rank:2, sort:kst(c.start)}; }
-  if (!c.end) return {key:'ongoing', label:'재고 소진 시까지', rank:1, sort:Infinity};
-  const endMs = kst(c.end, c.endTime || '23:59');
+  if (!ed) return {key:'ongoing', label:'재고 소진 시까지', rank:1, sort:Infinity};
+  const endMs = kst(ed.d, ed.t);
   if (endMs < now) return {key:'ended', label:'종료', rank:3, sort:-endMs};
-  const d = dDiff(c.end);
-  if (d === 0) return {key:'urgent', label: c.endTime ? `오늘 ${c.endTime} 마감` : '오늘 마감', rank:0, sort:endMs};
+  const d = dDiff(ed.d);
+  if (d === 0) return {key:'urgent', label: ed.timed ? `오늘 ${ed.t} 마감` : '오늘 마감', rank:0, sort:endMs};
   return {key: d <= 3 ? 'urgent' : 'open', label:`D-${d} 마감`, rank:0, sort:endMs};
 }
+
 const FILTERS = [['all','전체'],['콜라보','이벤트'],['팝업','팝업'],['urgent','마감 임박'],['new','New'],['ann','당첨자 발표']];
 // 당발날짜 가능 형식 — '11.06', '2026-11-20', '종료 후 7일 이내'. 개별 이메일 발송 등 안됨
 const ANN_NEAR = 2; // 오늘 기준 며칠까지
@@ -482,9 +485,10 @@ function card(c, s){
   // 기존 이벤트 기간 표시
   const hasSeparateDates = !!(c.startOnline || c.startOffline);
 
+const ed = endDate(c), endLabel = ed ? md(ed.d) + (ed.timed && ed.t !== '23:59' ? ' ' + ed.t : '') : endText(c);
 const period = hasSeparateDates ? '' :
-  c.start ? `${md(c.start)} ~ ${c.end ? md(c.end) : ''}` :
-  c.end ? `~ ${md(c.end)}${c.endTime ? ' ' + c.endTime : ''}` : '';
+  c.start ? `${md(c.start)} ~ ${endLabel}` :
+  endLabel ? `~ ${endLabel}` : '';
 
 const tail = [
   period,
@@ -560,8 +564,8 @@ function highlight(root, q = query){
   });
 }
 const startMs = x => x.start ? kst(x.start, x.startTime || '00:00') : -Infinity;
-const endMs = x => x.end ? kst(x.end, x.endTime || '23:59') : Infinity;
-const collabByStart = (a,b) => (a.s.key==='ended') - (b.s.key==='ended') || startMs(a.c) - startMs(b.c) || endMs(a.c) - endMs(b.c);
+const endMs = x => { const e = endDate(x); return e ? kst(e.d, e.t) : Infinity; };
+const collabByStart = (a,b) => (a.s.key==='ended') - (b.s.key==='ended') || (a.s.key==='ongoing') - (b.s.key==='ongoing') || startMs(a.c) - startMs(b.c) || endMs(a.c) - endMs(b.c);
 function renderCollabs(){
   const items = COLLABS.map(c => ({c, s:statusOf(c)}));
   const fb = $('filters'); fb.replaceChildren();
